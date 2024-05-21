@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}" />
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/Logo.jfif') }}" type="image/x-icon" />
+
+    <title>Bahay Aruga</title>
+  </head>
+  <body>
+    <section id="header">
+      <div class="wrapper">
+        <div class="header-con">
+          <ul class="navbar">
+            <li>
+              <a href="">Home</a>
+            </li>
+            <li>
+              <a href="">Services</a>
+            </li>
+            <li>
+              <a href="">About Us</a>
+            </li>
+            <li>
+              <a href="">
+                <div class="logo-nav">
+                  <img src="{{ url_for('static', filename='img/Logo.jfif') }}" class="logo" alt="Logo" />
+                  <span>Bahay Aruga</span>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="">Gallery</a>
+            </li>
+            <li>
+              <a href="">Contact Us</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <section id="register">
+      <div class="wrapper">
+        <div class="register-con">
+          <div class="register-details">
+            <div class="heading-con">
+              <h1>BAHAY ARUGA</h1>
+            </div>
+            <p>(A FREE HALFWAY HOUSE FOR PEDIATRIC CANCER PATIENT)</p>
+          </div>
+          <form action="/register-user" method="post">
+            <div class="field-con">
+              <label for="name">NAME</label>
+              <input type="text" name="name" />
+            </div>
+            <div class="field-con">
+              <label for="name">EMAIL</label>
+              <input type="email" name="email" />
+            </div>
+            <div class="field-con">
+              <label for="name">PASSWORD</label>
+              <input type="password" id="password" name="password" />
+              <i class="bi bi-eye-slash-fill" id="toggle-password"></i>
+            </div>
+            <div class="field-con">
+              <label for="confirm_password">CONFIRM PASSWORD</label>
+              <input type="password" id="Cpassword" id="authCPassword" name="password_2" />
+              <i class="bi bi-eye-slash-fill" id="toggle-Cpassword"></i>
+            </div>
+            <div class="btn-con">
+              <button class="btn-primary">SIGN UP</button>
+            </div>
+            <a href="">ALREADY REGISTERED ? LOGIN</a>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      $(document).ready(function () {
+        $(document).on("click", "#toggle-password", function () {
+          const authPassword = $("#password");
+          authPassword.attr(
+            "type",
+            authPassword.attr("type") == "password" ? "text" : "password"
+          );
+          $(this).toggleClass("bi-eye-slash-fill bi-eye-fill");
+        });
+
+        $(document).on("click", "#toggle-Cpassword", function () {
+          const authPassword = $("#authCPassword");
+          authPassword.attr(
+            "type",
+            authPassword.attr("type") == "password" ? "text" : "password"
+          );
+          $(this).toggleClass("bi-eye-slash-fill bi-eye-fill");
+        });
+      });
+    </script>
+  </body>
+</html>
