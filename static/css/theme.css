@@ -154,33 +154,39 @@ p {
   margin-left: 50px;
 }
 
-#register .wrapper {
+#register .wrapper,
+#login .wrapper {
   max-width: 1440px;
 }
 
-#register .register-con {
+#register .register-con,
+#login .login-con {
   padding: 200px 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-#register .register-con p {
+#register .register-con p,
+#login .login-con p {
   background: var(--global-color-red);
   color: var(--global-color-white);
 }
 
-#register .register-details p {
+#register .register-details p,
+#login .login-details p {
   width: 730px;
   font-size: 26px;
   margin-top: 10px;
 }
 
-#register .heading-con {
+#register .heading-con,
+#login .heading-con {
   position: relative;
 }
 
-#register .heading-con::after {
+#register .heading-con::after,
+#login .heading-con::after {
   z-index: -1;
   content: "";
   position: absolute;
@@ -191,16 +197,23 @@ p {
   left: 0;
 }
 
-#register .heading-con h1 {
+#register .heading-con h1,
+#login .heading-con h1 {
   padding-bottom: 50px;
   text-align: center;
 }
 
-#register .register-details {
+.btn-con button {
+  cursor: pointer;
+}
+
+#register .register-details,
+#login .login-details {
   width: 800px;
 }
 
-#register .register-con form {
+#register .register-con form,
+#login .login-con form {
   border-radius: 50px;
   position: relative;
   width: 600px;
@@ -208,7 +221,8 @@ p {
   padding: 100px 30px 30px 30px;
 }
 
-#register .register-con form:before {
+#register .register-con form:before,
+#login .login-con form:before {
   position: absolute;
   content: "";
   width: 100%;
@@ -223,7 +237,8 @@ p {
   );
 }
 
-#register .register-con form a {
+#register .register-con form a,
+#login .login-con form a {
   color: var(--global-color-black);
   font-family: "Poppins", sans-serif;
   font-weight: 700;
