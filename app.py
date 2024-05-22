@@ -1,10 +1,12 @@
 from flask import Flask, render_template, session, request
 from model import db, Users
+from flask_migrate import Migrate
 
 app = Flask(__name__)
 app.secret_key = "kagaguhan"
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///sqlite.db"
 db.init_app(app)
+migrate = Migrate(app, db)
 
 @app.route('/')
 def index():
@@ -35,6 +37,7 @@ def auth_user():
         return "fill out all fields", 400
     if not Users.auth_user(email, password):
         return "false", 400
+    session['user_email'] = str(email)
     return "true", 200
 
 if __name__ == "__main__":
