@@ -1,6 +1,7 @@
 from flask import Flask, render_template, session, request, redirect, url_for
 from model import db, Users, Patients, Reservation
 from flask_migrate import Migrate
+from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key = "kagaguhan"
@@ -40,6 +41,20 @@ def patient_schedule():
 def patient_reservation():
     check_session()
     return render_template('patient/reservation.html')
+
+@app.route('/patient/schedule/save', methods=['POST'])
+def patient_schedule_save():
+    session_user = get_session_user()
+    if session_user.acc_type==1:
+        return redirect(url_for('admin_dashboard'))
+    target_patient = Patients.get_patient_by_user_id(session_user.id)
+    if not target_patient:
+        return redirect(url_for('patient_dashboard'))
+    reservation_date = datetime.strptime(request.form['reservation_date'], '%Y-%m-%d').date()
+    reservation_insert = Reservation.insert_reservations(target_patient.id, reservation_date)
+    if not reservation_insert:
+        return redirect(url_for('patient_dashboard'))
+    return "<script>alert('Success! Schedule reservation has been sent to admin');location.href='/patient/dashboard'</script>"
 
 @app.route('/patient/save', methods=['POST', 'GET'])
 def patient_save():

@@ -29,25 +29,24 @@
     <section id="schedule">
       <div class="wrapper">
         <div class="schedule-con">
-          <form action="" method="POST">
-            <h2>Enter your details</h2>
+          <form action="/patient/schedule/save" method="POST">
+            <h2>Enter Reservation Date</h2>
+            <div class="field-con">
+              <label for="reservation_date">Reservation Date</label>
+              <input type="date" name="reservation_date" required/>
+            </div>
             <div class="field-con">
               <label for="name">Full Name</label>
-              <input type="text" name="name" required value="{{ session_user.name }}"/>
+              <input type="text" name="name" required value="{{ session_user.name }}" readonly disabled/>
             </div>      
-            <div class="d-field-con">
-              <div class="field-con">
-                <label for="email_address">Email Address</label>
-                <input type="email" name="email" required value="{{ session_user.email }}"/>
-              </div>
-              <div class="field-con">
-                <label for="confirm_email_address">Confirm Email Address</label>
-                <input type="text" name="confirm_email" required value="{{ session_user.name }}"/>
-              </div>
+            <div class="field-con">
+              <label for="email_address">Email Address</label>
+              <input type="email" name="email" required value="{{ session_user.email }}" readonly disabled/>
             </div>
             <div class="field-con">
               <label for="province">Province</label>
-              <select name="province">
+              <input type="province" name="province" required value="{{ session_user.province }}" readonly disabled/>
+              <!-- <select name="province">
                 <option value="{{ session_user.province }}" selected>{{ session_user.province }}</option>
                 <option value="Abra">Abra</option>
                 <option value="Agusan del Norte">Agusan del Norte</option>
@@ -132,11 +131,11 @@
                 <option value="Zambales">Zambales</option>
                 <option value="Zamboanga del Norte">Zamboanga del Norte</option>
                 <option value="Zamboanga del Sur">Zamboanga del Sur</option>
-              </select>
+              </select> -->
             </div>
             <div class="field-con">
               <label for="municipality">Municipality</label>
-              <input type="text" name="municipality" required value="{{ session_user.municipality }}"/>
+              <input type="text" name="municipality" required value="{{ session_user.municipality }}" readonly disabled/>
             </div>
             <div class="btn-con">
               <button class="btn-primary">SUBMIT</button>

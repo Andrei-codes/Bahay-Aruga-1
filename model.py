@@ -72,8 +72,8 @@ class Patients(db.Model):
         return all_patients
     
     @classmethod
-    def get_patient_by_id(cls, id):
-        target_patient = cls.query.filter_by(id=id).first()
+    def get_patient_by_user_id(cls, user_id):
+        target_patient = cls.query.filter_by(user_id=user_id).first()
         if not target_patient:
             return None
         return target_patient
@@ -88,11 +88,11 @@ class Reservation(db.Model):
     patient = db.relationship('Patients', backref=db.backref('reservations', lazy=True))
 
     @classmethod
-    def insert_reservations(cls, patient_id, reservation_date, status):
+    def insert_reservations(cls, patient_id, reservation_date):
         check_reservation = cls.query.filter_by(patient_id=patient_id).first()
         if check_reservation:
             return False
-        reservation_entry = cls(patient_id=patient_id, reservation_date=reservation_date, status=status)
+        reservation_entry = cls(patient_id=patient_id, reservation_date=reservation_date, status=0)
         db.session.add(reservation_entry)
         db.session.commit()
         return True
