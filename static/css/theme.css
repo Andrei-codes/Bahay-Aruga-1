@@ -83,7 +83,8 @@ p {
   position: relative;
 }
 
-.field-con input {
+.field-con input,
+.field-con select {
   border: none;
   background: none;
   border-bottom: 3px solid var(--global-color-black);

@@ -12,14 +12,19 @@ migrate = Migrate(app, db)
 def index():
     return render_template('index.html')
 
+@app.route('/login_page', methods=['GET'])
+def login_page():
+    return render_template('login.html')
+
 @app.route('/register-user', methods=['POST', 'GET'])
 def register_user():
-    name, email, province, municipality, password, password2 = request.form['name'], request.form['email'], request.form['province'], request.form['municipality'], request.form['password'], request.form['password_2']
+    acc_type, name, email, province, municipality, password, password2 = request.form['acc_type'], request.form['name'], request.form['email'], request.form['province'], request.form['municipality'], request.form['password'], request.form['password_2']
     if not (name and email and password and password2):
         return "fill out all fields", 400
     if password != password2:
         return "password not matched", 400
     user_entry = Users(
+        acc_type=acc_type,
         name=name,
         email=email,
         province=province,
