@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}" />
+    <link rel="stylesheet" href="../static/css/theme.css" />
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/Logo.jfif') }}" type="image/x-icon" />
 
     <title>Bahay Aruga</title>
@@ -40,20 +40,16 @@
         </div>
       </div>
     </section>
-    <section id="register">
+    <section id="login">
       <div class="wrapper">
-        <div class="register-con">
-          <div class="register-details">
+        <div class="login-con">
+          <div class="login-details">
             <div class="heading-con">
               <h1>BAHAY ARUGA</h1>
             </div>
             <p>(A FREE HALFWAY HOUSE FOR PEDIATRIC CANCER PATIENT)</p>
           </div>
-          <form action="/register-user" method="post">
-            <div class="field-con">
-              <label for="name">NAME</label>
-              <input type="text" name="name" />
-            </div>
+          <form action="/auth-user" method="post">
             <div class="field-con">
               <label for="name">EMAIL</label>
               <input type="email" name="email" />
@@ -63,15 +59,10 @@
               <input type="password" id="password" name="password" />
               <i class="bi bi-eye-slash-fill" id="toggle-password"></i>
             </div>
-            <div class="field-con">
-              <label for="confirm_password">CONFIRM PASSWORD</label>
-              <input type="password" id="authCPassword" name="password_2" />
-              <i class="bi bi-eye-slash-fill" id="toggle-Cpassword"></i>
-            </div>
             <div class="btn-con">
-              <button class="btn-primary">SIGN UP</button>
+              <button class="btn-primary">LOGIN</button>
             </div>
-            <a href="">ALREADY REGISTERED ? LOGIN</a>
+            <a href="">DON'T HAVE ACCOUNT ?</a>
           </form>
         </div>
       </div>
@@ -86,15 +77,6 @@
       $(document).ready(function () {
         $(document).on("click", "#toggle-password", function () {
           const authPassword = $("#password");
-          authPassword.attr(
-            "type",
-            authPassword.attr("type") == "password" ? "text" : "password"
-          );
-          $(this).toggleClass("bi-eye-slash-fill bi-eye-fill");
-        });
-
-        $(document).on("click", "#toggle-Cpassword", function () {
-          const authPassword = $("#authCPassword");
           authPassword.attr(
             "type",
             authPassword.attr("type") == "password" ? "text" : "password"
