@@ -83,7 +83,7 @@ class Reservation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     patient_id = db.Column(db.Integer, db.ForeignKey('patients.id'), nullable=False)
     reservation_date = db.Column(db.Date, nullable=False)
-    status = db.Column(db.String(255), nullable=False)
+    status = db.Column(db.SmallInteger, nullable=False, comment="0=pending, 1=on-progress, 2=priority")
 
     patient = db.relationship('Patients', backref=db.backref('reservations', lazy=True))
 
@@ -103,7 +103,7 @@ class Reservation(db.Model):
         return all_reservations
     
     @classmethod
-    def get_reservation_by_id(cls, id):
+    def get_reservation_by_patient_id(cls, id):
         target_reservation = cls.query.filter_by(id=id).first()
         if not target_reservation:
             return None

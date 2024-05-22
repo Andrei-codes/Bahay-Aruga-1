@@ -16,11 +16,14 @@ def index():
 
 @app.route('/login_page', methods=['GET'])
 def login_page():
+    session.clear()
     return render_template('login.html')
 
 @app.route('/admin/dashboard', methods=['GET'])
 def admin_dashboard():
     session_user = get_session_user()
+    if not session_user:
+        return f"Not logged in"
     if session_user.acc_type==0:
         return redirect(url_for('patient_dashboard'))
     return render_template('admin/dashboard.html')
@@ -28,6 +31,8 @@ def admin_dashboard():
 @app.route('/patient/dashboard', methods=['GET'])
 def patient_dashboard():
     session_user = get_session_user()
+    if not session_user:
+        return f"Not logged in"
     if session_user.acc_type==1:
         return redirect(url_for('admin_dashboard'))
     return render_template('patient/dashboard.html')
@@ -35,12 +40,27 @@ def patient_dashboard():
 @app.route('/patient/schedule', methods=['GET'])
 def patient_schedule():
     session_user = get_session_user()
-    return render_template('patient/schedule.html', session_user=session_user)
+    if not session_user:
+        return f"Not logged in"
+    if session_user.acc_type==1:
+        return redirect(url_for('admin_dashboard'))
+    current_patient = Patients.get_patient_by_user_id(session_user.id)
+    if not current_patient:
+        return redirect(url_for('patient_reservation'))
+    current_reservation = Reservation.get_reservation_by_patient_id(current_patient.id)
+    return render_template('patient/schedule.html', 
+                           session_user=session_user,
+                           current_patient=current_patient,
+                           current_reservation=current_reservation)
 
 @app.route('/patient/reservation', methods=['GET'])
 def patient_reservation():
-    check_session()
-    return render_template('patient/reservation.html')
+    session_user = get_session_user()
+    if not session_user:
+        return f"Not logged in"
+    if session_user.acc_type==1:
+        return redirect(url_for('admin_dashboard'))
+    return render_template('patient/reservation.html', session_user=session_user)
 
 @app.route('/patient/schedule/save', methods=['POST'])
 def patient_schedule_save():
@@ -53,7 +73,7 @@ def patient_schedule_save():
     reservation_date = datetime.strptime(request.form['reservation_date'], '%Y-%m-%d').date()
     reservation_insert = Reservation.insert_reservations(target_patient.id, reservation_date)
     if not reservation_insert:
-        return redirect(url_for('patient_dashboard'))
+        return "<script>alert('Failed! Your account already have a reservation record');location.href='/patient/dashboard'</script>"
     return "<script>alert('Success! Schedule reservation has been sent to admin');location.href='/patient/dashboard'</script>"
 
 @app.route('/patient/save', methods=['POST', 'GET'])
@@ -69,7 +89,7 @@ def patient_save():
 
 @app.route('/register-user', methods=['POST', 'GET'])
 def register_user():
-    check_session()
+    
     acc_type, name, email, province, municipality, password, password2 = request.form['acc_type'], request.form['name'], request.form['email'], request.form['province'], request.form['municipality'], request.form['password'], request.form['password_2']
     if not (name and email and password and password2):
         return "fill out all fields", 400
@@ -94,16 +114,13 @@ def auth_user():
     return redirect(url_for('admin_dashboard'))
 
 def get_session_user():
-    check_session()
+    if 'user_email' not in session:
+        return None
     current_user = Users.query.filter_by(email=str(session.get('user_email', ""))).first()
     if not current_user:
         return None
     return current_user
 
-def check_session():
-    if 'user_email' not in session:
-        return redirect(url_for('index'))
-    pass
 
 if __name__ == "__main__":
     app.run(debug=True)

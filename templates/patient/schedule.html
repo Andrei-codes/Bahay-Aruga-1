@@ -26,11 +26,12 @@
   </head>
   <body>
     {% include 'patient/header.html' %}
+    {% if not current_reservation %}
     <section id="schedule">
       <div class="wrapper">
         <div class="schedule-con">
           <form action="/patient/schedule/save" method="POST">
-            <h2>Enter Reservation Date</h2>
+            <h2>Add Reservation Entry</h2>
             <div class="field-con">
               <label for="reservation_date">Reservation Date</label>
               <input type="date" name="reservation_date" required/>
@@ -46,8 +47,59 @@
             <div class="field-con">
               <label for="province">Province</label>
               <input type="province" name="province" required value="{{ session_user.province }}" readonly disabled/>
-              <!-- <select name="province">
-                <option value="{{ session_user.province }}" selected>{{ session_user.province }}</option>
+            </div>
+            <div class="field-con">
+              <label for="municipality">Municipality</label>
+              <input type="text" name="municipality" required value="{{ session_user.municipality }}" readonly disabled/>
+            </div>
+            <div class="btn-con">
+              <button class="btn-primary">SUBMIT</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+    {% else %}
+    <section id="schedule">
+      <div class="wrapper">
+        <div class="schedule-con">
+          <form action="/patient/schedule/edit" method="POST">
+            <h2>Edit Reservation Entry</h2>
+            <h2>{{ 'Pending' if current_reservation.status == 0 else 'On-Going' if current_reservation.status == 1 else 'Priority' if current_reservation.status == 2 else 'Unknown' }}</h2>
+            
+
+            <div class="field-con">
+              <label for="reservation_date">Reservation Date</label>
+              <input type="date" name="reservation_date" required value="{{ current_reservation.reservation_date }}"/>
+            </div>
+            <div class="field-con">
+              <label for="name">Full Name</label>
+              <input type="text" name="name" required value="{{ session_user.name }}" />
+            </div>      
+            <div class="field-con">
+              <label for="age">Age</label>
+              <input type="number" name="age" required value="{{ current_patient.age }}"/>
+            </div>      
+            <div class="field-con">
+              <label for="name">Sex</label>
+              <select name="sex" required >
+                  <option value="{{ current_patient.sex }}" selected disabled>{{ current_patient.sex }}</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Prefer not to say">Prefer not to say</option>
+              </select>
+            </div>      
+            <div class="field-con">
+              <label for="email_address">Email Address</label>
+              <input type="email" name="email" required value="{{ session_user.email }}" readonly disabled/>
+            </div>
+            
+            <div class="field-con">
+              <label for="province">Province</label>
+              <select name="province">
+                <option value="{{ session_user.province }}" selected disabled>
+                  {{ session_user.province }}
+                </option>
                 <option value="Abra">Abra</option>
                 <option value="Agusan del Norte">Agusan del Norte</option>
                 <option value="Agusan del Sur">Agusan del Sur</option>
@@ -131,11 +183,11 @@
                 <option value="Zambales">Zambales</option>
                 <option value="Zamboanga del Norte">Zamboanga del Norte</option>
                 <option value="Zamboanga del Sur">Zamboanga del Sur</option>
-              </select> -->
+              </select>
             </div>
             <div class="field-con">
               <label for="municipality">Municipality</label>
-              <input type="text" name="municipality" required value="{{ session_user.municipality }}" readonly disabled/>
+              <input type="text" name="municipality" required value="{{ session_user.municipality }}" />
             </div>
             <div class="btn-con">
               <button class="btn-primary">SUBMIT</button>
@@ -144,5 +196,6 @@
         </div>
       </div>
     </section>
+    {% endif %}
   </body>
 </html>

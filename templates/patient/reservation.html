@@ -30,7 +30,7 @@
       <div class="wrapper">
         <div class="schedule-con">
           <form action="/patient/save" method="POST">
-            <h2>Hello, Name!</h2>
+            <h2>Hello, {{ session_user.name }}!</h2>
             <div class="field-con">
               <label for="age">Age</label>
               <input type="number" name="age" required />
