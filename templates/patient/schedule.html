@@ -25,81 +25,30 @@
     <title>Bahay Aruga</title>
   </head>
   <body>
-    <section id="header">
-      <div class="wrapper">
-        <div class="header-con">
-          <ul class="navbar">
-            <li>
-              <a href="#dashboard">Home</a>
-            </li>
-            <li>
-              <a href="#services">Services</a>
-            </li>
-            <li>
-              <a href="#about">About Us</a>
-            </li>
-            <li>
-              <a href="#gallery">Gallery</a>
-            </li>
-            <li>
-              <a href="">
-                <div class="logo-nav">
-                  <img
-                    src="{{ url_for('static', filename='img/Logo.jpg') }}"
-                    class="logo"
-                    alt="Logo"
-                  />
-                  <span>Bahay Aruga</span>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="#contact">Contact Us</a>
-            </li>
-            <li>
-              <a href="">Wellness Plan</a>
-            </li>
-            <li>
-              <a href="">Schedule</a>
-            </li>
-            <li>
-              <a href="">Logout</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </section>
+    {% include 'patient/header.html' %}
     <section id="schedule">
       <div class="wrapper">
         <div class="schedule-con">
           <form action="" method="POST">
             <h2>Enter your details</h2>
-            <div class="d-field-con">
-              <div class="field-con">
-                <label for="first_name">First Name</label>
-                <input type="text" name="first_name" required />
-              </div>
-              <div class="field-con">
-                <label for="last_name">Last Name</label>
-                <input type="text" name="last_name" required />
-              </div>
-            </div>
+            <div class="field-con">
+              <label for="name">Full Name</label>
+              <input type="text" name="name" required value="{{ session_user.name }}"/>
+            </div>      
             <div class="d-field-con">
               <div class="field-con">
                 <label for="email_address">Email Address</label>
-                <input type="email" name="email" required />
+                <input type="email" name="email" required value="{{ session_user.email }}"/>
               </div>
               <div class="field-con">
                 <label for="confirm_email_address">Confirm Email Address</label>
-                <input type="text" name="confirm_email" required />
+                <input type="text" name="confirm_email" required value="{{ session_user.name }}"/>
               </div>
             </div>
             <div class="field-con">
               <label for="province">Province</label>
               <select name="province">
-                <option value="" selected hidden disabled>
-                  Select Province
-                </option>
+                <option value="{{ session_user.province }}" selected>{{ session_user.province }}</option>
                 <option value="Abra">Abra</option>
                 <option value="Agusan del Norte">Agusan del Norte</option>
                 <option value="Agusan del Sur">Agusan del Sur</option>
@@ -187,7 +136,7 @@
             </div>
             <div class="field-con">
               <label for="municipality">Municipality</label>
-              <input type="text" name="municipality" required />
+              <input type="text" name="municipality" required value="{{ session_user.municipality }}"/>
             </div>
             <div class="btn-con">
               <button class="btn-primary">SUBMIT</button>

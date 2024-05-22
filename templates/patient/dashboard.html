@@ -22,50 +22,7 @@
     <title>Bahay Aruga</title>
   </head>
   <body>
-    <section id="header">
-      <div class="wrapper">
-        <div class="header-con">
-          <ul class="navbar">
-            <li>
-              <a href="#dashboard">Home</a>
-            </li>
-            <li>
-              <a href="#services">Services</a>
-            </li>
-            <li>
-              <a href="#about">About Us</a>
-            </li>
-            <li>
-              <a href="#gallery">Gallery</a>
-            </li>
-            <li>
-              <a href="">
-                <div class="logo-nav">
-                  <img
-                    src="{{ url_for('static', filename='img/Logo.jpg') }}"
-                    class="logo"
-                    alt="Logo"
-                  />
-                  <span>Bahay Aruga</span>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a href="#contact">Contact Us</a>
-            </li>
-            <li>
-              <a href="">Wellness Plan</a>
-            </li>
-            <li>
-              <a href="">Schedule</a>
-            </li>
-            <li>
-              <a href="">Logout</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </section>
+    {% include 'patient/header.html' %}
     <section id="dashboard">
       <div class="wrapper">
         <div class="dashboard-con">

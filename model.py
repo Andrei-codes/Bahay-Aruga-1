@@ -5,7 +5,7 @@ db = SQLAlchemy()
 class Users(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
-    acc_type = db.Column(db.Integer, nullable=False)
+    acc_type = db.Column(db.Boolean)
     name = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(255), unique=True, nullable=False)
     province = db.Column(db.String(255), nullable=False)
@@ -16,7 +16,95 @@ class Users(db.Model):
     def auth_user(cls, email, password):
         user = cls.query.filter_by(email=email).first()
         if not user:
-            return False
+            return None
         if not user.password==password:
+            return None
+        return user
+    
+    @classmethod
+    def insert_user(cls, acc_type, name, email, province, municipality, password):
+        check_user = cls.query.filter_by(email=email).first()
+        if check_user:
             return False
+        user_entry = cls(acc_type=acc_type,
+                        name=name,
+                        email=email,
+                        province=province,
+                        municipality=municipality,
+                        password=password)
+        db.session.add(user_entry)
+        db.session.commit()
         return True
+    
+    @classmethod
+    def get_user_by_id(cls, id):
+        target_user = cls.query.filter_by(id=id).first()
+        if not target_user:
+            return None
+        return target_user
+    
+class Patients(db.Model):
+    __tablename__ = 'patients'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    age = db.Column(db.Integer, nullable=False)
+    sex = db.Column(db.String(255), nullable=False)
+    cancer_type = db.Column(db.String(255), nullable=False)
+
+    user = db.relationship('Users', backref=db.backref('patients', lazy=True))
+
+    @classmethod
+    def insert_patient(cls, user_id, age, sex, cancer_type):
+        target_patient = cls.query.filter_by(user_id=user_id).first()
+        if target_patient:
+            return False
+        patient_entry = cls(user_id=user_id,
+                            age=age,
+                            sex=sex,
+                            cancer_type=cancer_type)
+        db.session.add(patient_entry)
+        db.session.commit()
+        return True
+    
+    @classmethod
+    def fetch_patients(cls):
+        all_patients = cls.query.all()
+        return all_patients
+    
+    @classmethod
+    def get_patient_by_id(cls, id):
+        target_patient = cls.query.filter_by(id=id).first()
+        if not target_patient:
+            return None
+        return target_patient
+
+class Reservation(db.Model):
+    __tablename__ = 'reservations'
+    id = db.Column(db.Integer, primary_key=True)
+    patient_id = db.Column(db.Integer, db.ForeignKey('patients.id'), nullable=False)
+    reservation_date = db.Column(db.Date, nullable=False)
+    status = db.Column(db.String(255), nullable=False)
+
+    patient = db.relationship('Patients', backref=db.backref('reservations', lazy=True))
+
+    @classmethod
+    def insert_reservations(cls, patient_id, reservation_date, status):
+        check_reservation = cls.query.filter_by(patient_id=patient_id).first()
+        if check_reservation:
+            return False
+        reservation_entry = cls(patient_id=patient_id, reservation_date=reservation_date, status=status)
+        db.session.add(reservation_entry)
+        db.session.commit()
+        return True
+
+    @classmethod
+    def fetch_reservations(cls):
+        all_reservations = cls.query.all()
+        return all_reservations
+    
+    @classmethod
+    def get_reservation_by_id(cls, id):
+        target_reservation = cls.query.filter_by(id=id).first()
+        if not target_reservation:
+            return None
+        return target_reservation
