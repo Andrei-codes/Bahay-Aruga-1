@@ -3,25 +3,183 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/theme.css') }}"
-    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}" />
     <link
       rel="shortcut icon"
-      href="{{ url_for('static', filename='img/Logo.jfif') }}"
+      href="{{ url_for('static', filename='img/Logo.jpg') }}"
       type="image/x-icon"
     />
+    <style>
+      #header .navbar li:nth-child(3) {
+        margin: 0;
+      }
+
+      #header .logo-nav {
+        left: 42.5%;
+      }
+    </style>
 
     <title>Bahay Aruga</title>
   </head>
   <body>
-    <section id="dashboard">
-        <div class="wrapper">
-            <div class="dashboard-con">
-                
-            </div>
+    <section id="header">
+      <div class="wrapper">
+        <div class="header-con">
+          <ul class="navbar">
+            <li>
+              <a href="#dashboard">Home</a>
+            </li>
+            <li>
+              <a href="#services">Services</a>
+            </li>
+            <li>
+              <a href="#about">About Us</a>
+            </li>
+            <li>
+              <a href="#gallery">Gallery</a>
+            </li>
+            <li>
+              <a href="">
+                <div class="logo-nav">
+                  <img
+                    src="{{ url_for('static', filename='img/Logo.jpg') }}"
+                    class="logo"
+                    alt="Logo"
+                  />
+                  <span>Bahay Aruga</span>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="#contact">Contact Us</a>
+            </li>
+            <li>
+              <a href="">Wellness Plan</a>
+            </li>
+            <li>
+              <a href="">Schedule</a>
+            </li>
+            <li>
+              <a href="">Logout</a>
+            </li>
+          </ul>
         </div>
+      </div>
+    </section>
+    <section id="dashboard">
+      <div class="wrapper">
+        <div class="dashboard-con">
+          <div class="dashboard-details">
+            <div class="heading-con">
+              <h1>BAHAY ARUGA</h1>
+            </div>
+            <p>(A FREE HALFWAY HOUSE FOR PEDIATRIC CANCER PATIENT)</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="services">
+      <div class="wrapper">
+        <div class="services-con">
+          <p>SERVICES</p>
+          <div class="services-list">
+            <div class="service-widget">
+              <img src="{{ url_for('static', filename='img/services_1.jpg') }}" alt="Image" />
+              <p>Temporary Shelter</p>
+              <p>
+                A temporary shelter offers shortterm accommodation and basic
+                services for cancer patients, providing a safe and supportive
+                environment.
+              </p>
+            </div>
+            <div class="service-widget">
+              <img src="{{ url_for('static', filename='img/services_2.png') }}" alt="Image" />
+              <p>Day Care</p>
+              <p>
+                A day care that provides services to children afflicted with
+                different kinds of cancer and provide them with necessary
+                support.
+              </p>
+            </div>
+            <div class="service-widget">
+              <img src="{{ url_for('static', filename='img/services_3.png') }}" alt="Image" />
+              <p>Activities</p>
+              <p>
+                An activities for cancer patients can include gentle exercises,
+                art and music therapy, meditation and mindfulness sessions,
+                support groups, educational workshops, and recreational outings.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="about">
+      <div class="wrapper">
+        <div class="about-con">
+          <div class="about-widget">
+            <img src="{{ url_for('static', filename='img/about.jpg') }}" alt="Image" />
+            <div class="about-details">
+              <h2>About Us</h2>
+              <p>
+                Bahay Aruga is a dedicated sanctuary offering free shelter to
+                pediatric cancer patients and one parent or guardian. Founded in
+                January 2014 by Ms. Mayette Bonilla, our mission is rooted in
+                compassion and fairness, ensuring every child and their family
+                receive the utmost care and support during their treatment
+                journey. At Bahay Aruga, we believe in the power of a nurturing
+                environment to aid in the healing process.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="gallery">
+      <div class="wrapper">
+        <div class="gallery-con">
+          <h2>Gallery</h2>
+          <div class="gallery-list">
+            <img src="{{ url_for('static', filename='img/gallery_1.jpg') }}" alt="Image" />
+            <img src="{{ url_for('static', filename='img/gallery_2.png') }}" alt="Image" />
+            <img src="{{ url_for('static', filename='img/gallery_3.png') }}" alt="Image" />
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="contact">
+      <div class="wrapper">
+        <div class="contact-con">
+          <h2>CONTACT US</h2>
+          <div class="contact-list">
+            <div class="contact-widget">
+              <img src="" alt="" />
+              <p>Our Address</p>
+              <p>
+                1131 San Marcelino Street, Paco, Metro Manila PH, Manila,
+                Philippines
+              </p>
+            </div>
+            <div class="contact-widget">
+              <img src="" alt="" />
+              <p>General Enquiries</p>
+              <p>Email: bahayaruga001@gmail.com</p>
+            </div>
+            <div class="contact-widget">
+              <img src="" alt="" />
+              <p>Call Us</p>
+              <p>0956 369 0073</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="footer">
+      <div class="wrapper">
+        <div class="footer-con">
+          <p>© 2024 BAHAY ARUGA SYSTEM. ALL RIGHTS RESERVED.</p>
+        </div>
+      </div>
     </section>
   </body>
 </html>

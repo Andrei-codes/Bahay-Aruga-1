@@ -7,6 +7,8 @@ class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(255), unique=True, nullable=False)
+    province = db.Column(db.String(255), nullable=False)
+    municipality = db.Column(db.String(255), nullable=False)
     password = db.Column(db.String(255), nullable=False)
 
     @classmethod

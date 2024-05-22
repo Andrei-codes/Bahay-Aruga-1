@@ -8,6 +8,11 @@
   outline: none !important;
   text-decoration: none !important;
   list-style: none !important;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--global-color-background);
 }
 
 h1,
@@ -37,6 +42,8 @@ img {
 }
 
 .btn-con {
+  z-index: 1;
+  position: relative;
   text-align: center;
   margin-bottom: 30px;
 }
@@ -52,6 +59,7 @@ p {
   padding: 10px;
   position: relative;
   display: flex;
+  z-index: 1;
   flex-direction: column;
 }
 
@@ -160,7 +168,8 @@ p {
 }
 
 #register .register-con,
-#login .login-con {
+#login .login-con,
+#dashboard .dashboard-con {
   padding: 200px 0;
   display: flex;
   align-items: center;
@@ -168,29 +177,35 @@ p {
 }
 
 #register .register-con p,
-#login .login-con p {
+#login .login-con p,
+#dashboard .dashboard-con p {
   background: var(--global-color-red);
   color: var(--global-color-white);
 }
 
 #register .register-details p,
-#login .login-details p {
+#login .login-details p,
+#dashboard .dashboard-details p {
   width: 730px;
   font-size: 26px;
+  z-index: 1;
+  position: relative;
   margin-top: 10px;
 }
 
 #register .heading-con,
-#login .heading-con {
+#login .heading-con,
+#dashboard .heading-con {
   position: relative;
 }
 
 #register .heading-con::after,
-#login .heading-con::after {
-  z-index: -1;
+#login .heading-con::after,
+#dashboard .heading-con::after {
   content: "";
   position: absolute;
   width: 100%;
+  z-index: 1;
   background: var(--global-color-yellow);
   height: 90px;
   bottom: 0;
@@ -198,9 +213,12 @@ p {
 }
 
 #register .heading-con h1,
-#login .heading-con h1 {
+#login .heading-con h1,
+#dashboard .heading-con h1 {
   padding-bottom: 50px;
   text-align: center;
+  z-index: 2;
+  position: relative;
 }
 
 .btn-con button {
@@ -208,7 +226,8 @@ p {
 }
 
 #register .register-details,
-#login .login-details {
+#login .login-details,
+#dashboard .dasboard-details {
   width: 800px;
 }
 
@@ -229,7 +248,7 @@ p {
   height: 100%;
   top: 0;
   left: 0;
-  z-index: -1;
+  z-index: 1;
   background: linear-gradient(
     90deg,
     var(--global-color-yellow) 0%,
@@ -242,4 +261,163 @@ p {
   color: var(--global-color-black);
   font-family: "Poppins", sans-serif;
   font-weight: 700;
+  z-index: 1;
+  position: relative;
+}
+
+#dashboard,
+#login,
+#register {
+  position: relative;
+  background-image: url("../img/dasboard_bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#dashboard::before,
+#login::before,
+#register::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+#services .services-con {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 50px;
+}
+
+#services .services-con p:first-child {
+  text-align: center;
+  margin-bottom: 50px;
+  font-weight: 700;
+  background: var(--global-color-orange);
+  font-size: 18px;
+}
+
+#services .services-list {
+  display: flex;
+  gap: 50px;
+  justify-content: center;
+}
+
+#services .service-widget {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+#services .service-widget p:first-of-type {
+  font-weight: 700;
+  font-size: 16px;
+}
+
+#services .service-widget img {
+  width: 200px;
+  height: 200px;
+  clip-path: circle();
+}
+
+#services .service-widget p:last-of-type {
+  text-align: start;
+  width: 300px;
+}
+
+#about {
+  background: var(--global-color-light-yellow);
+}
+
+#about .about-widget {
+  display: flex;
+  gap: 20px;
+}
+
+#about .about-con {
+  padding: 20px 0;
+}
+
+#about .about-widget img {
+  width: 400px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+#about .about-widget h2 {
+  font-size: 50px;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+
+#gallery .gallery-con {
+  padding: 20px 0;
+}
+
+#gallery .gallery-con h2 {
+  text-align: center;
+  font-size: 40px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  color: var(--global-color-orange);
+}
+
+#gallery .gallery-list {
+  display: flex;
+  gap: 50px;
+  justify-content: center;
+}
+
+#gallery .gallery-list img {
+  width: 300px;
+  height: 250px;
+  object-fit: cover;
+}
+
+#contact .contact-con {
+  padding: 20px 0;
+}
+
+#contact .contact-con h2 {
+  text-align: center;
+  margin-bottom: 50px;
+  font-weight: 700;
+  background: var(--global-color-orange);
+  padding: 5px 0;
+  font-size: 18px;
+}
+
+#contact .contact-list {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+}
+
+#contact .contact-widget {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#contact .contact-widget p {
+  font-weight: 700;
+}
+
+#contact .contact-widget p:last-of-type {
+  width: 280px;
+}
+
+#footer {
+  background: var(--global-color-orange);
+}
+
+#footer .footer-con {
+  text-align: center;
+  padding: 5px 0;
 }
