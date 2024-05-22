@@ -12,7 +12,7 @@ def index():
 
 @app.route('/register-user', methods=['POST', 'GET'])
 def register_user():
-    name, email, password, password2 = request.form['name'], request.form['email'], request.form['password'], request.form['password_2']
+    name, email, province, municipality, password, password2 = request.form['name'], request.form['email'], request.form['province'], request.form['municipality'], request.form['password'], request.form['password_2']
     if not (name and email and password and password2):
         return "fill out all fields", 400
     if password != password2:
@@ -20,6 +20,8 @@ def register_user():
     user_entry = Users(
         name=name,
         email=email,
+        province=province,
+        municipality=municipality,
         password=password
     )
     db.session.add(user_entry)
