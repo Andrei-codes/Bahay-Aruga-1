@@ -12,6 +12,15 @@
       href="{{ url_for('static', filename='img/Logo.jpg') }}"
       type="image/x-icon"
     />
+    <style>
+      #header .navbar li:nth-child(3) {
+        margin: 0;
+      }
+
+      #header .logo-nav {
+        left: 42.5%;
+      }
+    </style>
 
     <title>Bahay Aruga</title>
   </head>
@@ -21,13 +30,16 @@
         <div class="header-con">
           <ul class="navbar">
             <li>
-              <a href="">Home</a>
+              <a href="#dashboard">Home</a>
             </li>
             <li>
-              <a href="">Services</a>
+              <a href="#services">Services</a>
             </li>
             <li>
-              <a href="">About Us</a>
+              <a href="#about">About Us</a>
+            </li>
+            <li>
+              <a href="#gallery">Gallery</a>
             </li>
             <li>
               <a href="">
@@ -42,40 +54,45 @@
               </a>
             </li>
             <li>
-              <a href="">Gallery</a>
+              <a href="#contact">Contact Us</a>
             </li>
             <li>
-              <a href="">Contact Us</a>
+              <a href="">Wellness Plan</a>
+            </li>
+            <li>
+              <a href="">Schedule</a>
+            </li>
+            <li>
+              <a href="">Logout</a>
             </li>
           </ul>
         </div>
       </div>
     </section>
-    <section id="register">
+    <section id="schedule">
       <div class="wrapper">
-        <div class="register-con">
-          <div class="register-details">
-            <div class="heading-con">
-              <h1>BAHAY ARUGA</h1>
+        <div class="schedule-con">
+          <form action="" method="POST">
+            <h2>Enter your details</h2>
+            <div class="d-field-con">
+              <div class="field-con">
+                <label for="first_name">First Name</label>
+                <input type="text" name="first_name" required />
+              </div>
+              <div class="field-con">
+                <label for="last_name">Last Name</label>
+                <input type="text" name="last_name" required />
+              </div>
             </div>
-            <p>(A FREE HALFWAY HOUSE FOR PEDIATRIC CANCER PATIENT)</p>
-          </div>
-          <form action="/register-user" method="post">
-            <div class="field-con">
-              <label for="type">ACCOUNT TYPE</label>
-              <select name="acc_type">
-                <option value="" selected hidden disabled></option>
-                <option value="1">Admin</option>
-                <option value="2">Patient</option>
-              </select>
-            </div>
-            <div class="field-con">
-              <label for="name">NAME</label>
-              <input type="text" name="name" required />
-            </div>
-            <div class="field-con">
-              <label for="name">EMAIL</label>
-              <input type="email" name="email" required />
+            <div class="d-field-con">
+              <div class="field-con">
+                <label for="email_address">Email Address</label>
+                <input type="email" name="email" required />
+              </div>
+              <div class="field-con">
+                <label for="confirm_email_address">Confirm Email Address</label>
+                <input type="text" name="confirm_email" required />
+              </div>
             </div>
             <div class="field-con">
               <label for="province">Province</label>
@@ -172,59 +189,12 @@
               <label for="municipality">Municipality</label>
               <input type="text" name="municipality" required />
             </div>
-            <div class="field-con">
-              <label for="name">EMAIL</label>
-              <input type="email" name="email" required />
-            </div>
-            <div class="field-con">
-              <label for="name">PASSWORD</label>
-              <input type="password" id="password" name="password" required />
-              <i class="bi bi-eye-slash-fill" id="toggle-password"></i>
-            </div>
-            <div class="field-con">
-              <label for="confirm_password">CONFIRM PASSWORD</label>
-              <input
-                type="password"
-                id="authCPassword"
-                name="password_2"
-                required
-              />
-              <i class="bi bi-eye-slash-fill" id="toggle-Cpassword"></i>
-            </div>
             <div class="btn-con">
-              <button class="btn-primary">SIGN UP</button>
+              <button class="btn-primary">SUBMIT</button>
             </div>
-            <a href="/login_page">ALREADY REGISTERED ? LOGIN</a>
           </form>
         </div>
       </div>
     </section>
-
-    <script
-      src="https://code.jquery.com/jquery-3.7.1.min.js"
-      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-      crossorigin="anonymous"
-    ></script>
-    <script>
-      $(document).ready(function () {
-        $(document).on("click", "#toggle-password", function () {
-          const authPassword = $("#password");
-          authPassword.attr(
-            "type",
-            authPassword.attr("type") == "password" ? "text" : "password"
-          );
-          $(this).toggleClass("bi-eye-slash-fill bi-eye-fill");
-        });
-
-        $(document).on("click", "#toggle-Cpassword", function () {
-          const authPassword = $("#authCPassword");
-          authPassword.attr(
-            "type",
-            authPassword.attr("type") == "password" ? "text" : "password"
-          );
-          $(this).toggleClass("bi-eye-slash-fill bi-eye-fill");
-        });
-      });
-    </script>
   </body>
 </html>
