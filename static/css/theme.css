@@ -170,11 +170,16 @@ p {
 
 #register .register-con,
 #login .login-con,
-#dashboard .dashboard-con {
+#dashboard .dashboard-con,
+#schedule .schedule-con {
   padding: 200px 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+#schedule .schedule-con {
+  justify-content: center;
 }
 
 #register .register-con p,
@@ -233,7 +238,8 @@ p {
 }
 
 #register .register-con form,
-#login .login-con form {
+#login .login-con form,
+#schedule .schedule-con form {
   border-radius: 50px;
   position: relative;
   width: 600px;
@@ -241,8 +247,24 @@ p {
   padding: 100px 30px 30px 30px;
 }
 
+#schedule .schedule-con form {
+  padding: 50px 30px 30px 30px;
+}
+
+#schedule .schedule-con form h2 {
+  z-index: 1;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.d-field-con {
+  display: flex;
+  justify-content: space-between;
+}
+
 #register .register-con form:before,
-#login .login-con form:before {
+#login .login-con form:before,
+#schedule .schedule-con form:before {
   position: absolute;
   content: "";
   width: 100%;

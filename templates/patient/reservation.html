@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/theme.css') }}"
+    />
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='img/Logo.jpg') }}"
+      type="image/x-icon"
+    />
+    <style>
+      #header .navbar li:nth-child(3) {
+        margin: 0;
+      }
+
+      #header .logo-nav {
+        left: 42.5%;
+      }
+    </style>
+
+    <title>Bahay Aruga</title>
+  </head>
+  <body>
+    <section id="header">
+      <div class="wrapper">
+        <div class="header-con">
+          <ul class="navbar">
+            <li>
+              <a href="#dashboard">Home</a>
+            </li>
+            <li>
+              <a href="#services">Services</a>
+            </li>
+            <li>
+              <a href="#about">About Us</a>
+            </li>
+            <li>
+              <a href="#gallery">Gallery</a>
+            </li>
+            <li>
+              <a href="">
+                <div class="logo-nav">
+                  <img
+                    src="{{ url_for('static', filename='img/Logo.jpg') }}"
+                    class="logo"
+                    alt="Logo"
+                  />
+                  <span>Bahay Aruga</span>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="#contact">Contact Us</a>
+            </li>
+            <li>
+              <a href="">Wellness Plan</a>
+            </li>
+            <li>
+              <a href="">Schedule</a>
+            </li>
+            <li>
+              <a href="">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <section id="schedule">
+      <div class="wrapper">
+        <div class="schedule-con">
+          <form action="" method="POST">
+            <h2>Hello, Name!</h2>
+            <div class="field-con">
+              <label for="age">Age</label>
+              <input type="number" name="age" required />
+            </div>
+            <div class="field-con">
+              <label for="sex">Sex</label>
+              <select name="sex">
+                <option value="" selected hidden disabled>Select Sex</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Prefer not to say">Prefer not to say</option>
+              </select>
+            </div>
+            <div class="field-con">
+              <label for="type">Type</label>
+              <input type="text" name="type" required />
+            </div>
+            <div class="btn-con">
+              <button class="btn-primary">SUBMIT</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

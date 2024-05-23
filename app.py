@@ -16,6 +16,22 @@ def index():
 def login_page():
     return render_template('login.html')
 
+@app.route('/admin/dashboard', methods=['GET'])
+def admin_dashboard():
+    return render_template('admin/dashboard.html')
+
+@app.route('/patient/dashboard', methods=['GET'])
+def patient_dashboard():
+    return render_template('patient/dashboard.html')
+
+@app.route('/patient/schedule', methods=['GET'])
+def patient_schedule():
+    return render_template('patient/schedule.html')
+
+@app.route('/patient/reservation', methods=['GET'])
+def patient_reservation():
+    return render_template('patient/reservation.html')
+
 @app.route('/register-user', methods=['POST', 'GET'])
 def register_user():
     acc_type, name, email, province, municipality, password, password2 = request.form['acc_type'], request.form['name'], request.form['email'], request.form['province'], request.form['municipality'], request.form['password'], request.form['password_2']
