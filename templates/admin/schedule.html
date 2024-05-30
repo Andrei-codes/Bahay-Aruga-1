@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/theme.css') }}"
+    />
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='img/Logo.jpg') }}"
+      type="image/x-icon"
+    />
+    <style>
+      #header .navbar li:nth-child(3) {
+        margin: 0;
+      }
+
+      #header .logo-nav {
+        left: 42.5%;
+      }
+    </style>
+
+    <title>Bahay Aruga</title>
+  </head>
+  <body>
+    {% include 'patient/header.html' %}
+    <section id="schedule">
+      <div class="wrapper">
+        <div class="schedule-con">
+          <form action="/admin/schedule/save" method="POST">
+            <h2>Add Reservation Entry</h2>
+            <div class="field-con">
+              <label for="patient_id">Select Patient</label>
+              <select name="patient_id">
+                <option selected disabled>-Select Value-</option>
+                {% for patient_id, user_name in all_patients %}
+                    <option value="{{ patient_id }}">{{ user_name }}</option>
+                {% endfor %}
+            </select>
+            </div>
+            <div class="field-con">
+              <label for="reservation_date">Reservation Date</label>
+              <input type="date" name="reservation_date" required/>
+            </div>
+            
+            <div class="btn-con">
+              <button class="btn-primary">SUBMIT</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </body>
+</html>

@@ -19,6 +19,34 @@ def login_page():
     session.clear()
     return render_template('login.html')
 
+@app.route('/admin/schedule/save', methods=['POST', 'GET'])
+def admin_schedule_save():
+    session_user = get_session_user()
+    if not session_user:
+        return f"Not logged in"
+    if not session_user.acc_type==1:
+        return redirect(url_for('patient_dashboard'))
+    patient_id, reservation_date = request.form['patient_id'], request.form['reservation_date']
+    if not (patient_id or reservation_date):
+        return "please fill up all the fields"
+    reservation_insert = Reservation.insert_reservations(patient_id, reservation_date)
+    if not reservation_insert:
+        return "<script>alert('Failed! This account already have a reservation record');location.href='/admin/dashboard'</script>"
+    return "<script>alert('Success! Schedule reservation has been saved');location.href='/admin/dashboard'</script>"
+
+@app.route('/admin/schedule')
+def admin_schedule():
+    session_user = get_session_user()
+    if not session_user:
+        return f"Not logged in"
+    if session_user.acc_type==0:
+        return redirect(url_for('patient_dashboard'))
+    all_patients = db.session.query(Patients.id, Users.name).join(Users, Patients.user_id == Users.id).all()
+    return render_template('admin/schedule.html', 
+                           session_user=session_user,
+                           all_patients=all_patients
+                           )
+
 @app.route('/admin/dashboard', methods=['GET'])
 def admin_dashboard():
     session_user = get_session_user()
