@@ -66,12 +66,21 @@
           <form action="/patient/schedule/edit" method="POST">
             <h2>Edit Reservation Entry</h2>
             <h2>{{ 'Pending' if current_reservation.status == 0 else 'On-Going' if current_reservation.status == 1 else 'Priority' if current_reservation.status == 2 else 'Unknown' }}</h2>
-            
-
+            <div class="btn-con">
+              <button class="btn-danger" type="submit" name="delete">Delete Entry</button>
+            </div>
+            {% if current_reservation.status !=0 %}
+              <div class="field-con">
+                <label for="reservation_date">Reservation Date</label>
+                <input type="hidden" name="reservation_date" required value="{{ current_reservation.reservation_date }}"/>
+                <input type="date" readonly disabled value="{{ current_reservation.reservation_date }}"/>
+              </div>
+            {% else %}
             <div class="field-con">
               <label for="reservation_date">Reservation Date</label>
               <input type="date" name="reservation_date" required value="{{ current_reservation.reservation_date }}"/>
             </div>
+            {% endif %}
             <div class="field-con">
               <label for="name">Full Name</label>
               <input type="text" name="name" required value="{{ session_user.name }}" />
@@ -82,22 +91,26 @@
             </div>      
             <div class="field-con">
               <label for="name">Sex</label>
-              <select name="sex" required >
-                  <option value="{{ current_patient.sex }}" selected disabled>{{ current_patient.sex }}</option>
+              <select name="sex" required>
+                  <option value="{{ current_patient.sex }}" selected>{{ current_patient.sex }}</option>
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
                   <option value="Prefer not to say">Prefer not to say</option>
               </select>
+            </div>    
+            <div class="field-con">
+              <label for="type">Cancer Type</label>
+              <input type="text" name="type" required value="{{ current_patient.cancer_type }}"/>
             </div>      
             <div class="field-con">
               <label for="email_address">Email Address</label>
-              <input type="email" name="email" required value="{{ session_user.email }}" readonly disabled/>
+              <input type="email" name="email" required value="{{ session_user.email }}" readonly/>
             </div>
             
             <div class="field-con">
               <label for="province">Province</label>
               <select name="province">
-                <option value="{{ session_user.province }}" selected disabled>
+                <option value="{{ session_user.province }}" selected>
                   {{ session_user.province }}
                 </option>
                 <option value="Abra">Abra</option>
@@ -190,7 +203,7 @@
               <input type="text" name="municipality" required value="{{ session_user.municipality }}" />
             </div>
             <div class="btn-con">
-              <button class="btn-primary">SUBMIT</button>
+              <button class="btn-primary" name="submit">SUBMIT</button>
             </div>
           </form>
         </div>

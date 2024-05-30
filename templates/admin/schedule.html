@@ -12,6 +12,7 @@
       href="{{ url_for('static', filename='img/Logo.jpg') }}"
       type="image/x-icon"
     />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <style>
       #header .navbar li:nth-child(3) {
         margin: 0;
@@ -35,7 +36,7 @@
               <label for="patient_id">Select Patient</label>
               <select name="patient_id">
                 <option selected disabled>-Select Value-</option>
-                {% for patient_id, user_name in all_patients %}
+                {% for patient_id, user_name in available_patients %}
                     <option value="{{ patient_id }}">{{ user_name }}</option>
                 {% endfor %}
             </select>
@@ -53,7 +54,7 @@
         <div class="table-wrapper">
           <table>
             <thead>
-              <th>Patient ID</th>
+              <th>Patient</th>
               <th>Reservation Date</th>
               <th>Status</th>
               <th>Action</th>
@@ -61,8 +62,16 @@
             <tbody>
               {% for i in all_reservations %}
               <tr>
-                <td>{{ i.patient_id }}</td>
-                <td>{{ i.reservation_date }}</td>
+                <td>
+                  <a href="#" id="view-patient" data-value="{{ i.patient_id }}">
+                    {{ i.patient_id }}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                      <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+                      <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+                    </svg>
+                  </a>
+                </td>
+                <td>{{ i.reservation_date.strftime('%B %d, %Y') }}</td>
                 <td>{{ 'Pending' if i.status == 0 else 'On-Going' if i.status == 1 else 'Priority' if i.status == 2 else 'Unknown' }}</td>
                 <td>
                   <form action="/admin/schedule/alter-status/" method="post">
@@ -72,11 +81,14 @@
                         <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"/>
                       </svg>
                     </button>
+                    {% if i.status < 2 %}
                     <button type="submit" name="promote">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-90deg-up" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M4.854 1.146a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L4 2.707V12.5A2.5 2.5 0 0 0 6.5 15h8a.5.5 0 0 0 0-1h-8A1.5 1.5 0 0 1 5 12.5V2.707l3.146 3.147a.5.5 0 1 0 .708-.708z"/>
                       </svg>
                     </button>
+                    {% else %}
+                    {% endif %}
                     {% if i.status!=0 %}
                       <button type="submit" name="demote">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-90deg-down" viewBox="0 0 16 16">
@@ -101,4 +113,26 @@
       </div>
     </section>
   </body>
+  <script>
+     var element = document.getElementById('view-patient');
+      element.addEventListener("click", function() {
+        axios.get(`/admin/api/get-patient/${element.getAttribute('data-value')}`)
+          .then(response => {
+            var data = response.data;
+            var message = "Name: " + data.name +
+            "\nAge: " + data.age +
+            "\nCancer Type: " + data.cancer_type +
+            "\nEmail: " + data.email +
+            "\nMunicipality: " + data.municipality +
+            "\nProvince: " + data.province +
+            "\nSex: " + data.sex;
+            alert(message);
+          })
+          .catch(error => {
+            // Handle error
+            console.log('Data value:', element.getAttribute('data-value'));
+            console.error('Error fetching data:', error);
+          });
+      });
+  </script>
 </html>

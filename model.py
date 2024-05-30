@@ -77,6 +77,15 @@ class Patients(db.Model):
         if not target_patient:
             return None
         return target_patient
+    
+    @classmethod
+    def get_patient_by_id(cls, id):
+        target_patient = cls.query.filter_by(id=id).first()
+        if not target_patient:
+            return None
+        return target_patient
+
+    
 
 class Reservation(db.Model):
     __tablename__ = 'reservations'

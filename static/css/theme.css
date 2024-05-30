@@ -40,6 +40,15 @@ img {
   font-family: "Poppins", sans-serif;
   border: none;
 }
+.btn-danger {
+  background: #650000;
+  border-radius: 100px;
+  font-weight: 700;
+  padding: 10px 48px;
+  font-family: "Poppins", sans-serif;
+  border: none;
+  color: white;
+}
 
 .btn-con {
   z-index: 1;
@@ -173,14 +182,14 @@ p {
 #login .login-con,
 #dashboard .dashboard-con,
 #schedule .schedule-con {
-  padding-top: 200px;
+  padding: 200px 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 #schedule .table-wrapper{
   display: flex;
-  margin-top: 50px;
+  margin-top: -150px;
   justify-content: center;
 }
 #schedule .schedule-con {

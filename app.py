@@ -1,4 +1,4 @@
-from flask import Flask, render_template, session, request, redirect, url_for
+from flask import Flask, render_template, session, request, redirect, url_for, jsonify
 from model import db, Users, Patients, Reservation
 from flask_migrate import Migrate
 from datetime import datetime
@@ -18,6 +18,25 @@ def index():
 def login_page():
     session.clear()
     return render_template('login.html')
+
+@app.route('/admin/api/get-patient/<int:id>', methods=['GET'])
+def admin_api_get_schedule(id):
+    session_user = get_session_user()
+    if not session_user:
+        return f"Not logged in"
+    target_patient = Patients.get_patient_by_id(id)
+    target_user = Users.get_user_by_id(target_patient.user_id)
+    data = {
+        "name": target_user.name,
+        "email": target_user.email,
+        "province": target_user.province,
+        "municipality": target_user.municipality,
+        "age": target_patient.age,
+        "sex": target_patient.sex,
+        "cancer_type": target_patient.cancer_type,
+    }
+    return jsonify(data)
+    
 
 @app.route('/admin/schedule/alter-status/', methods=['POST'])
 def admin_schedule_alter_status():
@@ -67,11 +86,16 @@ def admin_schedule():
     if session_user.acc_type==0:
         return redirect(url_for('patient_dashboard'))
     all_patients = db.session.query(Patients.id, Users.name).join(Users, Patients.user_id == Users.id).all()
+    available_patients = []   
+    for i, x in all_patients:
+        reservation_obj = Reservation.get_reservation_by_patient_id(i)
+        if not reservation_obj:
+            available_patients.append((i, x))
     all_reservations = Reservation.fetch_reservations()
     return render_template('admin/schedule.html', 
                            session_user=session_user,
-                           all_patients=all_patients,
-                           all_reservations=all_reservations
+                           all_reservations=all_reservations,
+                           available_patients=available_patients
                            )
 
 @app.route('/admin/dashboard', methods=['GET'])
@@ -117,9 +141,59 @@ def patient_reservation():
         return redirect(url_for('admin_dashboard'))
     return render_template('patient/reservation.html', session_user=session_user)
 
+@app.route('/patient/schedule/edit', methods=['POST', 'GET'])
+def patient_schedule_edit():
+    session_user = get_session_user()
+    if not session_user:
+        return f"Not logged in"
+    if session_user.acc_type==1:
+        return redirect(url_for('admin_dashboard'))
+    
+        
+
+    target_patient = Patients.get_patient_by_user_id(session_user.id)
+    target_user = Users.get_user_by_id(target_patient.user_id)
+    target_reservation = Reservation.get_reservation_by_patient_id(target_patient.id)
+
+
+
+    if not (target_patient or target_reservation or target_user):
+        return redirect(url_for('patient_dashboard'))
+    
+    
+    
+    if 'delete' in request.form:
+        db.session.delete(target_patient)
+        db.session.delete(target_reservation)
+        db.session.commit()
+        return redirect(url_for('patient_schedule'))
+    if 'submit' not in request.form:
+        return redirect(url_for('patient_dashboard'))
+    
+    reservation_date = datetime.strptime(request.form['reservation_date'], '%Y-%m-%d').date()
+    name = request.form['name']
+    age = request.form['age']
+    sex = request.form['sex']
+    type = request.form['type']
+    province = request.form['province']
+    municipality = request.form['municipality']
+    
+    target_reservation.reservation_date = reservation_date
+    target_user.name = name
+    target_patient.age = age
+    target_patient.sex = sex
+    target_patient.cancer_type = type
+    target_user.province = province
+    target_user.municipality = municipality
+    
+    db.session.commit()
+    return redirect(url_for('patient_schedule'))
+
 @app.route('/patient/schedule/save', methods=['POST'])
 def patient_schedule_save():
     session_user = get_session_user()
+    if not session_user:
+        return f"Not logged in"
     if session_user.acc_type==1:
         return redirect(url_for('admin_dashboard'))
     target_patient = Patients.get_patient_by_user_id(session_user.id)
