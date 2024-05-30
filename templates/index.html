@@ -62,6 +62,14 @@
           </div>
           <form action="/register-user" method="post">
             <div class="field-con">
+              <label for="type">ACCOUNT TYPE</label>
+              <select name="acc_type">
+                <option value="" selected hidden disabled></option>
+                <option value="1">Admin</option>
+                <option value="2">Patient</option>
+              </select>
+            </div>
+            <div class="field-con">
               <label for="name">NAME</label>
               <input type="text" name="name" required />
             </div>
@@ -70,7 +78,7 @@
               <input type="email" name="email" required />
             </div>
             <div class="field-con">
-              <label for="province">EMAIL</label>
+              <label for="province">Province</label>
               <select name="province">
                 <option value="" selected hidden disabled>
                   Select Province
@@ -186,7 +194,7 @@
             <div class="btn-con">
               <button class="btn-primary">SIGN UP</button>
             </div>
-            <a href="">ALREADY REGISTERED ? LOGIN</a>
+            <a href="/login_page">ALREADY REGISTERED ? LOGIN</a>
           </form>
         </div>
       </div>
