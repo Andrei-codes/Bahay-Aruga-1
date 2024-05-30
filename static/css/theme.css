@@ -173,12 +173,16 @@ p {
 #login .login-con,
 #dashboard .dashboard-con,
 #schedule .schedule-con {
-  padding: 200px 0;
+  padding-top: 200px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-
+#schedule .table-wrapper{
+  display: flex;
+  margin-top: 50px;
+  justify-content: center;
+}
 #schedule .schedule-con {
   justify-content: center;
 }

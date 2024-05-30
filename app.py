@@ -19,6 +19,31 @@ def login_page():
     session.clear()
     return render_template('login.html')
 
+@app.route('/admin/schedule/alter-status/', methods=['POST'])
+def admin_schedule_alter_status():
+    patient_id = request.form['patient_id']
+    target_reservation = Reservation.get_reservation_by_patient_id(patient_id)
+    if not target_reservation:
+        return "no reservations found"
+    if "promote" in request.form:
+        if target_reservation.status==2:
+            return redirect(url_for('admin_schedule'))
+        target_reservation.status+=1
+        db.session.commit()
+        return redirect(url_for('admin_schedule'))
+    if "demote" in request.form:
+        if target_reservation.status==0:
+            return redirect(url_for('admin_schedule'))    
+        target_reservation.status-=1
+        db.session.commit()
+        return redirect(url_for('admin_schedule'))
+    if "delete" in request.form:
+        db.session.delete(target_reservation)
+        db.session.commit()
+        return redirect(url_for('admin_schedule'))
+    return redirect(url_for('admin_schedule'))
+
+
 @app.route('/admin/schedule/save', methods=['POST', 'GET'])
 def admin_schedule_save():
     session_user = get_session_user()
@@ -26,13 +51,13 @@ def admin_schedule_save():
         return f"Not logged in"
     if not session_user.acc_type==1:
         return redirect(url_for('patient_dashboard'))
-    patient_id, reservation_date = request.form['patient_id'], request.form['reservation_date']
+    patient_id, reservation_date = request.form['patient_id'], datetime.strptime(request.form['reservation_date'], '%Y-%m-%d').date()
     if not (patient_id or reservation_date):
         return "please fill up all the fields"
     reservation_insert = Reservation.insert_reservations(patient_id, reservation_date)
     if not reservation_insert:
         return "<script>alert('Failed! This account already have a reservation record');location.href='/admin/dashboard'</script>"
-    return "<script>alert('Success! Schedule reservation has been saved');location.href='/admin/dashboard'</script>"
+    return "<script>alert('Success! Schedule reservation has been saved');location.href='/admin/schedule'</script>"
 
 @app.route('/admin/schedule')
 def admin_schedule():
@@ -42,9 +67,11 @@ def admin_schedule():
     if session_user.acc_type==0:
         return redirect(url_for('patient_dashboard'))
     all_patients = db.session.query(Patients.id, Users.name).join(Users, Patients.user_id == Users.id).all()
+    all_reservations = Reservation.fetch_reservations()
     return render_template('admin/schedule.html', 
                            session_user=session_user,
-                           all_patients=all_patients
+                           all_patients=all_patients,
+                           all_reservations=all_reservations
                            )
 
 @app.route('/admin/dashboard', methods=['GET'])
