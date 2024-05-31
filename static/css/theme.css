@@ -192,6 +192,14 @@ p {
   margin-top: -150px;
   justify-content: center;
 }
+#schedule .table-wrapper button {
+  border: none;
+  cursor: pointer;
+}
+
+#schedule .table-wrapper table tbody {
+  text-align: center;
+}
 #schedule .schedule-con {
   justify-content: center;
 }
@@ -457,4 +465,40 @@ p {
 #footer .footer-con {
   text-align: center;
   padding: 5px 0;
+}
+
+
+/*STEPHEN ASDHFASKDJFHASJKFHASKJFASFH*/
+
+section#section-modal {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #000000a8;
+  top: 0;
+  z-index: 99999;
+  display: none;
+}
+
+section#section-modal form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: white;
+  transform: translate(-50%, -50%);
+  width: 35%;
+  padding: 36px;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+#section-modal form a {
+  position: absolute;
+  top: 5%;
+  left: 2%;
+}
+
+section#section-modal form .btn-primary {
+  background: var(--global-color-orange);
 }

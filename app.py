@@ -25,6 +25,8 @@ def admin_api_get_schedule(id):
     if not session_user:
         return f"Not logged in"
     target_patient = Patients.get_patient_by_id(id)
+    if not target_patient:
+        return jsonify({"message": "User not found"}), 404
     target_user = Users.get_user_by_id(target_patient.user_id)
     data = {
         "name": target_user.name,
@@ -62,6 +64,21 @@ def admin_schedule_alter_status():
         return redirect(url_for('admin_schedule'))
     return redirect(url_for('admin_schedule'))
 
+@app.route('/admin/schedule/edit', methods=['POST', 'GET'])
+def admin_schedule_edit():
+    session_user = get_session_user()
+    if not session_user:
+        return f"Not logged in"
+    if not session_user.acc_type==1:
+        return redirect(url_for('patient_dashboard'))
+    
+    patient_id, reservation_date = request.form['patient_id'], datetime.strptime(request.form['reservation_date'], '%Y-%m-%d').date()
+    target_reservation = Reservation.get_reservation_by_patient_id(patient_id)
+    if not target_reservation:
+        return "none"
+    target_reservation.reservation_date = reservation_date
+    db.session.commit()
+    return "true"
 
 @app.route('/admin/schedule/save', methods=['POST', 'GET'])
 def admin_schedule_save():

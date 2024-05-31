@@ -54,7 +54,7 @@
         <div class="table-wrapper">
           <table>
             <thead>
-              <th>Patient</th>
+              <th>View Patient</th>
               <th>Reservation Date</th>
               <th>Status</th>
               <th>Action</th>
@@ -64,7 +64,6 @@
               <tr>
                 <td>
                   <a href="#" id="view-patient" data-value="{{ i.patient_id }}">
-                    {{ i.patient_id }}
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
                       <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
                       <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
@@ -76,11 +75,11 @@
                 <td>
                   <form action="/admin/schedule/alter-status/" method="post">
                     <input type="hidden" value="{{ i.patient_id }}" name="patient_id">
-                    <button type="submit" name="edit">
+                    <a href="#" name="edit" id="show_modal_btn" data-value="{{ i.patient_id }}">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
                         <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"/>
                       </svg>
-                    </button>
+                    </a>
                     {% if i.status < 2 %}
                     <button type="submit" name="promote">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-90deg-up" viewBox="0 0 16 16">
@@ -112,11 +111,29 @@
         </div>
       </div>
     </section>
+    <section id="section-modal">
+      <div class="wrapper">
+        <form action="/admin/schedule/edit", method="post">
+          <a href="">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+              <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+            </svg>
+          </a>
+          <div class="field-con">
+            <input type="hidden"  id="modal_patient_id_input" name="patient_id">
+            <label for="">Reservation Date</label>
+            <input type="date" name="reservation_date">
+          </div>
+          <button class="btn-primary" type="submit">Submit</button>
+        </form>
+      </div>
+    </section>
   </body>
   <script>
-     var element = document.getElementById('view-patient');
-      element.addEventListener("click", function() {
-        axios.get(`/admin/api/get-patient/${element.getAttribute('data-value')}`)
+     var view_patient = document.getElementById('view-patient');
+     view_patient.addEventListener("click", function() {
+        axios.get(`/admin/api/get-patient/${view_patient.getAttribute('data-value')}`)
           .then(response => {
             var data = response.data;
             var message = "Name: " + data.name +
@@ -129,10 +146,21 @@
             alert(message);
           })
           .catch(error => {
-            // Handle error
-            console.log('Data value:', element.getAttribute('data-value'));
-            console.error('Error fetching data:', error);
+            alert('Error fetching data');    
           });
       });
+
+      var section_modal = document.getElementById('section-modal');
+      var show_modal_btn = document.getElementById('show_modal_btn');
+      var close_modal_btn = document.getElementById('close_modal_btn');
+      var patient_id_input = document.getElementById('modal_patient_id_input');
+      show_modal_btn.addEventListener("click", function () {
+        section_modal.style.display="block";
+        patient_id_input.value = show_modal_btn.getAttribute('data-value');
+      });
+      close_modal_btn.addEventListener("click", function () {
+        section_modal.style.display="none";
+      });
+
   </script>
 </html>
