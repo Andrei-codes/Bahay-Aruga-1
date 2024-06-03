@@ -162,8 +162,9 @@ p {
   display: flex;
   position: relative;
   gap: 50px;
+  margin: 0;
+  padding: 0;
 }
-
 
 #header .navbar li:nth-child(3) {
   margin-right: 50px;
@@ -174,24 +175,49 @@ p {
 }
 
 #register .wrapper,
-#login .wrapper {
+#login .wrapper,
+#schedule .wrapper {
   max-width: 1440px;
 }
 
 #register .register-con,
 #login .login-con,
-#dashboard .dashboard-con,
-#schedule .schedule-con {
+#dashboard .dashboard-con {
   padding: 200px 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-#schedule .table-wrapper{
+
+#schedule .table-btn-con {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#schedule .table-btn-con button,
+#schedule .table-btn-con a{
+  padding: 10px 15px;
+  margin: 0;
+  font-size: 20px;
+}
+
+#schedule .schedule-con {
+  padding: 200px 0;
+}
+
+#schedule .schedule-con .schedule-header-con {
+  display: flex;
+  justify-content: end;
+  margin-bottom: 50px;
+}
+
+#schedule .table-wrapper {
   display: flex;
   margin-top: -150px;
   justify-content: center;
 }
+
 #schedule .table-wrapper button {
   border: none;
   cursor: pointer;
@@ -199,9 +225,6 @@ p {
 
 #schedule .table-wrapper table tbody {
   text-align: center;
-}
-#schedule .schedule-con {
-  justify-content: center;
 }
 
 #register .register-con p,
@@ -261,7 +284,8 @@ p {
 
 #register .register-con form,
 #login .login-con form,
-#schedule .schedule-con form {
+#schedule .schedule-con .reservation-form,
+#schedule .schedule-con .editModalForm {
   border-radius: 50px;
   position: relative;
   width: 600px;
@@ -269,11 +293,13 @@ p {
   padding: 100px 30px 30px 30px;
 }
 
-#schedule .schedule-con form {
+#schedule .schedule-con .reservation-form,
+#schedule .schedule-con .editModalForm {
   padding: 50px 30px 30px 30px;
 }
 
-#schedule .schedule-con form h2 {
+#schedule .schedule-con .reservation-form h2,
+#schedule .schedule-con .editModalForm h2 {
   z-index: 1;
   position: relative;
   margin-bottom: 20px;
@@ -286,7 +312,8 @@ p {
 
 #register .register-con form:before,
 #login .login-con form:before,
-#schedule .schedule-con form:before {
+#schedule .schedule-con .reservation-form:before,
+#schedule .schedule-con .editModalForm:before {
   position: absolute;
   content: "";
   width: 100%;
@@ -466,7 +493,6 @@ p {
   text-align: center;
   padding: 5px 0;
 }
-
 
 /*STEPHEN ASDHFASKDJFHASJKFHASKJFASFH*/
 
