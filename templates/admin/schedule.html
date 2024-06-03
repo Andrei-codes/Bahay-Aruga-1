@@ -12,7 +12,17 @@
       href="{{ url_for('static', filename='img/Logo.jpg') }}"
       type="image/x-icon"
     />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
     <style>
       #header .navbar li:nth-child(3) {
         margin: 0;
@@ -22,44 +32,41 @@
         left: 42.5%;
       }
 
-      /* Table Styles */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
-}
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
 
-thead th {
-  background-color: #f2f2f2;
-  color: #333;
-  font-weight: bold;
-  text-align: center;
-  padding: 10px;
-  font-size: 20px;
-}
+      thead th {
+        background-color: #f2f2f2;
+        color: #333;
+        font-weight: bold;
+        text-align: center;
+        padding: 10px;
+      }
 
-tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
+      tbody td {
+        padding: 10px;
+        font-size: 18px;
+        text-align: center;
+      }
 
-tbody td {
-  padding: 10px;
-  font-size: 18px;
-}
+      button {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        margin-right: 5px;
+      }
 
-/* Button Styles */
-button {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  margin-right: 5px;
-}
+      svg {
+        vertical-align: middle;
+      }
 
-/* Icon Styles */
-svg {
-  vertical-align: middle;
-}
-
+      .modal-header,
+      .modal-footer {
+        z-index: 2;
+      }
     </style>
 
     <title>Bahay Aruga</title>
@@ -69,137 +76,260 @@ svg {
     <section id="schedule">
       <div class="wrapper">
         <div class="schedule-con">
-          <form action="/admin/schedule/save" method="POST">
-            <h2>Add Reservation Entry</h2>
-            <div class="field-con">
-              <label for="patient_id">Select Patient</label>
-              <select name="patient_id">
-                <option selected disabled>-Select Value-</option>
-                {% for patient_id, user_name in available_patients %}
-                    <option value="{{ patient_id }}">{{ user_name }}</option>
-                {% endfor %}
-            </select>
+          <div class="schedule-header-con">
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#reservationModal"
+            >
+              Reserve Entry
+            </button>
+          </div>
+          <div
+            class="modal fade"
+            id="reservationModal"
+            tabindex="-1"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <form
+                action="/admin/schedule/save"
+                method="POST"
+                class="reservation-form"
+              >
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5">Reservation Form</h1>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="field-con">
+                      <label for="patient_id">Select Patient</label>
+                      <select name="patient_id">
+                        <option selected disabled>-Select Value-</option>
+                        {% for patient_id, user_name in available_patients %}
+                        <option value="{{ patient_id }}">
+                          {{ user_name }}
+                        </option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                    <div class="field-con">
+                      <label for="reservation_date">Reservation Date</label>
+                      <input type="date" name="reservation_date" required />
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn-primary">RESERVE</button>
+                  </div>
+                </div>
+              </form>
             </div>
-            <div class="field-con">
-              <label for="reservation_date">Reservation Date</label>
-              <input type="date" name="reservation_date" required/>
-            </div>
-            
-            <div class="btn-con">
-              <button class="btn-primary">SUBMIT</button>
-            </div>
-          </form>
-        </div>
-        <div class="table-wrapper">
-          <table>
-            <thead>
-              <th>View Patient</th>
-              <th>Reservation Date</th>
-              <th>Status</th>
-              <th>Action</th>
-            </thead>
-            <tbody>
-              {% for i in all_reservations %}
-              <tr>
-                <td>
-                  <a href="#" id="view-patient" data-value="{{ i.patient_id }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
-                      <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
-                      <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
-                    </svg>
-                  </a>
-                </td>
-                <td>{{ i.reservation_date.strftime('%B %d, %Y') }}</td>
-                <td>{{ 'Pending' if i.status == 0 else 'On-Going' if i.status == 1 else 'Priority' if i.status == 2 else 'Unknown' }}</td>
-                <td>
-                  <form action="/admin/schedule/alter-status/" method="post">
-                    <input type="hidden" value="{{ i.patient_id }}" name="patient_id">
-                    <a href="#" name="edit" id="show_modal_btn" data-value="{{ i.patient_id }}">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
-                        <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"/>
+          </div>
+          <div
+            class="modal fade"
+            id="editModal"
+            tabindex="-1"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <form
+                action="/admin/schedule/edit"
+                ,
+                method="post"
+                class="editModalForm"
+              >
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5">Edit Form</h1>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                    <a href="">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="30"
+                        height="30"
+                        fill="currentColor"
+                        class="bi bi-x-circle"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"
+                        />
+                        <path
+                          d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
+                        />
                       </svg>
                     </a>
-                    {% if i.status < 2 %}
-                    <button type="submit" name="promote">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-90deg-up" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M4.854 1.146a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L4 2.707V12.5A2.5 2.5 0 0 0 6.5 15h8a.5.5 0 0 0 0-1h-8A1.5 1.5 0 0 1 5 12.5V2.707l3.146 3.147a.5.5 0 1 0 .708-.708z"/>
-                      </svg>
+                    <div class="field-con">
+                      <input
+                        type="hidden"
+                        id="modal_patient_id_input"
+                        name="patient_id"
+                      />
+                      <label for="">Reservation Date</label>
+                      <input type="date" name="reservation_date" />
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" type="submit" class="btn-primary">
+                      Submit
                     </button>
-                    {% else %}
-                    {% endif %}
-                    {% if i.status!=0 %}
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <th>Reservation Date</th>
+                <th>Status</th>
+                <th>Action</th>
+              </thead>
+              <tbody>
+                {% for i in all_reservations %}
+                <tr>
+                  <td>{{ i.reservation_date.strftime('%B %d, %Y') }}</td>
+                  <td>
+                    {{ 'Pending' if i.status == 0 else 'On-Going' if i.status ==
+                    1 else 'Priority' if i.status == 2 else 'Unknown' }}
+                  </td>
+                  <td class="table-btn-con">
+                    <form action="/admin/schedule/alter-status/" method="post">
+                      <input
+                        type="hidden"
+                        value="{{ i.patient_id }}"
+                        name="patient_id"
+                      />
+                      <button
+                        name="edit"
+                        id="show_modal_btn"
+                        class="btn btn-warning"
+                        title="Edit"
+                        data-value="{{ i.patient_id }}"
+                      >
+                        <i class="bi bi-pencil"></i>
+                      </button>
+                      {% if i.status < 2 %}
+                      <button
+                        type="submit"
+                        name="promote"
+                        class="btn btn-primary"
+                        title="On Going"
+                      >
+                        <i class="bi bi-arrow-bar-up"></i>
+                      </button>
+                      {% else %} {% endif %} {% if i.status!=0 %}
                       <button type="submit" name="demote">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-90deg-down" viewBox="0 0 16 16">
-                          <path fill-rule="evenodd" d="M4.854 14.854a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V3.5A2.5 2.5 0 0 1 6.5 1h8a.5.5 0 0 1 0 1h-8A1.5 1.5 0 0 0 5 3.5v9.793l3.146-3.147a.5.5 0 0 1 .708.708z"/>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="30"
+                          height="30"
+                          fill="currentColor"
+                          class="bi bi-arrow-90deg-down"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M4.854 14.854a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V3.5A2.5 2.5 0 0 1 6.5 1h8a.5.5 0 0 1 0 1h-8A1.5 1.5 0 0 0 5 3.5v9.793l3.146-3.147a.5.5 0 0 1 .708.708z"
+                          />
                         </svg>
                       </button>
-                    {% else %}
-                    {% endif %}
-                    <button type="submit" name="delete">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
-                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
-                      </svg>
-                    </button>
-                  </form>
-                </td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-    <section id="section-modal">
-      <div class="wrapper">
-        <form action="/admin/schedule/edit", method="post">
-          <a href="">
-            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
-              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-              <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
-            </svg>
-          </a>
-          <div class="field-con">
-            <input type="hidden"  id="modal_patient_id_input" name="patient_id">
-            <label for="">Reservation Date</label>
-            <input type="date" name="reservation_date">
+                      {% else %} {% endif %}
+                      <a
+                        href="#"
+                        id="view-patient"
+                        class="btn btn-info"
+                        data-value="{{ i.patient_id }}"
+                      >
+                        <i class="bi bi-eye"></i>
+                      </a>
+                      <button
+                        type="submit"
+                        name="delete"
+                        class="btn btn-danger"
+                        title="Delete"
+                      >
+                        <i class="bi bi-trash3"></i>
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
           </div>
-          <button class="btn-primary" type="submit">Submit</button>
-        </form>
+        </div>
       </div>
     </section>
   </body>
+
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"
+  ></script>
   <script>
-     var view_patient = document.getElementById('view-patient');
-     view_patient.addEventListener("click", function() {
-        axios.get(`/admin/api/get-patient/${view_patient.getAttribute('data-value')}`)
-          .then(response => {
-            var data = response.data;
-            var message = "Name: " + data.name +
-            "\nAge: " + data.age +
-            "\nCancer Type: " + data.cancer_type +
-            "\nEmail: " + data.email +
-            "\nMunicipality: " + data.municipality +
-            "\nProvince: " + data.province +
-            "\nSex: " + data.sex;
-            alert(message);
-          })
-          .catch(error => {
-            alert('Error fetching data');    
-          });
-      });
+    var view_patient = document.getElementById("view-patient");
+    view_patient.addEventListener("click", function () {
+      axios
+        .get(
+          `/admin/api/get-patient/${view_patient.getAttribute("data-value")}`
+        )
+        .then((response) => {
+          var data = response.data;
+          var message =
+            "Name: " +
+            data.name +
+            "\nAge: " +
+            data.age +
+            "\nCancer Type: " +
+            data.cancer_type +
+            "\nEmail: " +
+            data.email +
+            "\nMunicipality: " +
+            data.municipality +
+            "\nProvince: " +
+            data.province +
+            "\nSex: " +
+            data.sex;
+          alert(message);
+        })
+        .catch((error) => {
+          alert("Error fetching data");
+        });
+    });
 
-      var section_modal = document.getElementById('section-modal');
-      var show_modal_btn = document.getElementById('show_modal_btn');
-      var close_modal_btn = document.getElementById('close_modal_btn');
-      var patient_id_input = document.getElementById('modal_patient_id_input');
-      show_modal_btn.addEventListener("click", function () {
-        section_modal.style.display="block";
-        patient_id_input.value = show_modal_btn.getAttribute('data-value');
-      });
-      close_modal_btn.addEventListener("click", function () {
-        section_modal.style.display="none";
-      });
+    var section_modal = document.getElementById("section-modal");
+    var close_modal_btn = document.getElementById("close_modal_btn");
 
+    $("#show_modal_btn").click(function (event) {
+      event.preventDefault();
+      $("#modal_patient_id_input").val($(this).data("value"));
+      $("#editModal").modal("show");
+    });
+
+    close_modal_btn.addEventListener("click", function () {
+      section_modal.style.display = "none";
+    });
   </script>
 </html>

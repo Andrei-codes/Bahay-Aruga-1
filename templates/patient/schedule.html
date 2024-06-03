@@ -20,6 +20,11 @@
       #header .logo-nav {
         left: 42.5%;
       }
+
+      #schedule .schedule-con {
+        display: flex;
+        justify-content: center;
+      }
     </style>
 
     <title>Bahay Aruga</title>
@@ -30,7 +35,7 @@
     <section id="schedule">
       <div class="wrapper">
         <div class="schedule-con">
-          <form action="/patient/schedule/save" method="POST">
+          <form action="/patient/schedule/save" method="POST" class="reservation-form">
             <h2>Add Reservation Entry</h2>
             <div class="field-con">
               <label for="reservation_date">Reservation Date</label>
