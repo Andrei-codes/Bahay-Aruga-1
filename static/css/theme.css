@@ -528,3 +528,8 @@ section#section-modal form {
 section#section-modal form .btn-primary {
   background: var(--global-color-orange);
 }
+
+
+#schedule .table-responsive.hide-table {
+  display: none;
+}

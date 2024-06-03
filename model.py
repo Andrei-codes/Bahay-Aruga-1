@@ -92,7 +92,7 @@ class Reservation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     patient_id = db.Column(db.Integer, db.ForeignKey('patients.id'), nullable=False)
     reservation_date = db.Column(db.Date, nullable=False)
-    status = db.Column(db.SmallInteger, nullable=False, comment="0=pending, 1=on-progress, 2=priority")
+    status = db.Column(db.SmallInteger, nullable=False, comment="0=pending, 1=on-progress, 2=priority, 3=completed")
 
     patient = db.relationship('Patients', backref=db.backref('reservations', lazy=True))
 
@@ -114,6 +114,39 @@ class Reservation(db.Model):
     @classmethod
     def get_reservation_by_patient_id(cls, id):
         target_reservation = cls.query.filter_by(id=id).first()
-        if not target_reservation:
-            return None
         return target_reservation
+    
+class Completed(db.Model):
+    __tablename__ = 'completed'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), nullable=False)
+    email = db.Column(db.String(255), nullable=False)
+    address = db.Column(db.String(255), nullable=False)
+    age = db.Column(db.Integer, nullable=False)
+    sex = db.Column(db.String(255), nullable=False)
+    cancer_type = db.Column(db.String(255), nullable=False)
+    reservation_date = db.Column(db.Date, nullable=False)
+
+    @classmethod
+    def insert_completed(cls, name, email, province, municipality, age, sex, cancer_type, reservation_date):
+        address = f"{municipality}, {province}"
+        completed_entry = cls(name=name,
+                              email=email,
+                              address=address,
+                              age=age,
+                              sex=sex,
+                              cancer_type=cancer_type,
+                              reservation_date=reservation_date)
+        db.session.add(completed_entry)
+        db.session.commit()
+        return True
+    
+    @classmethod
+    def get_completed_by_id(cls, id):
+        target_completed = cls.query.filter_by(id=id).first()
+        return target_completed
+
+    @classmethod
+    def fetch_completed(cls):
+        all_completed = cls.query.all()
+        return all_completed

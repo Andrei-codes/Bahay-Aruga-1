@@ -1,5 +1,5 @@
 from flask import Flask, render_template, session, request, redirect, url_for, jsonify
-from model import db, Users, Patients, Reservation
+from model import db, Users, Patients, Reservation, Completed
 from flask_migrate import Migrate
 from datetime import datetime
 
@@ -39,13 +39,21 @@ def admin_api_get_schedule(id):
     }
     return jsonify(data)
     
+@app.route('/admin/completed/delete/<int:id>', methods=['POST'])
+def admin_completed_delete(id):
+    target_completed = Completed.get_completed_by_id(id)
+    if not target_completed:
+        return "<script>alert('No completed reservations found');location.href='/admin/schedule'</script>"
+    db.session.delete(target_completed)
+    db.session.commit()
+    return "<script>alert('Item deleted from completed records!');location.href='/admin/schedule'</script>"
 
 @app.route('/admin/schedule/alter-status/', methods=['POST'])
 def admin_schedule_alter_status():
     patient_id = request.form['patient_id']
     target_reservation = Reservation.get_reservation_by_patient_id(patient_id)
     if not target_reservation:
-        return "no reservations found"
+        return "<script>alert('No reservations found');location.href='/admin/schedule'</script>"
     if "promote" in request.form:
         if target_reservation.status==2:
             return redirect(url_for('admin_schedule'))
@@ -62,6 +70,26 @@ def admin_schedule_alter_status():
         db.session.delete(target_reservation)
         db.session.commit()
         return redirect(url_for('admin_schedule'))
+    if "complete" in request.form:
+        target_patient = Patients.get_patient_by_id(patient_id)
+        target_user = Users.get_user_by_id(target_patient.id)
+        if not (target_patient or target_user):
+            return "<script>alert('Failed! Cannot find record');location.href='/admin/schedule'</script>"
+
+        completed_insert = Completed.insert_completed(target_user.name,
+                                                      target_user.email,
+                                                      target_user.province,
+                                                      target_user.municipality,
+                                                      target_patient.age,
+                                                      target_patient.sex,
+                                                      target_patient.cancer_type,
+                                                      target_reservation.reservation_date,
+                                                      )
+        if not completed_insert:
+            return "<script>alert('Failed to insert');location.href='/admin/schedule'</script>"
+        db.session.delete(target_reservation)
+        db.session.commit()
+        return "<script>alert('Item added to completed records!');location.href='/admin/schedule'</script>"
     return redirect(url_for('admin_schedule'))
 
 @app.route('/admin/schedule/edit', methods=['POST', 'GET'])
@@ -78,7 +106,7 @@ def admin_schedule_edit():
         return "none"
     target_reservation.reservation_date = reservation_date
     db.session.commit()
-    return "true"
+    return redirect(url_for('admin_schedule'))
 
 @app.route('/admin/schedule/save', methods=['POST', 'GET'])
 def admin_schedule_save():
@@ -109,10 +137,12 @@ def admin_schedule():
         if not reservation_obj:
             available_patients.append((i, x))
     all_reservations = Reservation.fetch_reservations()
+    all_completed = Completed.fetch_completed()
     return render_template('admin/schedule.html', 
                            session_user=session_user,
                            all_reservations=all_reservations,
-                           available_patients=available_patients
+                           available_patients=available_patients,
+                           all_completed=all_completed
                            )
 
 @app.route('/admin/dashboard', methods=['GET'])
