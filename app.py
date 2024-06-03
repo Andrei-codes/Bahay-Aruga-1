@@ -235,13 +235,16 @@ def patient_save():
 
 @app.route('/register-user', methods=['POST', 'GET'])
 def register_user():
-    
     acc_type, name, email, province, municipality, password, password2 = request.form['acc_type'], request.form['name'], request.form['email'], request.form['province'], request.form['municipality'], request.form['password'], request.form['password_2']
     if not (name and email and password and password2):
         return "fill out all fields", 400
     if password != password2:
         return "password not matched", 400
-    user_insert = Users.insert_user(bool(acc_type), name, email, province, municipality, password)
+    if acc_type == '1':
+        acc_type = True
+    if acc_type == '0':
+        acc_type = False
+    user_insert = Users.insert_user(acc_type, name, email, province, municipality, password)
     if not user_insert: 
         return redirect(url_for('index'))
     return redirect(url_for('login_page'))
