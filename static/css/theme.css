@@ -477,6 +477,11 @@ p {
   gap: 10px;
 }
 
+#contact .contact-widget img {
+  width: 100px;
+  margin: 0 auto;
+}
+
 #contact .contact-widget p {
   font-weight: 700;
 }
