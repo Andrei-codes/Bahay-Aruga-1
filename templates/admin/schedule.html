@@ -86,11 +86,7 @@
             >
               Reserve Entry
             </button>
-            <button
-              type="button"
-              class="btn btn-info"
-              id="toggleTableBtn"
-            >
+            <button type="button" class="btn btn-info" id="toggleTableBtn">
               Completed Table
             </button>
           </div>
@@ -192,9 +188,7 @@
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <button type="submit" class="btn-primary">
-                      Submit
-                    </button>
+                    <button type="submit" class="btn-primary">Submit</button>
                   </div>
                 </div>
               </form>
@@ -242,28 +236,21 @@
                         <i class="bi bi-arrow-bar-up"></i>
                       </button>
                       {% else %} {% endif %} {% if i.status!=0 %}
-                      <button type="submit" name="demote">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="30"
-                          height="30"
-                          fill="currentColor"
-                          class="bi bi-arrow-90deg-down"
-                          viewBox="0 0 16 16"
-                        >
-                          <path
-                            fill-rule="evenodd"
-                            d="M4.854 14.854a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V3.5A2.5 2.5 0 0 1 6.5 1h8a.5.5 0 0 1 0 1h-8A1.5 1.5 0 0 0 5 3.5v9.793l3.146-3.147a.5.5 0 0 1 .708.708z"
-                          />
-                        </svg>
+                      <button
+                        type="submit"
+                        name="demote"
+                        class="btn btn-dark"
+                        title="demote"
+                      >
+                        <i class="bi bi-arrow-return-left"></i>
                       </button>
                       <button
                         type="submit"
                         name="complete"
                         class="btn btn-danger"
-                        title="Complete item"
+                        title="Complete"
                       >
-                      <i class="bi bi-check2-all"></i>
+                        <i class="bi bi-check2-all"></i>
                       </button>
                       {% else %} {% endif %}
                       <a
@@ -271,6 +258,7 @@
                         id="view-patient"
                         class="btn btn-info"
                         data-value="{{ i.patient_id }}"
+                        title="View"
                       >
                         <i class="bi bi-eye"></i>
                       </a>
@@ -282,8 +270,6 @@
                       >
                         <i class="bi bi-trash3"></i>
                       </button>
-                      
-                      
                     </form>
                   </td>
                 </tr>
@@ -315,13 +301,17 @@
                   <td>{{ i.cancer_type }}</td>
                   <td>{{ i.reservation_date }}</td>
                   <td>
-                    <form action="/admin/completed/delete/{{ i.id }}" method="post">
-                      <button 
-                      type="submit"
-                       name="delete"
-                       class="btn btn-danger"
-                       title="delete">
-                       <i class="bi bi-trash3"></i>
+                    <form
+                      action="/admin/completed/delete/{{ i.id }}"
+                      method="post"
+                    >
+                      <button
+                        type="submit"
+                        name="delete"
+                        class="btn btn-danger"
+                        title="delete"
+                      >
+                        <i class="bi bi-trash3"></i>
                       </button>
                     </form>
                   </td>
@@ -347,66 +337,71 @@
     crossorigin="anonymous"
   ></script>
   <script>
-    $(document).ready(function() {
-    $('#view-patient').click(function() {
-          var dataValue = $(this).data('value');
-          
-          $.ajax({
-              url: `/admin/api/get-patient/${dataValue}`,
-              method: 'GET',
-              success: function(response) {
-                  var data = response;
-                   var message =
-                      "Name: " + data.name +
-                      "\nAge: " + data.age +
-                      "\nCancer Type: " + data.cancer_type +
-                      "\nEmail: " + data.email +
-                      "\nMunicipality: " + data.municipality +
-                      "\nProvince: " + data.province +
-                      "\nSex: " + data.sex;
-                  alert(message); 
-              },
-              error: function() {
-                  alert("Error fetching data");
-              }
-          });
+    $(document).ready(function () {
+      $("#view-patient").click(function () {
+        var dataValue = $(this).data("value");
+
+        $.ajax({
+          url: `/admin/api/get-patient/${dataValue}`,
+          method: "GET",
+          success: function (response) {
+            var data = response;
+            var message =
+              "Name: " +
+              data.name +
+              "\nAge: " +
+              data.age +
+              "\nCancer Type: " +
+              data.cancer_type +
+              "\nEmail: " +
+              data.email +
+              "\nMunicipality: " +
+              data.municipality +
+              "\nProvince: " +
+              data.province +
+              "\nSex: " +
+              data.sex;
+            alert(message);
+          },
+          error: function () {
+            alert("Error fetching data");
+          },
+        });
       });
-  
 
-    var section_modal = document.getElementById("section-modal");
-    var close_modal_btn = document.getElementById("close_modal_btn");
+      var section_modal = document.getElementById("section-modal");
+      var close_modal_btn = document.getElementById("close_modal_btn");
 
-    $("#show_modal_btn").click(function (event) {
-      event.preventDefault();
-      $("#modal_patient_id_input").val($(this).data("value"));
-      $("#editModal").modal("show");
+      $("#show_modal_btn").click(function (event) {
+        event.preventDefault();
+        $("#modal_patient_id_input").val($(this).data("value"));
+        $("#editModal").modal("show");
+      });
+
+      $(close_modal_btn).click(function (event) {
+        event.preventDefault();
+        $(section_modal).css("display: none");
+      });
+
+      $("#toggleTableBtn").click(function (event) {
+        event.preventDefault();
+        console.log("Toggle button clicked");
+
+        var completedTable = $("#schedule #completed-table");
+        var reservationsTable = $("#schedule #reservations-table");
+
+        if (completedTable.hasClass("hide-table")) {
+          $("#toggleTableBtn").text("Reservations Table");
+          completedTable.removeClass("hide-table");
+          reservationsTable.addClass("hide-table");
+          $("#show_modal_btn2").css("display", "none");
+        } else {
+          $("#toggleTableBtn").text("Completed Table");
+          reservationsTable.removeClass("hide-table");
+          completedTable.addClass("hide-table");
+          $("#show_modal_btn2").css("display", "block");
+        }
+      });
     });
-
-
-    $(close_modal_btn).click(function (event) {
-      event.preventDefault()
-      $(section_modal).css("display: none");
-    });
-
-    $("#toggleTableBtn").click(function (event) {
-      event.preventDefault();
-      console.log("Toggle button clicked");
-      
-      var completedTable = $("#schedule #completed-table");
-      var reservationsTable = $("#schedule #reservations-table");
-
-      if (completedTable.hasClass('hide-table')) {
-        $("#toggleTableBtn").text("Reservations Table")
-        completedTable.removeClass('hide-table');
-        reservationsTable.addClass('hide-table');
-        $("#show_modal_btn2").css("display", "none");
-      } else {
-        $("#toggleTableBtn").text("Completed Table")
-        reservationsTable.removeClass('hide-table');
-        completedTable.addClass('hide-table');
-        $("#show_modal_btn2").css("display", "block");
-      }
-    });
-  });
   </script>
 </html>
