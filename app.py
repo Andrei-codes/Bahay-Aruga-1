@@ -195,20 +195,14 @@ def patient_schedule_edit():
         return f"Not logged in"
     if session_user.acc_type==1:
         return redirect(url_for('admin_dashboard'))
-    
-        
 
     target_patient = Patients.get_patient_by_user_id(session_user.id)
     target_user = Users.get_user_by_id(target_patient.user_id)
     target_reservation = Reservation.get_reservation_by_patient_id(target_patient.id)
 
-
-
     if not (target_patient or target_reservation or target_user):
         return redirect(url_for('patient_dashboard'))
-    
-    
-    
+
     if 'delete' in request.form:
         db.session.delete(target_patient)
         db.session.delete(target_reservation)

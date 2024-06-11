@@ -113,6 +113,11 @@ class Reservation(db.Model):
     
     @classmethod
     def get_reservation_by_patient_id(cls, id):
+        target_reservation = cls.query.filter_by(patient_id=id).first()
+        return target_reservation
+    
+    @classmethod
+    def get_reservation_by_id(cls, id):
         target_reservation = cls.query.filter_by(id=id).first()
         return target_reservation
     
