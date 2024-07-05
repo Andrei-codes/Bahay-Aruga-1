@@ -1,367 +1,436 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}" />
-  <link rel="shortcut icon" href="{{ url_for('static', filename='img/Logo-nobg.png') }}" type="image/x-icon" />
-  <title>Inventory</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-    .wrapper {
-      width: 100%;
-      margin: 0 auto;
-      max-width: 1200px;
-      padding: 0 15px;
-    }
-    .navbar {
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      align-items: center;
-    }
-    .navbar li {
-      margin: 0 15px;
-    }
-    .navbar li a {
-      text-decoration: none;
-      color: #000;
-      font-weight: bold;
-    }
-    .navbar li a:hover {
-      text-decoration: underline;
-    }
-    .logo {
-      width: 50px;
-      height: auto;
-    }
-    .logo-nav {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .logo-nav img {
-      margin-right: 10px;
-    }
-    .categories {
-      flex: 1;
-      max-width: 300px;
-      margin-right: 20px;
-      align-self: flex-start;
-    }
-    #inventory {
-      flex: 1;
-      padding: 50px 0;
-      background-image: url("{{ url_for('static', filename='img/inventory_bg.jpg') }}");
-      background-size: cover;
-      background-repeat: no-repeat;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-    }
-    .inventory-con {
-      flex: 3;
-      position: relative;
-      text-align: center;
-      background: transparent;
-      padding: 20px;
-      border-radius: 10px;
-      margin-top: 20px;
-      z-index: 1;
-    }
-    .inventory-con h1 {
-      font-size: 2em;
-      font-weight: bold;
-      color: #ffc107;
-      text-shadow: 2px 2px #000;
-      background: rgba(244, 208, 63, 0.8);
-      display: inline-block;
-      padding: 10px;
-      border-radius: 10px;
-      margin-bottom: 20px;
-    }
-    .inventory-con p {
-      color: #333;
-      margin-top: 15px;
-    }
-    #footer {
-      background-color: #ffa100;
-      text-align: center;
-      padding: 20px 0;
-      width: 100%;
-    }
-    .category {
-      background-color: #fff;
-      color: #000;
-      padding: 15px;
-      cursor: pointer;
-      border: 1px solid #000;
-      margin-bottom: 5px;
-      text-align: center;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-    }
-    .category img {
-      margin-right: 10px;
-      width: 20px;
-      height: auto;
-    }
-    .category:hover {
-      background-color: #f0f0f0;
-    }
-    .dropdown {
-      display: none;
-      background-color: #ffc107;
-      border: 1px solid #000;
-      border-top: none;
-      padding: 10px;
-      margin-bottom: 10px;
-    }
-    .dropdown a {
-      display: block;
-      color: #000;
-      text-decoration: none;
-      padding: 10px 0;
-      border-bottom: 1px solid #000;
-    }
-    .dropdown a:last-child {
-      border-bottom: none;
-    }
-    .dropdown a:hover {
-      text-decoration: underline;
-    }
-    .medicines-container {
-      position: absolute;
-      right: 240px;
-      top: 190px;
-      background-color: #ffc107;
-      padding: 20px;
-      border-radius: 10px;
-      border: 1px solid #000;
-      max-width: 400px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      box-sizing: border-box;
-    }
-    .medicine {
-      background-color: #fff;
-      border: 1px solid #000;
-      border-radius: 10px;
-      padding: 15px;
-      margin: 10px;
-      text-align: center;
-      flex-basis: calc(50% - 20px);
-      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-    }
-    .medicine img {
-      max-width: 100px;
-      height: auto;
-    }
-    .edit-btn,
-    .save-btn {
-      background-color: #ffc107;
-      border: none;
-      padding: 5px 10px;
-      margin-top: 10px;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-    .edit-btn:hover,
-    .save-btn:hover {
-      background-color: #ffca28;
-    }
-    @media (max-width: 768px) {
-      .medicines-container {
-        max-width: 100%;
-      }
-      .medicine {
-        flex-basis: calc(50% - 20px);
-      }
-    }
-    @media (max-width: 480px) {
-      .medicine {
-        flex-basis: calc(100% - 20px);
-      }
-    }
-    @media (max-width: 768px) {
-      .navbar {
-        display: none;
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/theme.css') }}"
+    />
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='img/Logo-nobg.png') }}"
+      type="image/x-icon"
+    />
+    <title>Inventory</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
         flex-direction: column;
+        min-height: 100vh;
+      }
+      .wrapper {
         width: 100%;
-        text-align: center;
+        margin: 0 auto;
+        max-width: 1200px;
+        padding: 0 15px;
+        flex: 1;
       }
-      .navbar li {
-        margin: 10px 0;
-      }
-      .header-con {
+      .content-wrapper {
         display: flex;
         justify-content: space-between;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        padding-top: 20px; /* Adjust as needed */
+      }
+      .navbar {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
         align-items: center;
       }
-      .hamburger-menu {
-        display: block;
+      .navbar li {
+        margin: 0 15px;
+      }
+      .navbar li a {
+        text-decoration: none;
+        color: #000;
+        font-weight: bold;
+      }
+      .navbar li a:hover {
+        text-decoration: underline;
+      }
+      .logo {
+        width: 50px;
+        height: auto;
+      }
+      .logo-nav {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .logo-nav img {
+        margin-right: 10px;
+      }
+      .categories {
+        flex: 1;
+        max-width: 300px;
+        margin-right: 20px;
+        align-self: flex-start;
       }
       #inventory {
-        flex-direction: column;
-        padding: 20px 0;
-      }
-      .inventory-con h1 {
-        font-size: 1.5em;
-        padding: 5px;
-      }
-    }
-    @media (max-width: 480px) {
-      .wrapper {
-        padding: 0 10px;
+        flex: 1;
+        padding: 50px 0;
+        background-image: url("{{ url_for('static', filename='img/inventory_bg.jpg') }}");
+        background-size: cover;
+        background-repeat: no-repeat;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
       }
       .inventory-con {
-        padding: 10px 0;
+        flex: 3;
+        position: relative;
+        text-align: center;
+        background: transparent;
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 20px;
+        z-index: 1;
       }
       .inventory-con h1 {
-        font-size: 1.2em;
-        padding: 5px;
+        font-size: 2em;
+        font-weight: bold;
+        color: #ffc107;
+        text-shadow: 2px 2px #000;
+        background: rgba(244, 208, 63, 0.8);
+        display: inline-block;
+        padding: 10px;
+        border-radius: 10px;
+        margin-bottom: 20px;
       }
-    }
-  </style>
-</head>
-<body>
-  <section id="header">
-    <div class="wrapper">
-      <div class="header-con">
-        <ul class="navbar">
-          <li>
-            <div class="logo-nav" onclick="toggleMenu()">
-              <img src="{{ url_for('static', filename='img/hamburger_menu.png') }}" class="logo" alt="Logo" />
-            </div>
-          </li>
-          <li><a href="#account">Account</a></li>
-          <li><a href="#wellness_plan">Wellness Plan</a></li>
-          <li>
-            <a href="#">
-              <div class="logo-nav">
-                <img src="{{ url_for('static', filename='img/Logo-nobg.png') }}" class="logo" alt="Logo" />
-                <span>Bahay Aruga</span>
+      .inventory-con p {
+        color: #333;
+        margin-top: 15px;
+      }
+      #footer {
+        background-color: #ffa100;
+        text-align: center;
+        padding: 20px 0;
+        width: 100%;
+      }
+      .category {
+        margin-top: 20px;
+        background-color: #fff;
+        color: #000;
+        padding: 15px;
+        cursor: pointer;
+        border: 1px solid #000;
+        margin-bottom: 5px;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+      }
+      .category img {
+        margin-right: 10px;
+        width: 20px;
+        height: auto;
+      }
+      .category:hover {
+        background-color: #f0f0f0;
+      }
+      .dropdown {
+        display: none;
+        background-color: #ffc107;
+        border: 1px solid #000;
+        border-top: none;
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+      .dropdown a {
+        display: block;
+        color: #000;
+        text-decoration: none;
+        padding: 10px 0;
+        border-bottom: 1px solid #000;
+      }
+      .dropdown a:last-child {
+        border-bottom: none;
+      }
+      .dropdown a:hover {
+        text-decoration: underline;
+      }
+      .medicines-container {
+        flex: 1;
+        max-width: calc(
+          100% - 340px
+        ); /* Adjust the width based on your layout needs */
+        background-color: #ffc107;
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px solid #000;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        box-sizing: border-box;
+        margin-top: 20px;
+      }
+      .minus-btn,
+      .plus-btn {
+        background-color: #ffc107;
+        border: none;
+        padding: 5px 10px;
+        margin-top: 10px;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+      .minus-btn:hover,
+      .plus-btn:hover {
+        background-color: #ffca28;
+      }
+      .medicine {
+        background-color: #fff;
+        border: 1px solid #000;
+        border-radius: 10px;
+        padding: 15px;
+        margin: 10px;
+        text-align: center;
+        flex-basis: calc(50% - 20px);
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+      }
+      .medicine img {
+        max-width: 100px;
+        height: auto;
+        margin: 0 auto; /* Center align the image */
+      }
+      .edit-btn,
+      .save-btn {
+        background-color: #ffc107;
+        border: none;
+        padding: 5px 10px;
+        margin-top: 10px;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+      .edit-btn:hover,
+      .save-btn:hover {
+        background-color: #ffca28;
+      }
+      @media (max-width: 768px) {
+        .medicines-container {
+          max-width: 100%;
+        }
+        .medicine {
+          flex-basis: calc(50% - 20px);
+        }
+      }
+      @media (max-width: 480px) {
+        .medicine {
+          flex-basis: calc(100% - 20px);
+        }
+      }
+      @media (max-width: 768px) {
+        .navbar {
+          display: none;
+          flex-direction: column;
+          width: 100%;
+          text-align: center;
+        }
+        .navbar li {
+          margin: 10px 0;
+        }
+        .header-con {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .hamburger-menu {
+          display: block;
+        }
+        #inventory {
+          flex-direction: column;
+          padding: 20px 0;
+        }
+        .inventory-con h1 {
+          font-size: 1.5em;
+          padding: 5px;
+        }
+      }
+      @media (max-width: 480px) {
+        .wrapper {
+          padding: 0 10px;
+        }
+        .inventory-con {
+          padding: 10px 0;
+        }
+        .inventory-con h1 {
+          font-size: 1.2em;
+          padding: 5px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section id="header">
+      <div class="wrapper">
+        <div class="header-con">
+          <ul class="navbar">
+            <li>
+              <div class="logo-nav" onclick="toggleMenu()">
+                <img
+                  src="{{ url_for('static', filename='img/hamburger_menu.png') }}"
+                  class="logo"
+                  alt="Logo"
+                />
               </div>
-            </a>
-          </li>
-          <li><a href="#inventory">Inventory</a></li>
-          <li><a href="#schedule_slot">Schedule a Slot</a></li>
-          <li>
-            <a href="{{ url_for('.index') }}" style="display: flex; flex-direction: column; align-items: center;">
-              <img src="{{ url_for('static', filename='img/logout_icon.png') }}" alt="Logout Icon" style="width: 25px; height: auto; margin-bottom: 5px" />
-              Logout
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </section>
-  <section id="inventory">
-    <div class="wrapper">
-      <div class="inventory-con">
-        <h1>Medical Supply Inventory</h1>
-        <!-- Inventory content goes here -->
-      </div>
-      <div class="categories">
-        <div class="category" onclick="toggleDropdown('dropdown1')">
-          <img src="{{ url_for('static', filename='img/dropdown_icon.png') }}" alt="Dropdown Icon" />
-          Category
-        </div>
-        <div id="dropdown1" class="dropdown">
-          <a href="#">Acute Lymphoblastic Leukemia</a>
-          <a href="#">Brain Tumor</a>
-          <a href="#">Fibrosarcoma</a>
-          <a href="#">Hodgkin’s Lymphoma</a>
-          <a href="#">Multiple Myeloma</a>
-          <a href="#">Non-Hodgkin Lymphoma</a>
-          <a href="#">Osteosarcoma</a>
-          <a href="#">Retinoblastoma</a>
-          <a href="#">Rhabdomyosarcoma</a>
-          <a href="#">Wilms' Tumor</a>
-        </div>
-      </div>
-      <div class="medicines-container">
-        <div class="medicine">
-          <img src="{{ url_for('static', filename='img/medicine_icon.png') }}" alt="Medicine" />
-          <h2>Buscopan</h2>
-          <p>Stock: 10</p>
-          <button class="edit-btn">EDIT</button>
-          <button class="save-btn">SAVE</button>
-        </div>
-        <div class="medicine">
-          <img src="{{ url_for('static', filename='img/medicine_icon.png') }}" alt="Medicine" />
-          <h2>Buscopan</h2>
-          <p>Stock: 10</p>
-          <button class="edit-btn">EDIT</button>
-          <button class="save-btn">SAVE</button>
-        </div>
-        <div class="medicine">
-          <img src="{{ url_for('static', filename='img/medicine_icon.png') }}" alt="Medicine" />
-          <h2>Buscopan</h2>
-          <p>Stock: 10</p>
-          <button class="edit-btn">EDIT</button>
-          <button class="save-btn">SAVE</button>
-        </div>
-        <div class="medicine">
-          <img src="{{ url_for('static', filename='img/medicine_icon.png') }}" alt="Medicine" />
-          <h2>Buscopan</h2>
-          <p>Stock: 10</p>
-          <button class="edit-btn">EDIT</button>
-          <button class="save-btn">SAVE</button>
-        </div>
-        <div class="medicine">
-          <img src="{{ url_for('static', filename='img/medicine_icon.png') }}" alt="Medicine" />
-          <h2>Buscopan</h2>
-          <p>Stock: 10</p>
-          <button class="edit-btn">EDIT</button>
-          <button class="save-btn">SAVE</button>
-        </div>
-        <div class="medicine">
-          <img src="{{ url_for('static', filename='img/medicine_icon.png') }}" alt="Medicine" />
-          <h2>Buscopan</h2>
-          <p>Stock: 10</p>
-          <button class="edit-btn">EDIT</button>
-          <button class="save-btn">SAVE</button>
-        </div>
-        <div class="medicine">
-          <img src="{{ url_for('static', filename='img/medicine_icon.png') }}" alt="Medicine" />
-          <h2>Buscopan</h2>
-          <p>Stock: 10</p>
-          <button class="edit-btn">EDIT</button>
-          <button class="save-btn">SAVE</button>
-        </div>
-        <div class="medicine">
-          <img src="{{ url_for('static', filename='img/medicine_icon.png') }}" alt="Medicine" />
-          <h2>Buscopan</h2>
-          <p>Stock: 10</p>
-          <button class="edit-btn">EDIT</button>
-          <button class="save-btn">SAVE</button>
+            </li>
+            <li><a href="#account">Account</a></li>
+            <li><a href="#wellness_plan">Wellness Plan</a></li>
+            <li>
+              <a href="#">
+                <div class="logo-nav">
+                  <img
+                    src="{{ url_for('static', filename='img/Logo-nobg.png') }}"
+                    class="logo"
+                    alt="Logo"
+                  />
+                  <span>Bahay Aruga</span>
+                </div>
+              </a>
+            </li>
+            <li><a href="#inventory">Inventory</a></li>
+            <li><a href="#schedule_slot">Schedule a Slot</a></li>
+            <li>
+              <a
+                href="{{ url_for('.index') }}"
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                "
+              >
+                <img
+                  src="{{ url_for('static', filename='img/logout_icon.png') }}"
+                  alt="Logout Icon"
+                  style="width: 25px; height: auto; margin-bottom: 5px"
+                />
+                Logout
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
-    </div>
-  </section>
-  <footer id="footer">
-    <p>&copy; 2024 BAHAY ARUGA SYSTEM. ALL RIGHTS RESERVED.</p>
-  </footer>
-  <script>
-    function toggleDropdown(id) {
-      const dropdown = document.getElementById(id);
-      dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-    }
+    </section>
+    <section id="inventory">
+      <div class="wrapper">
+        <div class="content-wrapper">
+          <div class="categories">
+            <div class="category" onclick="toggleDropdown('dropdown1')">
+              <img
+                src="{{ url_for('static', filename='img/dropdown_icon.png') }}"
+                alt="Dropdown Icon"
+              />
+              Category
+            </div>
+            <div id="dropdown1" class="dropdown">
+              <a href="#">Acute Lymphoblastic Leukemia</a>
+              <a href="#">Brain Tumor</a>
+              <a href="#">Fibrosarcoma</a>
+              <a href="#">Hodgkin’s Lymphoma</a>
+              <a href="#">Multiple Myeloma</a>
+              <a href="#">Non-Hodgkin Lymphoma</a>
+              <a href="#">Osteosarcoma</a>
+              <a href="#">Retinoblastoma</a>
+              <a href="#">Rhabdomyosarcoma</a>
+              <a href="#">Wilms' Tumor</a>
+            </div>
+          </div>
+          <div class="medicines-container">
+            <div class="medicine">
+              <img
+                src="{{ url_for('static', filename='img/buscopan-img.png') }}"
+                alt="Medicine"
+              />
+              <h2>Buscopan</h2>
+              <p>Stock: <span id="stock">10</span></p>
+              <button class="edit-btn">EDIT</button>
+              <button class="minus-btn" onclick="decrementStock('stock')">-</button>
+              <button class="plus-btn" onclick="incrementStock('stock')">+</button>
+              <button class="save-btn">SAVE</button>
+            </div>
+            <div class="medicine">
+              <img
+                src="{{ url_for('static', filename='img/buscopan-img.png') }}"
+                alt="Medicine"
+              />
+              <h2>Buscopan</h2>
+              <p>Stock: 10</p>
+              <button class="edit-btn">EDIT</button>
+              <button class="minus-btn" onclick="decrementStock('stock')">-</button>
+              <button class="plus-btn" onclick="incrementStock('stock')">+</button>
+              <button class="save-btn">SAVE</button>
+            </div>
+            <div class="medicine">
+              <img
+                src="{{ url_for('static', filename='img/buscopan-img.png') }}"
+                alt="Medicine"
+              />
+              <h2>Buscopan</h2>
+              <p>Stock: 10</p>
+              <button class="edit-btn">EDIT</button>
+              <button class="minus-btn" onclick="decrementStock('stock')">-</button>
+              <button class="plus-btn" onclick="incrementStock('stock')">+</button>
+              <button class="save-btn">SAVE</button>
+            </div>
+            <div class="medicine">
+              <img
+                src="{{ url_for('static', filename='img/buscopan-img.png') }}"
+                alt="Medicine"
+              />
+              <h2>Buscopan</h2>
+              <p>Stock: 10</p>
+              <button class="edit-btn">EDIT</button>
+              <button class="minus-btn" onclick="decrementStock('stock')">-</button>
+              <button class="plus-btn" onclick="incrementStock('stock')">+</button>
+              <button class="save-btn">SAVE</button>
+            </div>
+            <div class="medicine">
+              <img
+                src="{{ url_for('static', filename='img/buscopan-img.png') }}"
+                alt="Medicine"
+              />
+              <h2>Buscopan</h2>
+              <p>Stock: 10</p>
+              <button class="edit-btn">EDIT</button>
+              <button class="minus-btn" onclick="decrementStock('stock')">-</button>
+              <button class="plus-btn" onclick="incrementStock('stock')">+</button>
+              <button class="save-btn">SAVE</button>
+            </div>
+            <div class="medicine">
+              <img
+                src="{{ url_for('static', filename='img/buscopan-img.png') }}"
+                alt="Medicine"
+              />
+              <h2>Buscopan</h2>
+              <p>Stock: 10</p>
+              <button class="edit-btn">EDIT</button>
+              <button class="minus-btn" onclick="decrementStock('stock')">-</button>
+              <button class="plus-btn" onclick="incrementStock('stock')">+</button>
+              <button class="save-btn">SAVE</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer id="footer">
+      <p>&copy; 2024 BAHAY ARUGA SYSTEM. ALL RIGHTS RESERVED.</p>
+    </footer>
+    <script>
+      function toggleDropdown(id) {
+        const dropdown = document.getElementById(id);
+        dropdown.style.display =
+          dropdown.style.display === "block" ? "none" : "block";
+      }
 
-    function toggleMenu() {
-      const navbar = document.querySelector('.navbar');
-      navbar.style.display = navbar.style.display === 'flex' ? 'none' : 'flex';
-    }
-  </script>
-</body>
+      function toggleMenu() {
+        const navbar = document.querySelector(".navbar");
+        navbar.style.display =
+          navbar.style.display === "flex" ? "none" : "flex";
+      }
+    </script>
+  </body>
 </html>
