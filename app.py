@@ -154,6 +154,16 @@ def admin_dashboard():
         return redirect(url_for('patient_dashboard'))
     return render_template('admin/dashboard.html')
 
+@app.route('/admin/inventory', methods=['GET'])
+def inventory():
+    session_user = get_session_user()
+    if not session_user:
+        return f"Not logged in"
+    # Ensure only admin can access inventory (if applicable)
+    if session_user.acc_type == 0:
+        return redirect(url_for('patient_dashboard'))
+    return render_template('admin/inventory.html')
+
 @app.route('/patient/dashboard', methods=['GET'])
 def patient_dashboard():
     session_user = get_session_user()

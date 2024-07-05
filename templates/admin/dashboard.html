@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}" />
     <link
       rel="shortcut icon"
-      href="{{ url_for('static', filename='img/Logo.jpg') }}"
+      href="{{ url_for('static', filename='img/Logo-nobg.png') }}"
       type="image/x-icon"
     />
     <style>
@@ -18,7 +18,6 @@
         left: 42.5%;
       }
     </style>
-
     <title>Bahay Aruga</title>
   </head>
   <body>
@@ -26,23 +25,15 @@
       <div class="wrapper">
         <div class="header-con">
           <ul class="navbar">
-            <li>
-              <a href="#dashboard">Home</a>
-            </li>
-            <li>
-              <a href="#services">Services</a>
-            </li>
-            <li>
-              <a href="#about">About Us</a>
-            </li>
-            <li>
-              <a href="#gallery">Gallery</a>
-            </li>
+            <li><a href="#dashboard">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#gallery">Gallery</a></li>
             <li>
               <a href="">
                 <div class="logo-nav">
                   <img
-                    src="{{ url_for('static', filename='img/Logo.jpg') }}"
+                    src="{{ url_for('static', filename='img/Logo-nobg.png') }}"
                     class="logo"
                     alt="Logo"
                   />
@@ -50,18 +41,11 @@
                 </div>
               </a>
             </li>
-            <li>
-              <a href="#contact">Contact Us</a>
-            </li>
-            <li>
-              <a href="#">Wellness Plan</a>
-            </li>
-            <li>
-              <a href="{{ url_for('.admin_schedule') }}">Schedule</a>
-            </li>
-            <li>
-              <a href="{{ url_for('.index') }}">Logout</a>
-            </li>
+            <li><a href="#contact">Contact Us</a></li>
+            <li><a href="#">Wellness Plan</a></li>
+            <li><a href="{{ url_for('.admin_schedule') }}">Schedule</a></li>
+            <li><a href="{{ url_for('.inventory') }}">Inventory</a></li>
+            <li><a href="{{ url_for('.index') }}">Logout</a></li>
           </ul>
         </div>
       </div>
