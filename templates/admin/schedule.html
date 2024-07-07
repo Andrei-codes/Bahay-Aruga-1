@@ -207,8 +207,8 @@
                 <tr>
                   <td>{{ i.reservation_date.strftime('%B %d, %Y') }}</td>
                   <td>
-                    {{ 'Pending' if i.status == 0 else 'On-Going' if i.status ==
-                    1 else 'Priority' if i.status == 2 else 'Unknown' }}
+                    {{ 'Pending' if i.status == 0 else 'Priority' if i.status ==
+                    1 else 'On-Going' if i.status == 2 else 'Unknown' }}
                   </td>
                   <td class="table-btn-con">
                     <form action="/admin/schedule/alter-status/" method="post">
