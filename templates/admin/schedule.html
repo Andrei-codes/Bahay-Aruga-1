@@ -1,406 +1,297 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/theme.css') }}"
-    />
-    <link
-      rel="shortcut icon"
-      href="{{ url_for('static', filename='img/Logo-nobg.png') }}"
-      type="image/x-icon"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-      crossorigin="anonymous"
-    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}" />
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/Logo-nobg.png') }}" type="image/x-icon" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <style>
-      #header .navbar li:nth-child(3) {
-        margin: 0;
-      }
+        #header .navbar li:nth-child(3) {
+            margin: 0;
+        }
 
-      #header .logo-nav {
-        left: 42.5%;
-      }
+        #header .logo-nav {
+            left: 42.5%;
+        }
 
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 20px;
-      }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
 
-      thead th {
-        background-color: #f2f2f2;
-        color: #333;
-        font-weight: bold;
-        text-align: center;
-        padding: 10px;
-      }
+        thead th {
+            background-color: #f2f2f2;
+            color: #333;
+            font-weight: bold;
+            text-align: center;
+            padding: 10px;
+        }
 
-      tbody td {
-        padding: 10px;
-        font-size: 18px;
-        text-align: center;
-      }
+        tbody td {
+            padding: 10px;
+            font-size: 18px;
+            text-align: center;
+        }
 
-      button {
-        background-color: transparent;
-        border: none;
-        cursor: pointer;
-        margin-right: 5px;
-      }
+        button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            margin-right: 5px;
+        }
 
-      svg {
-        vertical-align: middle;
-      }
+        svg {
+            vertical-align: middle;
+        }
 
-      .modal-header,
-      .modal-footer {
-        z-index: 2;
-      }
+        .modal-header,
+        .modal-footer {
+            z-index: 2;
+        }
     </style>
 
+    <script>
+        function confirmDelete() {
+            return confirm('Are you sure you want to delete this patient?');
+        }
+    </script>
+
     <title>Bahay Aruga</title>
-  </head>
-  <body>
+</head>
+<body>
     {% include 'patient/header.html' %}
     <section id="schedule">
-      <div class="wrapper">
-        <div class="schedule-con">
-          <div class="schedule-header-con">
-            <button
-              type="button"
-              class="btn btn-primary"
-              data-bs-toggle="modal"
-              data-bs-target="#reservationModal"
-              id="show_modal_btn2"
-            >
-              Reserve Entry
-            </button>
-            <button type="button" class="btn btn-info" id="toggleTableBtn">
-              Completed Table
-            </button>
-          </div>
-          <div
-            class="modal fade"
-            id="reservationModal"
-            tabindex="-1"
-            aria-hidden="true"
-          >
-            <div class="modal-dialog">
-              <form
-                action="/admin/schedule/save"
-                method="POST"
-                class="reservation-form"
-              >
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h1 class="modal-title fs-5">Reservation Form</h1>
+        <div class="wrapper">
+            <div class="schedule-con">
+                <div class="schedule-header-con">
                     <button
-                      type="button"
-                      class="btn-close"
-                      data-bs-dismiss="modal"
-                      aria-label="Close"
-                    ></button>
-                  </div>
-                  <div class="modal-body">
-                    <div class="field-con">
-                      <label for="patient_id">Select Patient</label>
-                      <select name="patient_id">
-                        <option selected disabled>-Select Value-</option>
-                        {% for patient_id, user_name in available_patients %}
-                        <option value="{{ patient_id }}">
-                          {{ user_name }}
-                        </option>
-                        {% endfor %}
-                      </select>
-                    </div>
-                    <div class="field-con">
-                      <label for="reservation_date">Reservation Date</label>
-                      <input type="date" name="reservation_date" required />
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="submit" class="btn-primary">RESERVE</button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-          <div
-            class="modal fade"
-            id="editModal"
-            tabindex="-1"
-            aria-hidden="true"
-          >
-            <div class="modal-dialog">
-              <form
-                action="/admin/schedule/edit"
-                ,
-                method="post"
-                class="editModalForm"
-              >
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h1 class="modal-title fs-5">Edit Form</h1>
-                    <button
-                      type="button"
-                      class="btn-close"
-                      data-bs-dismiss="modal"
-                      aria-label="Close"
-                    ></button>
-                  </div>
-                  <div class="modal-body">
-                    <a href="">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="30"
-                        height="30"
-                        fill="currentColor"
-                        class="bi bi-x-circle"
-                        viewBox="0 0 16 16"
-                      >
-                        <path
-                          d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"
-                        />
-                        <path
-                          d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
-                        />
-                      </svg>
-                    </a>
-                    <div class="field-con">
-                      <input
-                        type="hidden"
-                        id="modal_patient_id_input"
-                        name="patient_id"
-                      />
-                      <label for="">Reservation Date</label>
-                      <input type="date" name="reservation_date" />
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="submit" class="btn-primary">Submit</button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-          <div class="table-responsive" id="reservations-table">
-            <p>Reservation Table</p>
-            <table>
-              <thead>
-                <th>Reservation Date</th>
-                <th>Status</th>
-                <th>Action</th>
-              </thead>
-              <tbody>
-                {% for i in all_reservations %}
-                <tr>
-                  <td>{{ i.reservation_date.strftime('%B %d, %Y') }}</td>
-                  <td>
-                    {{ 'Pending' if i.status == 0 else 'Priority' if i.status ==
-                    1 else 'On-Going' if i.status == 2 else 'Unknown' }}
-                  </td>
-                  <td class="table-btn-con">
-                    <form action="/admin/schedule/alter-status/" method="post">
-                      <input
-                        type="hidden"
-                        value="{{ i.patient_id }}"
-                        name="patient_id"
-                      />
-                      <button
-                        name="edit"
-                        id="show_modal_btn"
-                        class="btn btn-warning"
-                        title="Edit"
-                        data-value="{{ i.patient_id }}"
-                      >
-                        <i class="bi bi-pencil"></i>
-                      </button>
-                      {% if i.status < 2 %}
-                      <button
-                        type="submit"
-                        name="promote"
+                        type="button"
                         class="btn btn-primary"
-                      >
-                        <i class="bi bi-arrow-bar-up"></i>
-                      </button>
-                      {% else %} {% endif %} {% if i.status!=0 %}
-                      <button
-                        type="submit"
-                        name="demote"
-                        class="btn btn-dark"
-                        title="demote"
-                      >
-                        <i class="bi bi-arrow-return-left"></i>
-                      </button>
-                      <button
-                        type="submit"
-                        name="complete"
-                        class="btn btn-danger"
-                        title="Complete"
-                      >
-                        <i class="bi bi-check2-all"></i>
-                      </button>
-                      {% else %} {% endif %}
-                      <a
-                        href="#"
-                        id="view-patient"
-                        class="btn btn-info"
-                        data-value="{{ i.patient_id }}"
-                        title="View"
-                      >
-                        <i class="bi bi-eye"></i>
-                      </a>
-                      <button
-                        type="submit"
-                        name="delete"
-                        class="btn btn-danger"
-                        title="Delete"
-                      >
-                        <i class="bi bi-trash3"></i>
-                      </button>
-                    </form>
-                  </td>
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-          </div>
-          <div class="table-responsive hide-table" id="completed-table">
-            <p>Completed Table</p>
-            <table>
-              <thead>
-                <th>Full name</th>
-                <th>Email</th>
-                <th>Address</th>
-                <th>Age</th>
-                <th>Sex</th>
-                <th>Cancer Type</th>
-                <th>Reservation Date</th>
-                <th>Delete</th>
-              </thead>
-              <tbody>
-                {% for i in all_completed %}
-                <tr>
-                  <td>{{ i.name }}</td>
-                  <td>{{ i.email }}</td>
-                  <td>{{ i.address }}</td>
-                  <td>{{ i.age }}</td>
-                  <td>{{ i.sex }}</td>
-                  <td>{{ i.cancer_type }}</td>
-                  <td>{{ i.reservation_date }}</td>
-                  <td>
-                    <form
-                      action="/admin/completed/delete/{{ i.id }}"
-                      method="post"
+                        data-bs-toggle="modal"
+                        data-bs-target="#reservationModal"
+                        id="show_modal_btn2"
                     >
-                      <button
-                        type="submit"
-                        name="delete"
-                        class="btn btn-danger"
-                        title="delete"
-                      >
-                        <i class="bi bi-trash3"></i>
-                      </button>
-                    </form>
-                  </td>
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-          </div>
+                        Reserve Entry
+                    </button>
+                    <button type="button" class="btn btn-info" id="toggleTableBtn">
+                        Completed Table
+                    </button>
+                </div>
+                <div class="modal fade" id="reservationModal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <form action="/admin/schedule/save" method="POST" class="reservation-form">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5">Reservation Form</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="field-con">
+                                        <label for="patient_id">Select Patient</label>
+                                        <select name="patient_id">
+                                            <option selected disabled>-Select Value-</option>
+                                            {% for patient_id, user_name in available_patients %}
+                                            <option value="{{ patient_id }}">{{ user_name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="field-con">
+                                        <label for="reservation_date">Reservation Date</label>
+                                        <input type="date" name="reservation_date" required />
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn-primary">RESERVE</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <form action="/admin/schedule/edit" method="post" class="editModalForm">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5">Edit Form</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <a href="">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+                                        </svg>
+                                    </a>
+                                    <div class="field-con">
+                                        <input type="hidden" id="modal_patient_id_input" name="patient_id" />
+                                        <label for="">Reservation Date</label>
+                                        <input type="date" name="reservation_date" />
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="table-responsive" id="reservations-table">
+                    <p>Reservation Table</p>
+                    <table>
+                        <thead>
+                            <th>Reservation Date</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </thead>
+                        <tbody>
+                            {% for i in all_reservations %}
+                            <tr>
+                                <td>{{ i.reservation_date.strftime('%B %d, %Y') }}</td>
+                                <td>{{ 'Pending' if i.status == 0 else 'Priority' if i.status == 1 else 'On-Going' if i.status == 2 else 'Unknown' }}</td>
+                                <td class="table-btn-con">
+                                    <form action="/admin/schedule/alter-status/" method="post">
+                                        <input type="hidden" value="{{ i.patient_id }}" name="patient_id" />
+                                        <button name="edit" id="show_modal_btn" class="btn btn-warning" title="Edit" data-value="{{ i.patient_id }}">
+                                            <i class="bi bi-pencil"></i>
+                                        </button>
+                                        {% if i.status < 2 %}
+                                        <button type="submit" name="promote" class="btn btn-primary">
+                                            <i class="bi bi-arrow-bar-up"></i>
+                                        </button>
+                                        {% else %} {% endif %}
+                                        {% if i.status!=0 %}
+                                        <button type="submit" name="demote" class="btn btn-dark" title="demote">
+                                            <i class="bi bi-arrow-return-left"></i>
+                                        </button>
+                                        <button type="submit" name="complete" class="btn btn-danger" title="Complete">
+                                            <i class="bi bi-check2-all"></i>
+                                        </button>
+                                        {% else %} {% endif %}
+                                        <a href="#" id="view-patient" class="btn btn-info" data-value="{{ i.patient_id }}" title="View">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+                                        <button type="submit" name="delete" class="btn btn-danger" title="Delete" onclick="return confirmDelete()">
+                                            <i class="bi bi-trash3"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-responsive hide-table" id="completed-table">
+                    <p>Completed Table</p>
+                    <table>
+                        <thead>
+                            <th>Full name</th>
+                            <th>Email</th>
+                            <th>Address</th>
+                            <th>Age</th>
+                            <th>Sex</th>
+                            <th>Cancer Type</th>
+                            <th>Reservation Date</th>
+                            <th>Delete</th>
+                        </thead>
+                        <tbody>
+                            {% for i in all_completed %}
+                            <tr>
+                                <td>{{ i.name }}</td>
+                                <td>{{ i.email }}</td>
+                                <td>{{ i.address }}</td>
+                                <td>{{ i.age }}</td>
+                                <td>{{ i.sex }}</td>
+                                <td>{{ i.cancer_type }}</td>
+                                <td>{{ i.reservation_date }}</td>
+                                <td>
+                                    <form action="/admin/completed/delete/{{ i.id }}" method="post">
+                                        <button type="submit" name="delete" class="btn btn-danger" title="delete">
+                                            <i class="bi bi-trash3"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-      </div>
     </section>
-  </body>
-
-  <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  ></script>
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-    crossorigin="anonymous"
-  ></script>
-  <script>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script>
     $(document).ready(function () {
-      $("#view-patient").click(function () {
-        var dataValue = $(this).data("value");
+        $("#view-patient").click(function () {
+            var dataValue = $(this).data("value");
 
-        $.ajax({
-          url: `/admin/api/get-patient/${dataValue}`,
-          method: "GET",
-          success: function (response) {
-            var data = response;
-            var message =
-              "Name: " +
-              data.name +
-              "\nAge: " +
-              data.age +
-              "\nCancer Type: " +
-              data.cancer_type +
-              "\nEmail: " +
-              data.email +
-              "\nMunicipality: " +
-              data.municipality +
-              "\nProvince: " +
-              data.province +
-              "\nSex: " +
-              data.sex;
-            alert(message);
-          },
-          error: function () {
-            alert("Error fetching data");
-          },
+            $.ajax({
+                url: `/admin/api/get-patient/${dataValue}`,
+                method: "GET",
+                success: function (response) {
+                    var data = response;
+                    var message =
+                        "Name: " +
+                        data.name +
+                        "\nAge: " +
+                        data.age +
+                        "\nCancer Type: " +
+                        data.cancer_type +
+                        "\nEmail: " +
+                        data.email +
+                        "\nMunicipality: " +
+                        data.municipality +
+                        "\nProvince: " +
+                        data.province +
+                        "\nSex: " +
+                        data.sex;
+                    alert(message);
+                },
+                error: function () {
+                    alert("Error fetching data");
+                },
+            });
         });
-      });
 
-      var section_modal = document.getElementById("section-modal");
-      var close_modal_btn = document.getElementById("close_modal_btn");
+        var section_modal = document.getElementById("section-modal");
+        var close_modal_btn = document.getElementById("close_modal_btn");
 
-      $("#show_modal_btn").click(function (event) {
-        event.preventDefault();
-        $("#modal_patient_id_input").val($(this).data("value"));
-        $("#editModal").modal("show");
-      });
+        $("#show_modal_btn").click(function (event) {
+            event.preventDefault();
+            $("#modal_patient_id_input").val($(this).data("value"));
+            $("#editModal").modal("show");
+        });
 
-      $(close_modal_btn).click(function (event) {
-        event.preventDefault();
-        $(section_modal).css("display: none");
-      });
+        $(close_modal_btn).click(function (event) {
+            event.preventDefault();
+            $(section_modal).css("display: none");
+        });
 
-      $("#toggleTableBtn").click(function (event) {
-        event.preventDefault();
-        console.log("Toggle button clicked");
+        $("#toggleTableBtn").click(function (event) {
+            event.preventDefault();
+            console.log("Toggle button clicked");
 
-        var completedTable = $("#schedule #completed-table");
-        var reservationsTable = $("#schedule #reservations-table");
+            var completedTable = $("#schedule #completed-table");
+            var reservationsTable = $("#schedule #reservations-table");
 
-        if (completedTable.hasClass("hide-table")) {
-          $("#toggleTableBtn").text("Reservations Table");
-          completedTable.removeClass("hide-table");
-          reservationsTable.addClass("hide-table");
-          $("#show_modal_btn2").css("display", "none");
-        } else {
-          $("#toggleTableBtn").text("Completed Table");
-          reservationsTable.removeClass("hide-table");
-          completedTable.addClass("hide-table");
-          $("#show_modal_btn2").css("display", "block");
-        }
-      });
+            if (completedTable.hasClass("hide-table")) {
+                $("#toggleTableBtn").text("Reservations Table");
+                completedTable.removeClass("hide-table");
+                reservationsTable.addClass("hide-table");
+                $("#show_modal_btn2").css("display", "none");
+            } else {
+                $("#toggleTableBtn").text("Completed Table");
+                reservationsTable.removeClass("hide-table");
+                completedTable.addClass("hide-table");
+                $("#show_modal_btn2").css("display", "block");
+            }
+        });
     });
-  </script>
+</script>
 </html>
