@@ -598,29 +598,30 @@ section#section-modal form .btn-primary {
 }
 
 .first{
+  font-family: 
   height: 100px;
   width: 100px;
-  background-color: rgb(252, 194, 140);
+  background-color: 0%,0%, #ffde59,#ffa100;
   margin-bottom: 100px;
 }
 
 .second{
   height: 100px;
   width: 100px;
-  background-color: rgb(252, 194, 140);
+  background-color: 0%,0%, #ffde59,#ffa100;
   margin-bottom: 100px;
 }
 
 .third{
   height: 100px;
   width: 100px;
-  background-color: rgb(252, 194, 140);
+  background-color: 0%,0%, #ffde59,#ffa100;
   margin-bottom: 100px;
 }
 
 .fourth{
   height: 100px;
   width: 100px;
-  background-color: rgb(252, 194, 140);
+  background-color: 0%,0%, #ffde59,#ffa100;
   margin-bottom: 100px;
 }

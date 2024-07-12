@@ -1,20 +1,150 @@
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link
-        rel="stylesheet"
-        href="/static/css/theme.css"
-      />
-      <link
-        rel="shortcut icon"
-        href="/static/img/Logo-nobg.png"
-        type="image/x-icon"
-      />
-      <title>Wellness Plan</title>
-    </head>
-    <body>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/theme.css') }}"
+    />
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='img/Logo-nobg.png') }}"
+      type="image/x-icon"
+    />
+    <title>WELLNESS PLAN</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      .wrapper {
+        width: 100%;
+        margin: 0 auto;
+        max-width: 1200px;
+        padding: 0 15px;
+        flex: 1;
+      }
+      .content-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        padding-top: 20px; /* Adjust as needed */
+      }
+      .navbar {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+      }
+      .navbar li {
+        margin: 0 15px;
+      }
+      .navbar li a {
+        text-decoration: none;
+        color: #000;
+        font-weight: bold;
+      }
+      .navbar li a:hover {
+        text-decoration: underline;
+      }
+      .logo {
+        width: 50px;
+        height: auto;
+      }
+      .logo-nav {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .logo-nav img {
+        margin-right: 10px;
+        .first{
+  font-family: 
+  height: 100px;
+  width: 100px;
+  background-color: 0%,0%, #ffde59,#ffa100;
+  margin-bottom: 100px;
+}
+
+.second{
+  height: 100px;
+  width: 100px;
+  background-color: 0%,0%, #ffde59,#ffa100;
+  margin-bottom: 100px;
+}
+
+.third{
+  height: 100px;
+  width: 100px;
+  background-color: 0%,0%, #ffde59,#ffa100;
+  margin-bottom: 100px;
+}
+
+.fourth{
+  height: 100px;
+  width: 100px;
+  background-color: 0%,0%, #ffde59,#ffa100;
+  margin-bottom: 100px;
+}
+
+      }
+        </style>
+      <body>
+        <section id="header">
+      <div class="wrapper">
+        <div class="header-con">
+          <ul class="navbar">
+            <li>
+              <div class="logo-nav" onclick="toggleMenu()">
+                <img
+                  src="{{ url_for('static', filename='img/hamburger_menu.png') }}"
+                  class="logo"
+                  alt="Logo"
+                />
+              </div>
+            </li>
+            <li><a href="#account">Account</a></li>
+            <li><a href="#wellness_plan">Wellness Plan</a></li>
+            <li>
+              <a href="#">
+                <div class="logo-nav">
+                  <img
+                    src="{{ url_for('static', filename='img/Logo-nobg.png') }}"
+                    class="logo"
+                    alt="Logo"
+                  />
+                  <span>Bahay Aruga</span>
+                </div>
+              </a>
+            </li>
+            <li><a href="#inventory">Inventory</a></li>
+            <li><a href="#schedule_slot">Schedule a Slot</a></li>
+            <li>
+              <a
+                href="{{ url_for('.index') }}"
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                "
+              >
+                <img
+                  src="{{ url_for('static', filename='img/logout_icon.png') }}"
+                  alt="Logout Icon"
+                  style="width: 25px; height: auto; margin-bottom: 5px"
+                />
+                Logout
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
       <div class="first">WELLNESS PLAN</div>
       <div class="second">FOOD RESTRICTION</div>
       <div class="third">REMINDER</div>
