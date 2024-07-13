@@ -23,11 +23,13 @@ def login_page():
 def admin_api_get_schedule(id):
     session_user = get_session_user()
     if not session_user:
-        return f"Not logged in"
+        return "Not logged in", 401
     target_patient = Patients.get_patient_by_id(id)
     if not target_patient:
-        return jsonify({"message": "User not found"}), 404
+        return jsonify({"message": "Patient not found"}), 404
     target_user = Users.get_user_by_id(target_patient.user_id)
+    if not target_user:
+        return jsonify({"message": "User not found"}), 404
     data = {
         "name": target_user.name,
         "email": target_user.email,
@@ -54,42 +56,51 @@ def admin_schedule_alter_status():
     target_reservation = Reservation.get_reservation_by_patient_id(patient_id)
     if not target_reservation:
         return "<script>alert('No reservations found');location.href='/admin/schedule'</script>"
+    
     if "promote" in request.form:
-        if target_reservation.status==2:
+        if target_reservation.status == 2:
             return redirect(url_for('admin_schedule'))
-        target_reservation.status+=1
+        target_reservation.status += 1
         db.session.commit()
         return redirect(url_for('admin_schedule'))
+    
     if "demote" in request.form:
-        if target_reservation.status==0:
-            return redirect(url_for('admin_schedule'))    
-        target_reservation.status-=1
+        if target_reservation.status == 0:
+            return redirect(url_for('admin_schedule'))
+        target_reservation.status -= 1
         db.session.commit()
         return redirect(url_for('admin_schedule'))
+    
     if "delete" in request.form:
         db.session.delete(target_reservation)
         db.session.commit()
         return redirect(url_for('admin_schedule'))
+    
     if "complete" in request.form:
         target_patient = Patients.get_patient_by_id(patient_id)
-        target_user = Users.get_user_by_id(target_patient.id)
-        if not (target_patient or target_user):
-            return "<script>alert('Failed! Cannot find record');location.href='/admin/schedule'</script>"
-
-        completed_insert = Completed.insert_completed(target_user.name,
-                                                      target_user.email,
-                                                      target_user.province,
-                                                      target_user.municipality,
-                                                      target_patient.age,
-                                                      target_patient.sex,
-                                                      target_patient.cancer_type,
-                                                      target_reservation.reservation_date,
-                                                      )
+        if not target_patient:
+            return "<script>alert('Failed! Cannot find patient record');location.href='/admin/schedule'</script>"
+        target_user = Users.get_user_by_id(target_patient.user_id)
+        if not target_user:
+            return "<script>alert('Failed! Cannot find user record');location.href='/admin/schedule'</script>"
+        
+        completed_insert = Completed.insert_completed(
+            target_user.name,
+            target_user.email,
+            target_user.province,
+            target_user.municipality,
+            target_patient.age,
+            target_patient.sex,
+            target_patient.cancer_type,
+            target_reservation.reservation_date,
+        )
         if not completed_insert:
             return "<script>alert('Failed to insert');location.href='/admin/schedule'</script>"
+        
         db.session.delete(target_reservation)
         db.session.commit()
         return "<script>alert('Item added to completed records!');location.href='/admin/schedule'</script>"
+    
     return redirect(url_for('admin_schedule'))
 
 @app.route('/admin/schedule/edit', methods=['POST', 'GET'])
@@ -295,7 +306,6 @@ def auth_user():
     if not current_user.acc_type==0:
         return redirect(url_for('patient_dashboard'))
     return redirect(url_for('admin_dashboard'))
-
 def get_session_user():
     if 'user_email' not in session:
         return None
