@@ -327,146 +327,54 @@
               Category
             </div>
             <div id="dropdown1" class="dropdown">
-              <a href="#">Acute Lymphoblastic Leukemia</a>
-              <a href="#">Brain Tumor</a>
-              <a href="#">Fibrosarcoma</a>
-              <a href="#">Hodgkin’s Lymphoma</a>
-              <a href="#">Multiple Myeloma</a>
-              <a href="#">Non-Hodgkin Lymphoma</a>
-              <a href="#">Osteosarcoma</a>
-              <a href="#">Retinoblastoma</a>
-              <a href="#">Rhabdomyosarcoma</a>
-              <a href="#">Wilms' Tumor</a>
+              {% for category in categories %}
+              <a href="#" onclick="filterItems('{{ category }}')"
+                >{{ category }}</a
+              >
+              {% endfor %}
             </div>
           </div>
-          <div class="medicines-container">
-            <div class="medicine">
+
+          <div id="medicines-container" class="medicines-container">
+            <!-- Medicine items will be dynamically inserted here -->
+            {% for medicine in medicines %}
+            <div class="medicine" data-category="{{ medicine.category }}">
               <img
-                src="{{ url_for('static', filename='img/Arranon.jpeg') }}"
+                src="{{ url_for('static', filename=medicine.image_url) }}"
                 alt="Medicine"
               />
-              <h2>Arranon</h2>
-              <p>Stock: <span id="stock">10</span></p>
+              <h2>{{ medicine.itemname }}</h2>
+              <p>
+                Stock:
+                <span id="stock-{{ medicine.itemname.replace(' ', '') }}"
+                  >{{ medicine.stocks }}</span
+                >
+              </p>
               <button class="edit-btn">EDIT</button>
-              <button class="minus-btn" onclick="decrementStock('stock')">-</button>
-              <button class="plus-btn" onclick="incrementStock('stock')">+</button>
+              <button
+                class="minus-btn"
+                onclick="decrementStock('{{ medicine.itemname.replace(' ', '') }}')"
+              >
+                -
+              </button>
+              <button
+                class="plus-btn"
+                onclick="incrementStock('{{ medicine.itemname.replace(' ', '') }}')"
+              >
+                +
+              </button>
               <button class="save-btn">SAVE</button>
             </div>
-            <div class="medicine">
-              <img
-                src="{{ url_for('static', filename='img/ALL -Asparaginase.jpg') }}"
-                alt="Medicine"
-              />
-              <h2>Asparaginase</h2>
-              <p>Stock: 10</p>
-              <button class="edit-btn">EDIT</button>
-              <button class="minus-btn" onclick="decrementStock('stock')">-</button>
-              <button class="plus-btn" onclick="incrementStock('stock')">+</button>
-              <button class="save-btn">SAVE</button>
-            </div>
-            <div class="medicine">
-              <img
-                src="{{ url_for('static', filename='img/Cyclo.png') }}"
-                alt="Medicine"
-              />
-              <h2>Cyclophosphamide</h2>
-              <p>Stock: 10</p>
-              <button class="edit-btn">EDIT</button>
-              <button class="minus-btn" onclick="decrementStock('stock')">-</button>
-              <button class="plus-btn" onclick="incrementStock('stock')">+</button>
-              <button class="save-btn">SAVE</button>
-            </div>
-            <div class="medicine">
-              <img
-                src="{{ url_for('static', filename='img/ALL - Cytarabine.jpg') }}"
-                alt="Medicine"
-              />
-              <h2>Cytarabine</h2>
-              <p>Stock: 10</p>
-              <button class="edit-btn">EDIT</button>
-              <button class="minus-btn" onclick="decrementStock('stock')">-</button>
-              <button class="plus-btn" onclick="incrementStock('stock')">+</button>
-              <button class="save-btn">SAVE</button>
-            </div>
-            <div class="medicine">
-              <img
-                src="{{ url_for('static', filename='img/ALL - Daunomycin.jpg') }}"
-                alt="Medicine"
-              />
-              <h2>Daunomycin</h2>
-              <p>Stock: 10</p>
-              <button class="edit-btn">EDIT</button>
-              <button class="minus-btn" onclick="decrementStock('stock')">-</button>
-              <button class="plus-btn" onclick="incrementStock('stock')">+</button>
-              <button class="save-btn">SAVE</button>
-            </div>
-            <div class="medicine">
-              <img
-                src="{{ url_for('static', filename='img/ALL - Dexamethasone.png') }}"
-                alt="Medicine"
-              />
-              <h2>Dexamethasone</h2>
-              <p>Stock: 10</p>
-              <button class="edit-btn">EDIT</button>
-              <button class="minus-btn" onclick="decrementStock('stock')">-</button>
-              <button class="plus-btn" onclick="incrementStock('stock')">+</button>
-              <button class="save-btn">SAVE</button>
-            </div>
-            <div class="medicine">
-              <img
-                src="{{ url_for('static', filename='img/ALL - Mercaptopurine.png') }}"
-                alt="Medicine"
-              />
-              <h2>Mercaptopurine</h2>
-              <p>Stock: 10</p>
-              <button class="edit-btn">EDIT</button>
-              <button class="minus-btn" onclick="decrementStock('stock')">-</button>
-              <button class="plus-btn" onclick="incrementStock('stock')">+</button>
-              <button class="save-btn">SAVE</button>
-            </div>
-            <div class="medicine">
-              <img
-                src="{{ url_for('static', filename='img/ALL - Methotrexate.jpg') }}"
-                alt="Medicine"
-              />
-              <h2>Methotrexate</h2>
-              <p>Stock: 10</p>
-              <button class="edit-btn">EDIT</button>
-              <button class="minus-btn" onclick="decrementStock('stock')">-</button>
-              <button class="plus-btn" onclick="incrementStock('stock')">+</button>
-              <button class="save-btn">SAVE</button>
-            </div>
-            <div class="medicine">
-              <img
-                src="{{ url_for('static', filename='img/ALL - Prednisone.png') }}"
-                alt="Medicine"
-              />
-              <h2>Prednisone</h2>
-              <p>Stock: 10</p>
-              <button class="edit-btn">EDIT</button>
-              <button class="minus-btn" onclick="decrementStock('stock')">-</button>
-              <button class="plus-btn" onclick="incrementStock('stock')">+</button>
-              <button class="save-btn">SAVE</button>
-            </div>
-          <div class="medicine">
-            <img
-              src="{{ url_for('static', filename='img/ALL - Vincristine.jpg') }}"
-              alt="Medicine"
-            />
-            <h2>Vincristine</h2>
-            <p>Stock: 10</p>
-            <button class="edit-btn">EDIT</button>
-            <button class="minus-btn" onclick="decrementStock('stock')">-</button>
-            <button class="plus-btn" onclick="incrementStock('stock')">+</button>
-            <button class="save-btn">SAVE</button>
-          </div>
+            {% endfor %}
           </div>
         </div>
       </div>
     </section>
+
     <footer id="footer">
       <p>&copy; 2024 BAHAY ARUGA SYSTEM. ALL RIGHTS RESERVED.</p>
     </footer>
+
     <script>
       function toggleDropdown(id) {
         const dropdown = document.getElementById(id);
@@ -474,10 +382,29 @@
           dropdown.style.display === "block" ? "none" : "block";
       }
 
-      function toggleMenu() {
-        const navbar = document.querySelector(".navbar");
-        navbar.style.display =
-          navbar.style.display === "flex" ? "none" : "flex";
+      function filterItems(category) {
+        const medicines = document.querySelectorAll(".medicine");
+        medicines.forEach((medicine) => {
+          const categoryMatch =
+            medicine.getAttribute("data-category") === category;
+          medicine.style.display = categoryMatch ? "block" : "none";
+        });
+      }
+
+      function decrementStock(itemname) {
+        const stockElement = document.getElementById(`stock-${itemname}`);
+        let stock = parseInt(stockElement.innerText);
+        if (stock > 0) {
+          stock--;
+          stockElement.innerText = stock;
+        }
+      }
+
+      function incrementStock(itemname) {
+        const stockElement = document.getElementById(`stock-${itemname}`);
+        let stock = parseInt(stockElement.innerText);
+        stock++;
+        stockElement.innerText = stock;
       }
     </script>
   </body>
