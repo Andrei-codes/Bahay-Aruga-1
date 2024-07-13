@@ -1,34 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/theme.css') }}"
-    />
-    <link
-      rel="shortcut icon"
-      href="{{ url_for('static', filename='img/Logo.jpg') }}"
-      type="image/x-icon"
-    />
-    <style>
-      #header .navbar li:nth-child(3) {
-        margin: 0;
-      }
-
-      #header .logo-nav {
-        left: 42.5%;
-      }
-
-      #schedule .schedule-con {
-        display: flex;
-        justify-content: center;
-      }
-    </style>
-    <title>PATIENTS DAYS</title>
-    </head>
-    <body>
-        <img
-        src="{{ url_for('static', filename='img/monday.png) }}"
-    </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}" />
+  <link rel="shortcut icon" href="/static/img/Logo-nobg.png" type="image/x-icon" />
+  <style>
+    #header .navbar li:nth-child(3) {
+      margin: 0;
+    }
+    #header .logo-nav {
+      left: 42.5%;
+    }
+    #schedule .schedule-con {
+      display: flex;
+      justify-content: center;
+    }
+  </style>
+  <title>PATIENTS DAYS</title>
+</head>
+<body>
+  <img src="/static/img/monday.png" />
+</body>
+</html>
