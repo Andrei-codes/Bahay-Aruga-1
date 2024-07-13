@@ -7,17 +7,38 @@
   <link rel="shortcut icon" href="{{ url_for('static', filename='img/Logo-nobg.png') }}" type="image/x-icon" />
   <title>WELLNESS PLAN</title>
   <style>
+  .contents{
+    display: grid;
+    grid-template-columns: 1fr; /* One column */
+    gap: 20px; /* Adjust the gap between rows */
+
+    margin: 10% ;
+  }
    .content {
- 
-    width: 50%; /* Adjust width as needed */
-    margin: 10% auto; /* Center align horizontally */
+
     padding: 20px;
     border: 1px solid #ccc;
     border-radius:15px;
     background-color: #ffa100;
    
    }
+   .choices {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two columns with equal width */
+    gap: 10px; /* Adjust the gap between checkboxes */
+}
+
+.choices div {
+    display: flex;
+    align-items: center;
+}
+
+.choices input[type="checkbox"] {
+    margin-right: 5px; /* Adjust spacing between checkbox and label */
+}
   body {
+    display: grid;
+    align-items: center;
     background-image: url("{{ url_for('static', filename='img/inventory_bg.jpg') }}"); /* Replace with your image path */
     background-size: cover; /* Ensures the background image covers the entire div */
     background-position: center; /* Centers the background image */
@@ -62,43 +83,44 @@
       console.log('Menu toggled');
     }
   </script>
-  <div class = "content">
-   
-    <p>Hello, Jeon</p>
+  <div class = "contents">
 
-<form method="POST" action="{{ url_for('.patient_weeks') }}">
-  <div class="field-con">
-    <label for="name">Age</label>
-    <input type="number" id="password" name="password" required />
-  </div>
-
-  <div class="field-con">
-    <label for="gender">Gender:</label>
-    <select id="gender" name="gender" required>
-      <option value="">Select Gender</option>
-      <option value="male">Male</option>
-      <option value="female">Female</option>
-      <option value="other">Other</option>
-    </select>
-  </div>
-
-  <div class="field-con">
-    <label for="gender">Diagnosis:</label>
-    <select id="gender" name="gender" required>
-      <option value="">Select Diagnosis</option>
-      <option value="Brain tumor">Brain tumor</option>
-      <option value="Osteosarcoma">Osteosarcoma</option>
-      <option value="Acute Lymphoblastic Leukemia">Acute Lymphoblastic Leukemia</option>
-      <option value="other">Hodgkin's Lymphoma</option>
-      <option value="other">Fibrosarcoma</option>
-      <option value="other">Non-Hodgkin Lymphoma </option>
-    </select>
-  </div>
-
-  <div class="btn-con">
-    <button class="btn-primary" type = "submit">SUBMIT</button>
-  </div>
-</form>
+    <div class = "content">
+        <h2>Wellness Plan</h2>
+        <div class="choices">
+            <div>
+                <input type="checkbox" id="checkbox1" name="checkbox1" value="option1">
+                <label for="checkbox1">EXERCISE</label>
+            </div>
+            <div>
+                <input type="checkbox" id="checkbox2" name="checkbox2" value="option2">
+                <label for="checkbox2">MEDICINE</label>
+            </div>
+            <!-- Add more checkboxes as needed -->
+        </div>
+   </div>
+    <div class = "content">
+     <h2>Food Restriction</h2>
 </div>
+
+<div class = "content">
+    <h2>Reminder</h2>
+</div>
+
+<div class = "content">
+    <form method="POST" action="{{ url_for('.patient_weeks') }}">
+      <div class="field-con">
+        <label for="comment">Comment</label>
+         <textarea id="comment" name="comment" rows="4" required></textarea>
+      </div>
+
+      <div class="btn-con">
+        <button class="btn-primary" type = "submit">SUBMIT</button>
+      </div>
+    </form>
+    </div>
+</div>
+
+
 </body>
 </html>

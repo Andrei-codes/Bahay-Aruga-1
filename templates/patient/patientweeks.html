@@ -16,10 +16,94 @@
       display: flex;
       justify-content: center;
     }
+
+    .image-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Adjust the number of columns as needed */
+    gap: 20px; /* Adjust the gap between images */
+    padding: 20px; /* Add padding around the grid */
+    margin: 0 auto; /* Center align horizontally */
+    max-width: 800px; /* Adjust max-width as needed */
+}
+
+.image-grid a {
+  display: grid;
+    grid-template-columns: repeat(3, 4fr); /* Adjust the number of columns as needed */
+    gap: 20px; /* Adjust the gap between images */
+    padding: 20px; /* Add padding around the grid */
+    margin: 0 auto; /* Center align horizontally */
+    max-width: 1000px; /* Adjust max-width as needed */
+}
+
+.image-grid a:nth-child(7) {
+            grid-column: 2 / 3; /* Adjust grid-column to place Sunday in the middle */
+        }
+  body {
+    
+    background-image: url("{{ url_for('static', filename='img/inventory_bg.jpg') }}"); /* Replace with your image path */
+    background-size: cover; /* Ensures the background image covers the entire div */
+    background-position: center; /* Centers the background image */
+  }
+
   </style>
   <title>PATIENTS DAYS</title>
 </head>
 <body>
-  <img src="/static/img/monday.png" />
+  <section id="header">
+    <div class="wrapper">
+      <div class="header-con">
+        <ul class="navbar">
+          <li>
+            <div class="logo-nav" onclick="toggleMenu()">
+              <img src="{{ url_for('static', filename='img/hamburger_menu.png') }}" class="logo" alt="Logo" />
+            </div>
+          </li>
+          <li><a href="#account">Account</a></li>
+          <li>
+            <a href="#">
+              <div class="logo-nav">
+                <img src="{{ url_for('static', filename='img/Logo-nobg.png') }}" class="logo" alt="Logo" />
+                <span>Bahay Aruga</span>
+              </div>
+            </a>
+          </li>
+          <li><a href="#schedule_slot">Schedule a Slot</a></li>
+          <li>
+            <a href="{{ url_for('.index') }}" style="display: flex; flex-direction: column; align-items: center;">
+              <img src="{{ url_for('static', filename='img/logout_icon.png') }}" alt="Logout Icon" style="width: 25px; height: auto; margin-bottom: 5px" />
+              Logout
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  
+  <div class="image-grid">
+    <a href= "{{ url_for('.patient_plan') }}">
+        <img src="{{ url_for('static', filename='img/monday.png') }}" alt="Monday">
+    </a>
+    <a href= "{{ url_for('.patient_plan') }}">
+        <img src="{{ url_for('static', filename='img/tuesday.png') }}" alt="Tuesday">
+    </a>
+    <a href= "{{ url_for('.patient_plan') }}">
+        <img src="{{ url_for('static', filename='img/wednesday.png') }}" alt="Wednesday">
+    </a>
+    <a href= "{{ url_for('.patient_plan') }}">
+        <img src="{{ url_for('static', filename='img/thursday.png') }}" alt="Thursday">
+    </a>
+    <a href= "{{ url_for('.patient_plan') }}">
+        <img src="{{ url_for('static', filename='img/friday.png') }}" alt="Friday">
+    </a>
+    <a href= "{{ url_for('.patient_plan') }}">
+        <img src="{{ url_for('static', filename='img/saturday.png') }}" alt="Saturday">
+    </a>
+    <a href= "{{ url_for('.patient_plan') }}">
+        <img src="{{ url_for('static', filename='img/sunday.png') }}" alt="Sunday">
+    </a>
+</div>
+
+  
 </body>
 </html>

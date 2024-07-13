@@ -324,7 +324,85 @@ def patient_schedule_save():
         return "<script>alert('Failed! Your account already have a reservation record');location.href='/patient/dashboard'</script>"
     return "<script>alert('Success! Schedule reservation has been sent to admin');location.href='/patient/dashboard'</script>"
 
+@app.route('/patient/weeks', methods=["POST"])
+def patient_weeks():
+    return render_template('patient/patientweeks.html')
 
+
+@app.route("/patient/plan")
+def patient_plan():
+    session_user = get_session_user()
+
+    # Check if user is logged in
+    if not session_user:
+        return "Not logged in"
+
+    # Redirect admin users to admin dashboard
+    if session_user.acc_type == 1:
+        return render_template('patient/plan.html')
+
+    # Get the patient associated with the logged-in user
+    target_patient = Patients.get_patient_by_user_id(session_user.id)
+
+    # Redirect to patient dashboard if patient not found
+    if not target_patient:
+           return render_template('patient/wellnessplan.html')
+
+    # Extract and parse reservation_date from POST request
+    try:
+        reservation_date = datetime.strptime(
+            request.form["reservation_date"], "%Y-%m-%d"
+        ).date()
+    except ValueError:
+        return "Invalid date format"
+
+    # Insert reservation into database
+    reservation_insert = Reservation.insert_reservations(
+        target_patient.id, reservation_date
+    )
+
+    # Handle reservation insertion result
+    if not reservation_insert:
+        return "<script>alert('Failed! Your account already has a reservation record');location.href='/patient/dashboard'</script>"
+
+    return "<script>alert('Success! Schedule reservation has been sent to admin');location.href='/patient/dashboard'</script>"
+@app.route("/patient/wellnessplan")
+def patient_wellnessplan():
+    session_user = get_session_user()
+
+    # Check if user is logged in
+    if not session_user:
+        return "Not logged in"
+
+    # Redirect admin users to admin dashboard
+    if session_user.acc_type == 1:
+        return render_template('admin/plan.html')
+
+    # Get the patient associated with the logged-in user
+    target_patient = Patients.get_patient_by_user_id(session_user.id)
+
+    # Redirect to patient dashboard if patient not found
+    if not target_patient:
+           return render_template('patient/wellnessplan.html')
+
+    # Extract and parse reservation_date from POST request
+    try:
+        reservation_date = datetime.strptime(
+            request.form["reservation_date"], "%Y-%m-%d"
+        ).date()
+    except ValueError:
+        return "Invalid date format"
+
+    # Insert reservation into database
+    reservation_insert = Reservation.insert_reservations(
+        target_patient.id, reservation_date
+    )
+
+    # Handle reservation insertion result
+    if not reservation_insert:
+        return "<script>alert('Failed! Your account already has a reservation record');location.href='/patient/dashboard'</script>"
+
+    return "<script>alert('Success! Schedule reservation has been sent to admin');location.href='/patient/dashboard'</script>"
 @app.route("/patient/save", methods=["POST", "GET"])
 def patient_save():
     session_user = get_session_user()
