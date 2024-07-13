@@ -376,7 +376,7 @@ def patient_wellnessplan():
 
     # Redirect admin users to admin dashboard
     if session_user.acc_type == 1:
-        return render_template('admin/plan.html')
+        return render_template('patient/wellnessplan.html')
 
     # Get the patient associated with the logged-in user
     target_patient = Patients.get_patient_by_user_id(session_user.id)
