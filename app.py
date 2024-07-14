@@ -303,7 +303,7 @@ def patient_schedule_edit():
     db.session.commit()
     return redirect(url_for("patient_schedule"))
 
-
+wellness_plan_data = {}
 @app.route("/patient/schedule/save", methods=["POST"])
 def patient_schedule_save():
     session_user = get_session_user()
@@ -326,9 +326,21 @@ def patient_schedule_save():
 
 @app.route('/patient/weeks', methods=["POST"])
 def patient_weeks():
+    age = request.form.get('age')
+    gender = request.form.get('gender')
+    diagnosis = request.form.get('diagnosis')
+    wellness_plan_data['current'] = {'age': age, 'gender': gender, 'diagnosis': diagnosis}
+
     return render_template('patient/patientweeks.html')
 
 
+@app.route('/patient_completed', methods=['POST'])
+def patient_completed():
+    if request.method == 'POST':
+  
+        comment = request.form.get('comment')
+
+    return render_template('patient/success.html')
 @app.route("/patient/plan")
 def patient_plan():
     session_user = get_session_user()
@@ -346,7 +358,11 @@ def patient_plan():
 
     # Redirect to patient dashboard if patient not found
     if not target_patient:
-           return render_template('patient/wellnessplan.html')
+            if 'current' in wellness_plan_data:
+               plan_data = wellness_plan_data['current']
+            else:
+               plan_data = {'age': 'N/A', 'gender': 'N/A', 'diagnosis': 'N/A'}
+            return render_template('patient/plan.html', age=plan_data['age'], gender=plan_data['gender'], diagnosis=plan_data['diagnosis'])
 
     # Extract and parse reservation_date from POST request
     try:
@@ -376,14 +392,14 @@ def patient_wellnessplan():
 
     # Redirect admin users to admin dashboard
     if session_user.acc_type == 1:
-        return render_template('patient/wellnessplan.html')
+        return render_template('admin/wellnessplan.html')
 
     # Get the patient associated with the logged-in user
     target_patient = Patients.get_patient_by_user_id(session_user.id)
 
     # Redirect to patient dashboard if patient not found
     if not target_patient:
-           return render_template('patient/wellnessplan.html')
+           return render_template('patient/wellnessplan.html', username=session_user.name)
 
     # Extract and parse reservation_date from POST request
     try:

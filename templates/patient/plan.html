@@ -1,51 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}" />
-  <link rel="shortcut icon" href="{{ url_for('static', filename='img/Logo-nobg.png') }}" type="image/x-icon" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WELLNESS PLAN</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='img/Logo-nobg.png') }}" type="image/x-icon" />
   <style>
-  .contents{
-    display: grid;
-    grid-template-columns: 1fr; /* One column */
-    gap: 20px; /* Adjust the gap between rows */
+    .contents {
+      display: grid;
+      grid-template-columns: 1fr; /* One column */
+      gap: 20px; /* Adjust the gap between rows */
+      margin: 10%;
+    }
 
-    margin: 10% ;
-  }
-   .content {
+    .content {
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 15px;
+      background-color: #ffa100;
+    }
 
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius:15px;
-    background-color: #ffa100;
-   
-   }
-   .choices {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Two columns with equal width */
-    gap: 10px; /* Adjust the gap between checkboxes */
-}
+    .choices {
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* One column */
+      gap: 10px; /* Adjust the gap between elements */
+    }
 
-.choices div {
-    display: flex;
-    align-items: center;
-}
 
-.choices input[type="checkbox"] {
-    margin-right: 5px; /* Adjust spacing between checkbox and label */
-}
-  body {
-    display: grid;
-    align-items: center;
-    background-image: url("{{ url_for('static', filename='img/inventory_bg.jpg') }}"); /* Replace with your image path */
-    background-size: cover; /* Ensures the background image covers the entire div */
-    background-position: center; /* Centers the background image */
-  }
+    .choices input[type="checkbox"] {
+      margin-right: 5px; /* Adjust spacing between checkbox and label */
+    }
+
+    ul {
+      list-style-type: none; /* Remove default list styles */
+      padding: 0;
+    }
+
+    ul li {
+      margin-bottom: 5px; /* Adjust margin between list items */
+    }
+    body {
+      display: grid;
+      align-items: center;
+      background-image: url("{{ url_for('static', filename='img/inventory_bg.jpg') }}"); /* Replace with your image path */
+      background-size: cover; /* Ensures the background image covers the entire div */
+      background-position: center; /* Centers the background image */
+    }
   </style>
-</head>
 
+  <script>
+    // Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+  </script>
+</head>
 <body>
   <section id="header">
     <div class="wrapper">
@@ -79,48 +110,84 @@
 
   <script>
     function toggleMenu() {
-
       console.log('Menu toggled');
     }
   </script>
-  <div class = "contents">
 
-    <div class = "content">
-        <h2>Wellness Plan</h2>
-        <div class="choices">
-            <div>
-                <input type="checkbox" id="checkbox1" name="checkbox1" value="option1">
-                <label for="checkbox1">EXERCISE</label>
-            </div>
-            <div>
-                <input type="checkbox" id="checkbox2" name="checkbox2" value="option2">
-                <label for="checkbox2">MEDICINE</label>
-            </div>
-            <!-- Add more checkboxes as needed -->
+  <div class="contents">
+    <div class="content">
+      <h2>Wellness Plan</h2>
+      <div class="choices">
+         {% if age|int in range(1, 4) and diagnosis == 'Brain tumor' and gender == 'male' %}
+         <div>
+         <input type="checkbox" id="checkbox2" name="checkbox2" value="option1">
+         <label for="checkbox2">EXERCISE</label></br>
+          <p>No Exercises</p>
         </div>
-   </div>
-    <div class = "content">
-     <h2>Food Restriction</h2>
-</div>
+          <div>
 
-<div class = "content">
-    <h2>Reminder</h2>
-</div>
-
-<div class = "content">
-    <form method="POST" action="{{ url_for('.patient_weeks') }}">
-      <div class="field-con">
-        <label for="comment">Comment</label>
-         <textarea id="comment" name="comment" rows="4" required></textarea>
+            <ul>
+            <input type="checkbox" id="checkbox2" name="checkbox2" value="option2">
+            <label for="checkbox2">MEDICINE</label>
+              <li>Cyclophosphamide</li>
+              <li>Ifosfamide</li>
+              <li>Vincristine</li>
+              <li>Cisplatin</li>
+              <li>Etoposide</li>
+              <li>Carboplatin</li>
+              <li>High Dose Methotrexate</li>
+              <li>Vinblastine</li>
+              <li>Procarbazine</li>
+              <li>Topotecan</li>
+              <li>Dactinomycin</li>
+              <li>Temozolomide</li>
+              <li>Lomustine</li>
+              <li>Thioguanine</li>
+              <li>Irinotecan</li>
+              <li>Methotrexate</li>
+            </ul>
+          </div>
+        {% else %}
+          <!-- Render something else if the condition is not met -->
+        {% endif %}
       </div>
-
-      <div class="btn-con">
-        <button class="btn-primary" type = "submit">SUBMIT</button>
-      </div>
-    </form>
     </div>
-</div>
 
+    <div class="content">
+      <h2>Food Restriction</h2>
+      {% if age|int in range(1, 4) and diagnosis == 'Brain tumor' %}
+      Soft as fuck
+      {% elif age|int in range(4, 19) and diagnosis == 'Brain tumor' %}
+      Hard as fck
+      {% else %}
+  
+    {% endif %}
+
+    </div>
+
+    <div class="content">
+      <h2>Reminder</h2>
+      {% if age|int in range(1, 4) and diagnosis == 'Brain tumor' %}
+      Soft as fuck
+      {% elif age|int in range(4, 19) and diagnosis == 'Brain tumor' %}
+      Hard as fck
+      {% else %}
+      {% endif %}
+    </div>
+
+    <div class="content">
+      <form method="POST" action="{{ url_for('.patient_completed') }}">
+        <div class="field-con">
+          <label for="comment">Comment</label>
+          <textarea id="comment" name="comment" rows="4" required></textarea>
+        </div>
+
+        <div class="btn-con">
+          <button class="btn-primary" type="submit">SUBMIT</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
 </body>
 </html>

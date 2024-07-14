@@ -35,7 +35,7 @@
               <img src="{{ url_for('static', filename='img/hamburger_menu.png') }}" class="logo" alt="Logo" />
             </div>
           </li>
-          <li><a href="#account">Account</a></li>
+          
           <li>
             <a href="#">
               <div class="logo-nav">
@@ -44,7 +44,7 @@
               </div>
             </a>
           </li>
-          <li><a href="#schedule_slot">Schedule a Slot</a></li>
+          <li><a href="{{ url_for('.patient_schedule') }}">Schedule a Slot</a></li>
           <li>
             <a href="{{ url_for('.index') }}" style="display: flex; flex-direction: column; align-items: center;">
               <img src="{{ url_for('static', filename='img/logout_icon.png') }}" alt="Logout Icon" style="width: 25px; height: auto; margin-bottom: 5px" />
@@ -64,12 +64,12 @@
   </script>
   <div class = "content">
    
-    <p>Hello</p>
+    <h2>Hello, {{ username }}!</h2>
 
 <form method="POST" action="{{ url_for('.patient_weeks') }}">
   <div class="field-con">
-    <label for="name">Age</label>
-    <input type="number" id="password" name="password" required />
+    <label for="age">Age:</label>
+    <input type="number" id="age" name="age" required />
   </div>
 
   <div class="field-con">
@@ -83,15 +83,15 @@
   </div>
 
   <div class="field-con">
-    <label for="gender">Diagnosis:</label>
-    <select id="gender" name="gender" required>
+    <label for="diagnosis">Diagnosis:</label>
+    <select id="diagnosis" name="diagnosis" required>
       <option value="">Select Diagnosis</option>
       <option value="Brain tumor">Brain tumor</option>
       <option value="Osteosarcoma">Osteosarcoma</option>
       <option value="Acute Lymphoblastic Leukemia">Acute Lymphoblastic Leukemia</option>
-      <option value="other">Hodgkin's Lymphoma</option>
-      <option value="other">Fibrosarcoma</option>
-      <option value="other">Non-Hodgkin Lymphoma </option>
+      <option value="Hodgkin's Lymphoma">Hodgkin's Lymphoma</option>
+      <option value="Fibrosarcoma">Fibrosarcoma</option>
+      <option value="Non-Hodgkin Lymphoma">Non-Hodgkin Lymphoma</option>
     </select>
   </div>
 
