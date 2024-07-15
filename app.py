@@ -367,7 +367,7 @@ def patient_plan():
     # Extract and parse reservation_date from POST request
     try:
         reservation_date = datetime.strptime(
-            request.form["reservation_date"], "%Y-%m-%d"
+            request.form["reservation_date"],
         ).date()
     except ValueError:
         return "Invalid date format"
@@ -382,7 +382,7 @@ def patient_plan():
         return "<script>alert('Failed! Your account already has a reservation record');location.href='/patient/dashboard'</script>"
 
     return "<script>alert('Success! Schedule reservation has been sent to admin');location.href='/patient/dashboard'</script>"
-@app.route("/patient/wellnessplan")
+@app.route("/patient/wellnessplan", methods=["GET", "POST"])
 def patient_wellnessplan():
     session_user = get_session_user()
 
@@ -394,40 +394,59 @@ def patient_wellnessplan():
     if session_user.acc_type == 1:
         return render_template('admin/wellnessplan.html')
 
-    # Get the patient associated with the logged-in user
-    target_patient = Patients.get_patient_by_user_id(session_user.id)
+    if request.method == "POST":
+        try:
+            reservation_date = datetime.strptime(
+                request.form["reservation_date"], "%Y-%m-%d"
+            ).date()
+        except ValueError:
+            return "Invalid date format"
 
-    # Redirect to patient dashboard if patient not found
-    if not target_patient:
-           return render_template('patient/wellnessplan.html', username=session_user.name)
+        # Get the patient associated with the logged-in user
+        target_patient = Patients.get_patient_by_user_id(session_user.id)
 
-    # Extract and parse reservation_date from POST request
-    try:
-        reservation_date = datetime.strptime(
-            request.form["reservation_date"], "%Y-%m-%d"
-        ).date()
-    except ValueError:
-        return "Invalid date format"
+        # Redirect to patient dashboard if patient not found
+        if not target_patient:
+            return render_template('patient/wellnessplan.html', username=session_user.name)
 
-    # Insert reservation into database
-    reservation_insert = Reservation.insert_reservations(
-        target_patient.id, reservation_date
-    )
+        # Insert reservation into database
+        reservation_insert = Reservation.insert_reservations(
+            target_patient.id, reservation_date
+        )
 
-    # Handle reservation insertion result
-    if not reservation_insert:
-        return "<script>alert('Failed! Your account already has a reservation record');location.href='/patient/dashboard'</script>"
+        # Handle reservation insertion result
+        if not reservation_insert:
+            return "<script>alert('Failed! Your account already has a reservation record');location.href='/patient/dashboard'</script>"
 
-    return "<script>alert('Success! Schedule reservation has been sent to admin');location.href='/patient/dashboard'</script>"
-@app.route("/patient/save", methods=["POST", "GET"])
+        return "<script>alert('Success! Schedule reservation has been sent to admin');location.href='/patient/dashboard'</script>"
+
+    # For GET requests (initial page load)
+    return render_template('patient/wellnessplan.html', username=session_user.name)
+
+
+@app.route("/patient/save", methods=["POST"])
 def patient_save():
     session_user = get_session_user()
+    if not session_user:
+        return "Not logged in"
     if session_user.acc_type == 1:
         return redirect(url_for("admin_dashboard"))
-    age, sex, type = request.form["age"], request.form["sex"], request.form["type"]
+
+    # Check for required form fields
+    required_fields = ["age", "sex", "type"]
+    for field in required_fields:
+        if field not in request.form or not request.form[field]:
+            return f"Missing required field: {field}"
+
+    age = request.form["age"]
+    sex = request.form["sex"]
+    type = request.form["type"]
+
+    # Insert patient record
     patient_insert = Patients.insert_patient(session_user.id, age, sex, type)
     if not patient_insert:
         return redirect(url_for("patient_dashboard"))
+
     return redirect(url_for("patient_schedule"))
 
 
