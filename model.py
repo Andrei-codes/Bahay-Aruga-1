@@ -12,7 +12,7 @@ class Users(db.Model):
     province = db.Column(db.String(255), nullable=False)
     municipality = db.Column(db.String(255), nullable=False)
     password = db.Column(db.String(255), nullable=False)
-
+ 
     @classmethod
     def auth_user(cls, email, password):
         user = cls.query.filter_by(email=email).first()
@@ -66,6 +66,9 @@ class Patients(db.Model):
     age = db.Column(db.Integer, nullable=False)
     sex = db.Column(db.String(255), nullable=False)
     cancer_type = db.Column(db.String(255), nullable=False)
+    exercise_checked = db.Column(db.String(10), nullable=False, default="false")
+    medicine_checked = db.Column(db.String(10), nullable=False, default="false")
+    comments = db.Column(db.Text)
 
     user = db.relationship("Users", backref=db.backref("patients", lazy=True))
 
@@ -98,6 +101,11 @@ class Patients(db.Model):
             return None
         return target_patient
 
+    def update_health_status(self, exercise_checked, medicine_checked, comments):
+        self.exercise_checked = exercise_checked
+        self.medicine_checked = medicine_checked
+        self.comments = comments
+        db.session.commit()
 
 class Reservation(db.Model):
     __tablename__ = "reservations"

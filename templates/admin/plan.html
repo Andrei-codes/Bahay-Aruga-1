@@ -89,36 +89,18 @@
         <h2>Wellness Plan</h2>
         <div class="choices">
             <div>
-                <input type="checkbox" id="checkbox1" name="checkbox1" value="option1">
-                <label for="checkbox1">EXERCISE</label>
+                
             </div>
             <div>
-                <input type="checkbox" id="checkbox2" name="checkbox2" value="option2">
-                <label for="checkbox2">MEDICINE</label>
+           
             </div>
-            <!-- Add more checkboxes as needed -->
+               <p><strong>Patient ID:</strong> {{ user_id }}</p>
+               <p><strong>Comments:</strong> {{ comments }}</p>
+               <p><strong>Exercise Checked:</strong> {{ "Yes" if exercise_checked == 'true' else "No" }}</p>
+               <p><strong>Medicine Checked:</strong> {{ "Yes" if medicine_checked == 'true' else "No" }}</p>
         </div>
    </div>
-    <div class = "content">
-     <h2>Food Restriction</h2>
-</div>
 
-<div class = "content">
-    <h2>Reminder</h2>
-</div>
-
-<div class = "content">
-    <form method="POST" action="{{ url_for('.patient_weeks') }}">
-      <div class="field-con">
-        <label for="comment">Comment</label>
-         <textarea id="comment" name="comment" rows="4" required></textarea>
-      </div>
-
-      <div class="btn-con">
-        <button class="btn-primary" type = "submit">SUBMIT</button>
-      </div>
-    </form>
-    </div>
 </div>
 
 

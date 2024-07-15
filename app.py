@@ -323,65 +323,59 @@ def patient_schedule_save():
     if not reservation_insert:
         return "<script>alert('Failed! Your account already have a reservation record');location.href='/patient/dashboard'</script>"
     return "<script>alert('Success! Schedule reservation has been sent to admin');location.href='/patient/dashboard'</script>"
+wellness_plan_data = {}
 
 @app.route('/patient/weeks', methods=["POST"])
 def patient_weeks():
     age = request.form.get('age')
     gender = request.form.get('gender')
     diagnosis = request.form.get('diagnosis')
+
+    # Update current wellness plan data
     wellness_plan_data['current'] = {'age': age, 'gender': gender, 'diagnosis': diagnosis}
+
+    # Store data in session for use in other routes
+    session['age'] = age
+    session['gender'] = gender
+    session['diagnosis'] = diagnosis
 
     return render_template('patient/patientweeks.html')
 
-
-@app.route('/patient_completed', methods=['POST'])
+@app.route('/patient/completed', methods=["POST"])
 def patient_completed():
     if request.method == 'POST':
-  
-        comment = request.form.get('comment')
+        # Get the logged-in user
+        session_user = get_session_user()  # Assuming you have a function to get the current user
 
-    return render_template('patient/success.html')
-@app.route("/patient/plan")
+        # Check if user is logged in
+        if not session_user:
+            return "Not logged in"
+
+        # Retrieve form data
+        comment_text = request.form.get('comment')
+        exercise_checked = request.form.get('exercise_input', 'false')  # Default to 'false' if not provided
+        medicine_checked = request.form.get('medicine_input', 'false')  # Default to 'false' if not provided
+        
+        # Find the patient by user ID
+        target_patient = Patients.get_patient_by_user_id(session_user.id)
+
+        if not target_patient:
+            return "Patient not found"
+
+        # Update patient's exercise, medicine, and comment columns
+        target_patient.update_health_status(exercise_checked, medicine_checked, comment_text)
+
+        return render_template('patient/success.html')
+
+@app.route('/patient/plan')
 def patient_plan():
-    session_user = get_session_user()
+    # Retrieve data from session
+    age = session.get('age', 'N/A')
+    gender = session.get('gender', 'N/A')
+    diagnosis = session.get('diagnosis', 'N/A')
 
-    # Check if user is logged in
-    if not session_user:
-        return "Not logged in"
+    return render_template('patient/plan.html', age=age, gender=gender, diagnosis=diagnosis)
 
-    # Redirect admin users to admin dashboard
-    if session_user.acc_type == 1:
-        return render_template('patient/plan.html')
-
-    # Get the patient associated with the logged-in user
-    target_patient = Patients.get_patient_by_user_id(session_user.id)
-
-    # Redirect to patient dashboard if patient not found
-    if not target_patient:
-            if 'current' in wellness_plan_data:
-               plan_data = wellness_plan_data['current']
-            else:
-               plan_data = {'age': 'N/A', 'gender': 'N/A', 'diagnosis': 'N/A'}
-            return render_template('patient/plan.html', age=plan_data['age'], gender=plan_data['gender'], diagnosis=plan_data['diagnosis'])
-
-    # Extract and parse reservation_date from POST request
-    try:
-        reservation_date = datetime.strptime(
-            request.form["reservation_date"], "&y,&m, &d"
-        ).date()
-    except ValueError:
-        return "Invalid date format"
-
-    # Insert reservation into database
-    reservation_insert = Reservation.insert_reservations(
-        target_patient.id, reservation_date
-    )
-
-    # Handle reservation insertion result
-    if not reservation_insert:
-        return "<script>alert('Failed! Your account already has a reservation record');location.href='/patient/dashboard'</script>"
-
-    return "<script>alert('Success! Schedule reservation has been sent to admin');location.href='/patient/dashboard'</script>"
 @app.route("/patient/wellnessplan", methods=["GET", "POST"])
 def patient_wellnessplan():
     session_user = get_session_user()
@@ -392,7 +386,7 @@ def patient_wellnessplan():
 
     # Redirect admin users to admin dashboard
     if session_user.acc_type == 1:
-        return render_template('admin/wellnessplan.html')
+        return render_template('admin/plan.html')
 
     if request.method == "POST":
         try:
