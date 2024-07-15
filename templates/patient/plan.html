@@ -114,80 +114,134 @@ window.onclick = function(event) {
     }
   </script>
 
-  <div class="contents">
-    <div class="content">
-      <h2>Wellness Plan</h2>
-      <div class="choices">
-         {% if age|int in range(1, 4) and diagnosis == 'Brain tumor' and gender == 'male' %}
-         <div>
-         <input type="checkbox" id="checkbox2" name="checkbox2" value="option1">
-         <label for="checkbox2">EXERCISE</label></br>
+<div class="contents">
+  <div class="content">
+    <h2>Wellness Plan</h2>
+    <div class="choices">
+      {% if age|int in range(1, 7) and diagnosis == 'Brain tumor' %}
+        <div>
+          <input type="checkbox" id="checkbox2" name="checkbox2" value="option1">
+          <label for="checkbox2">EXERCISE (Age 1-6)</label><br>
           <p>No Exercises</p>
         </div>
-          <div>
-
-            <ul>
-            <input type="checkbox" id="checkbox2" name="checkbox2" value="option2">
-            <label for="checkbox2">MEDICINE</label>
-              <li>Cyclophosphamide</li>
-              <li>Ifosfamide</li>
-              <li>Vincristine</li>
-              <li>Cisplatin</li>
-              <li>Etoposide</li>
-              <li>Carboplatin</li>
-              <li>High Dose Methotrexate</li>
-              <li>Vinblastine</li>
-              <li>Procarbazine</li>
-              <li>Topotecan</li>
-              <li>Dactinomycin</li>
-              <li>Temozolomide</li>
-              <li>Lomustine</li>
-              <li>Thioguanine</li>
-              <li>Irinotecan</li>
-              <li>Methotrexate</li>
-            </ul>
-          </div>
-        {% else %}
-          <!-- Render something else if the condition is not met -->
-        {% endif %}
-      </div>
-    </div>
-
-    <div class="content">
-      <h2>Food Restriction</h2>
-      {% if age|int in range(1, 4) and diagnosis == 'Brain tumor' %}
-      Soft as fuck
-      {% elif age|int in range(4, 19) and diagnosis == 'Brain tumor' %}
-      Hard as fck
+        <div class="choices">
+          <input type="checkbox" id="checkbox3" name="checkbox3" value="option2">
+          <label for="checkbox3">MEDICINE (Age 1-6)</label><br>
+          <p>BIOGESIC</p>
+        </div>
+      {% elif age|int in range(7, 19) and diagnosis == 'Brain tumor' %}
+        <div>
+          <input type="checkbox" id="checkbox4" name="checkbox4" value="option3">
+          <label for="checkbox4">EXERCISE (Age 7-18)</label><br>
+          <p>WALKING</p>
+        </div>
+        <div class="choices">
+          <input type="checkbox" id="checkbox5" name="checkbox5" value="option4">
+          <label for="checkbox5">MEDICINE (Age 7-18)</label><br>
+          <p>PREDNIZOLE</p>
+        </div>
+      {% elif age|int in range(1, 7) and diagnosis == 'Osteosarcoma' %}
+        <div>
+          <input type="checkbox" id="checkbox6" name="checkbox6" value="option5">
+          <label for="checkbox6">EXERCISE (Age 1-6)</label><br>
+          <p>No Exercises</p>
+        </div>
+        <div class="choices">
+          <input type="checkbox" id="checkbox7" name="checkbox7" value="option6">
+          <label for="checkbox7">MEDICINE (Age 1-6)</label><br>
+          <p>METHOTREXATE</p>
+        </div>
+      {% elif age|int in range(7, 19) and diagnosis == 'Osteosarcoma' %}
+        <div>
+          <input type="checkbox" id="checkbox8" name="checkbox8" value="option7">
+          <label for="checkbox8">EXERCISE (Age 7-18)</label><br>
+          <p>RUNNING</p>
+        </div>
+        <div class="choices">
+          <input type="checkbox" id="checkbox9" name="checkbox9" value="option8">
+          <label for="checkbox9">MEDICINE (Age 7-18)</label><br>
+          <p>NEOZEP</p>
+        </div>
+        {% elif age|int in range(1, 7) and diagnosis == 'Acute Lymphoblastic Leukemia' %}
+        <div>
+          <input type="checkbox" id="checkbox10" name="checkbox10" value="option9">
+          <label for="checkbox10">EXERCISE (Age 1-6)</label><br>
+          <p>No Exercises</p>
+        </div>
+        <div class="choices">
+          <input type="checkbox" id="checkbox11" name="checkbox11" value="option10">
+          <label for="checkbox11">MEDICINE (Age 1-6)</label><br>
+          <p>METHOTREXATE</p>
+        </div>
+      {% elif age|int in range(7, 19) and diagnosis == 'Acute Lymphoblastic Leukemia' %}
+        <div>
+          <input type="checkbox" id="checkbox8" name="checkbox8" value="option7">
+          <label for="checkbox8">EXERCISE (Age 1-6)</label><br>
+          <p>RUNNING</p>
+        </div>
+        <div class="choices">
+          <input type="checkbox" id="checkbox9" name="checkbox9" value="option8">
+          <label for="checkbox9">MEDICINE (Age 7-18)</label><br>
+          <p>NEOZEP</p>
+        </div>
       {% else %}
-  
-    {% endif %}
-
-    </div>
-
-    <div class="content">
-      <h2>Reminder</h2>
-      {% if age|int in range(1, 4) and diagnosis == 'Brain tumor' %}
-      Soft as fuck
-      {% elif age|int in range(4, 19) and diagnosis == 'Brain tumor' %}
-      Hard as fck
-      {% else %}
+        <!-- Render something else if the condition is not met -->
       {% endif %}
     </div>
-
-    <div class="content">
-      <form method="POST" action="{{ url_for('.patient_completed') }}">
-        <div class="field-con">
-          <label for="comment">Comment</label>
-          <textarea id="comment" name="comment" rows="4" required></textarea>
-        </div>
-
-        <div class="btn-con">
-          <button class="btn-primary" type="submit">SUBMIT</button>
-        </div>
-      </form>
-    </div>
   </div>
+
+  <div class="content">
+    <h2>Food Restriction</h2>
+    {% if age|int in range(1, 6) and diagnosis == 'Brain tumor' %}
+      <p>CEREAL, MILK</p>
+    {% elif age|int in range(7, 18) and diagnosis == 'Brain tumor' %}
+      <p>VEGETABLE, WHITE MEAT, PROTEIN</p>
+    {% elif age|int in range(1, 6) and diagnosis == 'Osteosarcoma' %}
+      <p>FRUITS, DAIRY PRODUCTS</p>
+    {% elif age|int in range(7, 18) and diagnosis == 'Osteosarcoma' %}
+      <p>GREEN, BEANS, RICE</p>
+    {% elif age|int in range(1, 6) and diagnosis == 'Osteosarcoma' %}
+      <p>FRUITS, DAIRY PRODUCTS</p>
+    {% elif age|int in range(7, 18) and diagnosis == 'Osteosarcoma' %}
+      <p>GREEN, BEANS, RICE</p>
+    {% else %}
+      <!-- Render something else if the condition is not met -->
+    {% endif %}
+  </div>
+
+  <div class="content">
+    <h2>Reminder</h2>
+    {% if age|int in range(1, 6) and diagnosis == 'Brain tumor' %}
+      <p>ALAGAAN NG MABUTI</p>
+    {% elif age|int in range(7, 18) and diagnosis == 'Brain tumor' %}
+      <p>ALALAYAN SA MGA GAMOT NA DAPAT ITAKE</p>
+    {% elif age|int in range(1, 6) and diagnosis == 'Osteosarcoma' %}
+      <p>Manage the diet well</p>
+    {% elif age|int in range(6, 18) and diagnosis == 'Osteosarcoma' %}
+      <p>Eat healthy, exercise regularly</p>
+    {% elif age|int in range(1, 6) and diagnosis == 'Acute Lymphoblastic Leukemia' %}
+      <p>Manage the diet well</p>
+    {% elif age|int in range(7, 18) and diagnosis == 'Acute Lymphoblastic Leukemia' %}
+      <p>Eat healthy, exercise regularly</p>
+    {% else %}
+    
+      <!-- Render something else if the condition is not met -->
+    {% endif %}
+  </div>
+
+  <div class="content">
+    <form method="POST" action="{{ url_for('.patient_completed') }}">
+      <div class="field-con">
+        <label for="comment">Comment</label>
+        <textarea id="comment" name="comment" rows="4" required></textarea>
+      </div>
+
+      <div class="btn-con">
+        <button class="btn-primary" type="submit">SUBMIT</button>
+      </div>
+    </form>
+  </div>
+</div>
 
 </body>
 </html>
