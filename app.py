@@ -367,7 +367,7 @@ def patient_plan():
     # Extract and parse reservation_date from POST request
     try:
         reservation_date = datetime.strptime(
-            request.form["reservation_date"],
+            request.form["reservation_date"], "&y,&m, &d"
         ).date()
     except ValueError:
         return "Invalid date format"
