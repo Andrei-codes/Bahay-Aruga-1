@@ -360,13 +360,13 @@ def patient_completed():
         target_patient = Patients.get_patient_by_user_id(session_user.id)
 
         if not target_patient:
-            return "Patient not found"
-
-        # Update patient's exercise, medicine, and comment columns
-        target_patient.update_health_status(exercise_checked, medicine_checked, comment_text)
+            # Create new patient entry if not found
+            Patients.create_or_update_health_status(session_user.id, exercise_checked, medicine_checked, comment_text)
+        else:
+            # Update existing patient's health status
+            target_patient.update_health_status(exercise_checked, medicine_checked, comment_text)
 
         return render_template('patient/success.html')
-
 @app.route('/patient/plan')
 def patient_plan():
     # Retrieve data from session
@@ -386,7 +386,8 @@ def patient_wellnessplan():
 
     # Redirect admin users to admin dashboard
     if session_user.acc_type == 1:
-        return render_template('admin/plan.html')
+         patients = Patients.query.all()
+         return render_template('admin/plan.html', patients=patients)
 
     if request.method == "POST":
         try:

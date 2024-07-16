@@ -63,9 +63,9 @@ class Patients(db.Model):
     __tablename__ = "patients"
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-    age = db.Column(db.Integer, nullable=False)
-    sex = db.Column(db.String(255), nullable=False)
-    cancer_type = db.Column(db.String(255), nullable=False)
+    age = db.Column(db.Integer, nullable=True)
+    sex = db.Column(db.String(255), nullable=True)
+    cancer_type = db.Column(db.String(255), nullable=True)
     exercise_checked = db.Column(db.String(10), nullable=False, default="false")
     medicine_checked = db.Column(db.String(10), nullable=False, default="false")
     comments = db.Column(db.Text)
@@ -74,14 +74,20 @@ class Patients(db.Model):
 
     @classmethod
     def insert_patient(cls, user_id, age, sex, cancer_type):
+        # Check if a patient with the same user_id already exists
         target_patient = cls.query.filter_by(user_id=user_id).first()
         if target_patient:
             return False
+        
+        # Ensure age is provided and is not None
+        if age is None:
+            return False
+        
+        # Create a new patient entry
         patient_entry = cls(user_id=user_id, age=age, sex=sex, cancer_type=cancer_type)
         db.session.add(patient_entry)
         db.session.commit()
         return True
-
     @classmethod
     def fetch_patients(cls):
         all_patients = cls.query.all()
@@ -106,6 +112,20 @@ class Patients(db.Model):
         self.medicine_checked = medicine_checked
         self.comments = comments
         db.session.commit()
+        
+    @classmethod
+    def create_or_update_health_status(cls, user_id, exercise_checked, medicine_checked, comments):
+        patient = cls.query.filter_by(user_id=user_id).first()
+
+        if patient:
+            patient.update_health_status(exercise_checked, medicine_checked, comments)
+        else:
+            new_patient = cls(user_id=user_id,
+                              exercise_checked=exercise_checked,
+                              medicine_checked=medicine_checked,
+                              comments=comments)
+            db.session.add(new_patient)
+            db.session.commit()
 
 class Reservation(db.Model):
     __tablename__ = "reservations"
