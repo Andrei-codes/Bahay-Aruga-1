@@ -366,7 +366,7 @@ def patient_completed():
             # Update existing patient's health status
             target_patient.update_health_status(exercise_checked, medicine_checked, comment_text)
 
-        return render_template('patient/success.html')
+        return render_template('patient/dashboard.html')
 @app.route('/patient/plan')
 def patient_plan():
     # Retrieve data from session
