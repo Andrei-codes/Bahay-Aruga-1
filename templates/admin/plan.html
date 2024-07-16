@@ -7,42 +7,85 @@
   <link rel="shortcut icon" href="{{ url_for('static', filename='img/Logo-nobg.png') }}" type="image/x-icon" />
   <title>WELLNESS PLAN</title>
   <style>
-  .contents{
-    display: grid;
-    grid-template-columns: 1fr; /* One column */
-    gap: 20px; /* Adjust the gap between rows */
+    .contents {
+      margin: 10%;
+    }
 
-    margin: 10% ;
-  }
-   .content {
+    h2{
+      margin-bottom: 1%
+    }
+    .content {
+      border-radius: 10px;
+      padding: 20px;
+      background-color: #ffa100;
+    }
 
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius:15px;
-    background-color: #ffa100;
-   
-   }
-   .choices {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Two columns with equal width */
-    gap: 10px; /* Adjust the gap between checkboxes */
-}
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
+      gap: 20px; /* Adjust the gap between cards */
+    }
+    .card {
+      padding: 15px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background-color: #ffffff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
 
-.choices div {
-    display: flex;
-    align-items: center;
-}
+    .card-header {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
 
-.choices input[type="checkbox"] {
-    margin-right: 5px; /* Adjust spacing between checkbox and label */
-}
-  body {
-    display: grid;
-    align-items: center;
-    background-image: url("{{ url_for('static', filename='img/inventory_bg.jpg') }}"); /* Replace with your image path */
-    background-size: cover; /* Ensures the background image covers the entire div */
-    background-position: center; /* Centers the background image */
-  }
+    .card-content {
+      margin-bottom: 10px;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    body {
+      display: grid;
+      align-items: center;
+      background-image: url("{{ url_for('static', filename='img/inventory_bg.jpg') }}");
+      background-size: cover;
+      background-position: center;
+    }
+
+    .wrapper {
+      grid-column: span 3;
+    }
+
+    .header-con {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .navbar {
+      display: flex;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .navbar li {
+      margin: 0 10px;
+    }
+
+    .logo-nav {
+      cursor: pointer;
+    }
+
+    .logo {
+      width: 30px;
+      height: auto;
+    }
   </style>
 </head>
 
@@ -77,32 +120,23 @@
     </div>
   </section>
 
-  <script>
-    function toggleMenu() {
+  <div class="contents">
 
-      console.log('Menu toggled');
-    }
-  </script>
-  <div class = "contents">
-
-    <div class = "content">
-        <h2>Wellness Plan</h2>
-        <div class="choices">
-            <div>
-                
-            </div>
-            <div>
-           
-            </div>
-               <p><strong>Patient ID:</strong> {{ user_id }}</p>
-               <p><strong>Comments:</strong> {{ comments }}</p>
-               <p><strong>Exercise Checked:</strong> {{ "Yes" if exercise_checked == 'true' else "No" }}</p>
-               <p><strong>Medicine Checked:</strong> {{ "Yes" if medicine_checked == 'true' else "No" }}</p>
+    <div class="content">
+      <h2>Wellness Plan</h2>
+      <div class="cards">
+      {% for patient in patients %}
+      <div class="card">
+        <div class="card-header"> <p><strong>{{ patient.user.name }}</strong></p></div> 
+        <div class="card-content">
+          <p><strong>Comments:</strong> {{ patient.comments }}</p>
+          <p><strong>Exercise:</strong> {{ 'Checked' if 'on' in patient.exercise_checked else 'Not Checked' }}</p>
+          <p><strong>Medicine:</strong> {{ 'Checked' if 'on' in patient.medicine_checked else 'Not Checked' }}</p>
         </div>
-   </div>
-
-</div>
-
-
+      </div>
+      {% endfor %}
+    </div>
+    </div>
+  </div>
 </body>
 </html>
