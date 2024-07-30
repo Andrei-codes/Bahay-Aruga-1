@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 db = SQLAlchemy()
 
@@ -54,9 +55,19 @@ class Medicine(db.Model):
     category = db.Column(db.String(255), nullable=False)
     image_url = db.Column(db.String(255))
     stocks = db.Column(db.Integer, default=0)
-
+    
     def __repr__(self):
         return f"<Medicine {self.id}: {self.itemname}>"
+    
+
+
+class History(db.Model):
+    __tablename__ = 'history'  # Set the table name to 'history'
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.DateTime, default=datetime.utcnow)
+    itemname = db.Column(db.String(100), nullable=False)
+    stocks = db.Column(db.Integer, nullable=False)
+
 
 
 class Patients(db.Model):

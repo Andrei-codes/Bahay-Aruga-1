@@ -17,8 +17,8 @@
       body {
         margin: 0;
         font-family: Arial, sans-serif;
-        display: flex;
-        flex-direction: column;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
         min-height: 100vh;
       }
       .wrapper {
@@ -26,24 +26,24 @@
         margin: 0 auto;
         max-width: 1200px;
         padding: 0 15px;
-        flex: 1;
       }
       .content-wrapper {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        gap: 20px;
         padding-top: 20px; /* Adjust as needed */
       }
       .navbar {
         list-style-type: none;
         margin: 0;
         padding: 0;
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 15px;
         align-items: center;
       }
       .navbar li {
-        margin: 0 15px;
+        margin: 0;
       }
       .navbar li a {
         text-decoration: none;
@@ -58,7 +58,8 @@
         height: auto;
       }
       .logo-nav {
-        display: flex;
+        display: grid;
+        grid-auto-flow: column;
         align-items: center;
         justify-content: center;
       }
@@ -66,29 +67,24 @@
         margin-right: 10px;
       }
       .categories {
-        flex: 1;
         max-width: 300px;
-        margin-right: 20px;
-        align-self: flex-start;
+        align-self: start;
       }
       #inventory {
-        flex: 1;
         padding: 50px 0;
         background-image: url("{{ url_for('static', filename='img/inventory_bg.jpg') }}");
         background-size: cover;
         background-repeat: no-repeat;
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
       }
       .inventory-con {
-        flex: 3;
         position: relative;
         text-align: center;
         background: transparent;
         padding: 20px;
         border-radius: 10px;
-        margin-top: 20px;
         z-index: 1;
       }
       .inventory-con h1 {
@@ -121,9 +117,10 @@
         border: 1px solid #000;
         margin-bottom: 5px;
         text-align: center;
-        display: flex;
+        display: grid;
+        grid-auto-flow: column;
         align-items: center;
-        justify-content: flex-start;
+        justify-content: start;
       }
       .category img {
         margin-right: 10px;
@@ -154,21 +151,32 @@
       .dropdown a:hover {
         text-decoration: underline;
       }
-      .medicines-container {
-        flex: 1;
-        max-width: calc(
-          100% - 340px
-        ); /* Adjust the width based on your layout needs */
+
+      .content {
         background-color: #ffc107;
-        padding: 20px;
         border-radius: 10px;
         border: 1px solid #000;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        box-sizing: border-box;
         margin-top: 20px;
+        border-radius: 10px;
+        padding: 20px;
       }
+      .actions{
+        display: flex;
+        justify-content: flex-end; /* Aligns content to the right */
+        gap: 10px;
+        margin-bottom:15px;
+      }
+      .medicines-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+      }
+
+       .stock-input {
+        font-family: "Poppins", sans-serif;
+  text-align: center;
+        font-size: 15px;
+}
       .minus-btn,
       .plus-btn {
         background-color: #ffc107;
@@ -182,14 +190,15 @@
       .plus-btn:hover {
         background-color: #ffca28;
       }
+      .hidden {
+  display: none;
+}
       .medicine {
         background-color: #fff;
         border: 1px solid #000;
         border-radius: 10px;
         padding: 15px;
-        margin: 10px;
         text-align: center;
-        flex-basis: calc(50% - 20px);
         box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
       }
       .medicine img {
@@ -198,51 +207,71 @@
         margin: 0 auto; /* Center align the image */
       }
       .edit-btn,
-      .save-btn {
-        background-color: #ffc107;
-        border: none;
+      .save-btn,
+      .history-btn {
+        background-color: #232323;
+        border: 1px solid black;
+        color:#f0f0f0;
         padding: 5px 10px;
-        margin-top: 10px;
         cursor: pointer;
         border-radius: 5px;
       }
+
+      .save-btn{
+        display: none;
+      }
+      .history-btn.active {
+        padding: 5px 10px;
+        font-size: 15px;
+  background-color: #f0ad4e; /* Change this to the color you want */
+  color: #000000; /* Change this to the text color you want */
+}
       .edit-btn:hover,
       .save-btn:hover {
         background-color: #ffca28;
+      
+        color: black;
+        border: 1px solid;
       }
-      @media (max-width: 768px) {
-        .medicines-container {
-          max-width: 100%;
-        }
-        .medicine {
-          flex-basis: calc(50% - 20px);
-        }
-      }
-      @media (max-width: 480px) {
-        .medicine {
-          flex-basis: calc(100% - 20px);
-        }
-      }
+
+      #history-container {
+  padding: 20px;
+}
+
+#stock-history-table-container {
+  max-height: 400px; /* Adjust height as needed */
+  overflow-y: auto;
+}
+
+#stock-history-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+#stock-history-table th, #stock-history-table td {
+  border: 1px solid #000000;
+  padding: 8px;
+  text-align: left;
+}
+
+
+
       @media (max-width: 768px) {
         .navbar {
-          display: none;
-          flex-direction: column;
-          width: 100%;
+          grid-template-columns: 1fr;
           text-align: center;
         }
-        .navbar li {
-          margin: 10px 0;
-        }
         .header-con {
-          display: flex;
-          justify-content: space-between;
+          display: grid;
+          grid-template-columns: 1fr auto;
           align-items: center;
         }
         .hamburger-menu {
           display: block;
         }
         #inventory {
-          flex-direction: column;
+          grid-template-columns: 1fr;
           padding: 20px 0;
         }
         .inventory-con h1 {
@@ -262,6 +291,16 @@
           padding: 5px;
         }
       }
+      input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Hide number input spinners in Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
     </style>
   </head>
   <body>
@@ -298,8 +337,8 @@
               <a
                 href="{{ url_for('.index') }}"
                 style="
-                  display: flex;
-                  flex-direction: column;
+                  display: grid;
+                  grid-template-columns: auto;
                   align-items: center;
                 "
               >
@@ -334,78 +373,200 @@
               {% endfor %}
             </div>
           </div>
-
-          <div id="medicines-container" class="medicines-container">
-            <!-- Medicine items will be dynamically inserted here -->
-            {% for medicine in medicines %}
-            <div class="medicine" data-category="{{ medicine.category }}">
-              <img
-                src="{{ url_for('static', filename=medicine.image_url) }}"
-                alt="Medicine"
-              />
-              <h2>{{ medicine.itemname }}</h2>
-              <p>
-                Stock:
-                <span id="stock-{{ medicine.itemname.replace(' ', '') }}"
-                  >{{ medicine.stocks }}</span
-                >
-              </p>
-              <button class="edit-btn">EDIT</button>
-              <button
-                class="minus-btn"
-                onclick="decrementStock('{{ medicine.itemname.replace(' ', '') }}')"
-              >
-                -
-              </button>
-              <button
-                class="plus-btn"
-                onclick="incrementStock('{{ medicine.itemname.replace(' ', '') }}')"
-              >
-                +
-              </button>
-              <button class="save-btn">SAVE</button>
+           <div class = "content">
+              <div class="actions">
+                <button class="edit-btn" id="edit-btn">EDIT</button>
+                <button class="save-btn" id="save-btn" type="submit">SAVE</button>
+                <button class="history-btn">
+                  <img src="{{ url_for('static', filename='img/history.png') }}" alt="History Icon" />
+                </button>
+              </div>
+              <div id="medicines-container" class="medicines-container">
+                {% for medicine in medicines %}
+                <div class="medicine" data-id="{{ medicine.id }}" data-name="{{ medicine.itemname }}" data-stock="{{ medicine.stocks }}">
+                  <img src="{{ url_for('static', filename=medicine.image_url) }}" alt="Medicine"/>
+                  <h2 class="hidden" id = "med_id">{{ medicine.id}}</h2>
+                  <h2>{{ medicine.itemname }}</h2>
+                  <p>
+                    Stock:
+                    <span id="stock-{{ medicine.itemname.replace(' ', '') }}" class="stock-number">
+                      {{ medicine.stocks }}
+                    </span>
+                    <input
+                      id="stock-input-{{ medicine.itemname.replace(' ', '') }}"
+                      name="stocks[{{ medicine.itemname.replace(' ', '') }}]"
+                      class="stock-input hidden"
+                      type="number"
+                      value="{{ medicine.stocks }}"
+                    />
+                  </p>
+                  <button class="minus-btn hidden" onclick="decrementStock('{{ medicine.itemname.replace(' ', '') }}')" type="button">-</button>
+                  <button class="plus-btn hidden" onclick="incrementStock('{{ medicine.itemname.replace(' ', '') }}')" type="button">+</button>
+                </div>
+                {% endfor %}
+              </div>
+            
+          <div id="history-container" class="hidden">
+            <h2>Stock History</h2>
+            <div id="stock-history-table-container">
+              <table id="stock-history-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Medicine</th>
+                    <th>Number of Stocks</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for entry in history_entries %}
+                  <tr>
+                      <td>{{ entry.date }}</td>
+                      <td>{{ entry.itemname }}</td>
+                      <td>{{ entry.stocks }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
             </div>
-            {% endfor %}
           </div>
         </div>
       </div>
+      </div>
     </section>
-
     <footer id="footer">
       <p>&copy; 2024 BAHAY ARUGA SYSTEM. ALL RIGHTS RESERVED.</p>
     </footer>
 
     <script>
-      function toggleDropdown(id) {
-        const dropdown = document.getElementById(id);
-        dropdown.style.display =
-          dropdown.style.display === "block" ? "none" : "block";
-      }
 
-      function filterItems(category) {
-        const medicines = document.querySelectorAll(".medicine");
-        medicines.forEach((medicine) => {
-          const categoryMatch =
-            medicine.getAttribute("data-category") === category;
-          medicine.style.display = categoryMatch ? "block" : "none";
+let alertShown = false; // Flag to track if the alert has been shown
+
+function saveStock() {
+    const medicines = document.querySelectorAll('.medicine');
+    const updates = [];
+
+    medicines.forEach(medicine => {
+        const medicineId = medicine.dataset.id;
+        const stockInput = medicine.querySelector(`.stock-input`);
+        const originalStock = parseInt(medicine.dataset.originalStock);
+        const newStock = parseInt(stockInput.value);
+
+        if (newStock !== originalStock) { // Check if stock value has changed
+            updates.push({
+                id: medicineId,
+                stock: newStock
+            });
+        }
+    });
+
+    if (updates.length === 0) {
+        alert('No changes to save.');
+        return;
+    }
+
+    fetch('/update_stock', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updates)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success' && !alertShown) {
+            alert('Stock updated successfully!');
+            alertShown = true; // Set the flag to true after showing the alert
+        }
+
+        location.reload(); // Reload the page after the update
+    })
+    .catch(error => {
+        console.error('Error updating stock:', error);
+        alert('Error updating stock. Please try again.');
+    });
+}
+
+document.getElementById('save-btn').addEventListener('click', saveStock);
+
+      
+      function toggleEditMode() {
+        const editButtons = document.querySelectorAll('.minus-btn, .plus-btn');
+        const saveButton = document.getElementById('save-btn');
+        editButtons.forEach(button => {
+          button.classList.toggle('hidden');
+        });
+      
+        const stockNumbers = document.querySelectorAll('.stock-number');
+        const stockInputs = document.querySelectorAll('.stock-input');
+        
+        stockNumbers.forEach((span, index) => {
+          const input = stockInputs[index];
+          if (span.classList.contains('hidden')) {
+            span.classList.remove('hidden');
+            input.classList.add('hidden');
+            saveButton.style.display = "none";
+          } else {
+            span.classList.add('hidden');
+            input.classList.remove('hidden');
+            saveButton.style.display = "inline-block";
+          }
         });
       }
+      
+      document.getElementById('edit-btn').addEventListener('click', function() {
+        const button = document.getElementById('edit-btn');
+        if (button.textContent === 'EDIT') {
+          button.textContent = 'UNDO';
+          toggleEditMode(); // Switch to edit mode
+        } else {
+          button.textContent = 'EDIT';
+          toggleEditMode(); // Switch back to view mode
+        }
+      });
+      
+      function toggleHistory() {
+    const medicinesContainer = document.getElementById('medicines-container');
+    const historyContainer = document.getElementById('history-container');
+    const historyButton = document.querySelector('.history-btn');
+    const editButton = document.getElementById('edit-btn');
+    const saveButton = document.getElementById('save-btn');
 
+    if (medicinesContainer.style.display === "none") {
+        medicinesContainer.style.display = "grid";
+        historyContainer.style.display = "none";
+        historyButton.classList.remove('active');
+        historyButton.innerHTML = `<img src="{{ url_for('static', filename='img/history.png') }}" alt="History Icon" />`; // Reset to original icon
+        editButton.style.display = "inline-block";
+        saveButton.style.display = "inline-block";
+    } else {
+        medicinesContainer.style.display = "none";
+        historyContainer.style.display = "block";
+        historyButton.classList.add('active');
+        historyButton.innerHTML = `X`; // Change button to "X"
+        editButton.style.display = "none";
+        saveButton.style.display = "none";
+    }
+}
+
+document.querySelector('.history-btn').addEventListener('click', toggleHistory);
+      
+      document.querySelector('.history-btn').addEventListener('click', toggleHistory);
+      
       function decrementStock(itemname) {
-        const stockElement = document.getElementById(`stock-${itemname}`);
-        let stock = parseInt(stockElement.innerText);
+        const stockInput = document.getElementById(`stock-input-${itemname}`);
+        let stock = parseInt(stockInput.value);
         if (stock > 0) {
           stock--;
-          stockElement.innerText = stock;
+          stockInput.value = stock;
         }
       }
-
+      
       function incrementStock(itemname) {
-        const stockElement = document.getElementById(`stock-${itemname}`);
-        let stock = parseInt(stockElement.innerText);
+        const stockInput = document.getElementById(`stock-input-${itemname}`);
+        let stock = parseInt(stockInput.value);
         stock++;
-        stockElement.innerText = stock;
+        stockInput.value = stock;
       }
-    </script>
+      </script>
   </body>
 </html>

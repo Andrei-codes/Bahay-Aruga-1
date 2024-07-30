@@ -1,7 +1,8 @@
 from flask import Flask, render_template, session, request, redirect, url_for, jsonify
-from model import db, Users, Patients, Reservation, Completed, Medicine
+from model import db, Users, Patients, Reservation, Completed, Medicine, History
 from flask_migrate import Migrate
 from datetime import datetime
+import json
 
 app = Flask(__name__)
 app.secret_key = "kagaguhan"
@@ -186,7 +187,37 @@ def admin_dashboard():
     return render_template("admin/dashboard.html")
 
 
-@app.route("/admin/inventory", methods=["GET"])
+@app.route('/update_stock', methods=['POST'])
+def update_stock():
+    updates = request.get_json()
+    updated_meds = []  # List to track medicines with changes
+
+    # Collect all updates
+    for update in updates:
+        medicine = Medicine.query.get(update['id'])
+        if medicine:
+            new_stock = update['stock']
+            if medicine.stocks != new_stock:  # Check if stock has changed
+                medicine.stocks = new_stock
+                updated_meds.append({
+                    'itemname': medicine.itemname,
+                    'new_stock': new_stock
+                })
+                db.session.commit()  # Commit the update to the Medicine table
+
+    # Add entries to History for medicines with stock changes
+    if updated_meds:  # Proceed only if there are changes
+        for med_info in updated_meds:
+            history_entry = History(
+                date=datetime.utcnow(),
+                itemname=med_info['itemname'],
+                stocks=med_info['new_stock']
+            )
+            db.session.add(history_entry)
+        db.session.commit()  # Commit all history entries at once
+    return jsonify({'status': 'success'})
+
+@app.route("/admin/inventory", methods=["GET", "POST"])
 def inventory():
     session_user = get_session_user()
     if not session_user:
@@ -196,9 +227,26 @@ def inventory():
     if session_user.acc_type == 0:
         return redirect(url_for("patient_dashboard"))
 
+    history_entries = History.query.order_by(History.date.desc()).all()  # Fetch history entries
+
+    if request.method == "POST":
+        # Handle stock updates
+        data = request.json
+        print('Received Data:', data)  # Debugging
+        
+        for item in data['stocks']:
+            print('Updating:', item['itemname'], 'with stock:', item['stock'])
+            success = Medicine.update_stock(item['itemname'], item['stock'])
+            if not success:
+                return jsonify({'status': 'error', 'message': f"Medicine {item['itemname']} not found"}), 404
+        
+        return jsonify({'status': 'success'})
+
+    # If GET request, show inventory
     # Query all unique categories from Medicine table
     categories = set(medicine.category for medicine in Medicine.query.all())
     print(categories)
+    
     # Query all rows from the Medicine table
     medicines = Medicine.query.all()
     print(medicines)
@@ -216,10 +264,8 @@ def inventory():
         medicine_data.append(medicine_info)
 
     return render_template(
-        "admin/inventory.html", medicines=medicine_data, categories=categories
+        "admin/inventory.html", medicines=medicine_data, categories=categories, history_entries=history_entries
     )
-
-
 @app.route("/patient/dashboard", methods=["GET"])
 def patient_dashboard():
     session_user = get_session_user()
