@@ -96,7 +96,7 @@
             <div>
               <input type="checkbox" id="exercise_input" name="exercise_input">
               <label for="exercise">EXERCISE</label><br>
-              {% if diagnosis in ['Acute Lymphocytic Leukemia'] and day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] %}<br><p>
+              {% if diagnosis in ['Acute Lymphocytic Leukemia'] and day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] %}
                 {% if age|int in range(1, 2) %}
                 <h2>Tummy Time (15 minutes daily)</h2>
                 <p>Lay a clean, soft mat on the floor.</p>
@@ -158,7 +158,7 @@
                    <p>Supervise and provide support.</p>                                     
                    {% endif %}
 
-              {% elif age|int in range(9, 12) %}
+            {% elif age|int in range(9, 13) %}
                     {% if day in ['monday']%}
                     <h2>Fitness Games(45 minutes)</h2>
                     <p>If available, set up an interactive video game that promotes physical activity (e.g., dance games).</p>
@@ -208,7 +208,7 @@
                      
                     {% endif %}
                 
-                {% elif age|int in range(6, 8) %}
+                {% elif age|int in range(6, 9) %}
                     {% if day in ['monday']%}
                     <h2>Bodyweight Exercises(45 minutes)</h2>
                     <p>Use balloons for safe, indoor play.</p>
@@ -302,7 +302,7 @@
                         <p>Supervise and provide support.</p>
                         
                     {% endif %}
-              </p>{% endif %}
+                 {% endif %}
               {% endif %}
 
               {% if diagnosis == 'Retinoblastoma' and day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] %}
@@ -374,7 +374,7 @@
                  {% endif %}
                 
 
-                 {% elif age|int in range(6, 8) %}
+                 {% elif age|int in range(6, 9) %}
                  {% if day == 'monday' %}
                      <h2>Indoor Play (30 minutes)</h2>
                      <p>Use balloons for safe, indoor play.</p>
@@ -422,7 +422,7 @@
                      
                  {% endif %}
 
-                 {% elif age|int in range(9, 12) %}
+                 {% elif age|int in range(9, 13) %}
                  {% if day == 'monday' %}
                      <h2>Fitness Games (45 minutes)</h2>
                      <p>If available, set up an interactive video game that promotes physical activity (e.g., dance games).</p>
@@ -627,7 +627,7 @@
                         <p>Supervise and provide support.</p>
                         
                     {% endif %}
-                    {% elif age|int in range(9, 12) %}
+                    {% elif age|int in range(9, 13) %}
                     {% if day == 'monday' %}
                         <h2>Fitness Games (45 minutes)</h2>
                         <p>If available, set up an interactive video game that promotes physical activity (e.g., dance games).</p>
@@ -834,7 +834,7 @@
                         
                     {% endif %}
     
-                    {% elif age|int in range(9, 12) %}
+                    {% elif age|int in range(9, 13) %}
                     {% if day == 'monday' %}
                         <h2>Fitness Games (45 minutes)</h2>
                         <p>If available, set up an interactive video game that promotes physical activity (e.g., dance games).</p>
@@ -1037,7 +1037,7 @@
                     <p>Supervise and provide support.</p>
             
                 {% endif %}
-                {% elif age|int in range(9, 12) %}
+                {% elif age|int in range(9, 13) %}
                 {% if day == 'monday' %}
                     <h2>Fitness Games (45 minutes)</h2>
                     <p>If available, set up an interactive video game that promotes physical activity (e.g., dance games).</p>
