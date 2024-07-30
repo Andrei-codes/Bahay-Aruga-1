@@ -383,7 +383,7 @@ input[type="number"] {
               </div>
               <div id="medicines-container" class="medicines-container">
                 {% for medicine in medicines %}
-                <div class="medicine" data-id="{{ medicine.id }}" data-name="{{ medicine.itemname }}" data-stock="{{ medicine.stocks }}">
+                <div class="medicine" data-id="{{ medicine.id }}" data-name="{{ medicine.itemname }}" data-stock="{{ medicine.stocks }}" data-category="{{ medicine.category }}">
                   <img src="{{ url_for('static', filename=medicine.image_url) }}" alt="Medicine"/>
                   <h2 class="hidden" id = "med_id">{{ medicine.id}}</h2>
                   <h2>{{ medicine.itemname }}</h2>
@@ -567,6 +567,19 @@ document.querySelector('.history-btn').addEventListener('click', toggleHistory);
         stock++;
         stockInput.value = stock;
       }
+
+      function toggleDropdown(id) {
+        const dropdown = document.getElementById(id);
+        dropdown.style.display =
+          dropdown.style.display === "block" ? "none" : "block";
+      }
+
+      function filterItems(category) {
+        const medicines = document.querySelectorAll(".medicine");
+        medicines.forEach((medicine) => {
+          const categoryMatch =
+            medicine.getAttribute("data-category") === category;
+          medicine.style.display = categoryMatch ? "block" : "none";})}
       </script>
   </body>
 </html>
