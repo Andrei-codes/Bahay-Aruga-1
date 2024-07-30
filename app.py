@@ -373,8 +373,9 @@ def patient_plan():
     age = session.get('age', 'N/A')
     gender = session.get('gender', 'N/A')
     diagnosis = session.get('diagnosis', 'N/A')
+    day = request.args.get('day')
 
-    return render_template('patient/plan.html', age=age, gender=gender, diagnosis=diagnosis)
+    return render_template('patient/plan.html', age=age, gender=gender, diagnosis=diagnosis, day=day)
 
 @app.route("/patient/wellnessplan", methods=["GET", "POST"])
 def patient_wellnessplan():

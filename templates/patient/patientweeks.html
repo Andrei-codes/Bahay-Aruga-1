@@ -81,28 +81,28 @@
 
 
   <div class="image-grid">
-    <a href= "{{ url_for('.patient_plan') }}">
-        <img src="{{ url_for('static', filename='img/monday.png') }}" alt="Monday">
-    </a>
-  
-    <a href= "{{ url_for('.patient_plan') }}">
-        <img src="{{ url_for('static', filename='img/tuesday.png') }}" alt="Tuesday">
-    </a>
-    <a href= "{{ url_for('.patient_plan') }}">
-        <img src="{{ url_for('static', filename='img/wednesday.png') }}" alt="Wednesday">
-    </a>
-    <a href= "{{ url_for('.patient_plan') }}">
-        <img src="{{ url_for('static', filename='img/thursday.png') }}" alt="Thursday">
-    </a>
-    <a href= "{{ url_for('.patient_plan') }}">
-        <img src="{{ url_for('static', filename='img/friday.png') }}" alt="Friday">
-    </a>
-    <a href= "{{ url_for('.patient_plan') }}">
-        <img src="{{ url_for('static', filename='img/saturday.png') }}" alt="Saturday">
-    </a>
-    <a href= "{{ url_for('.patient_plan') }}">
-        <img src="{{ url_for('static', filename='img/sunday.png') }}" alt="Sunday">
-    </a>
+    <a href="{{ url_for('.patient_plan', day='monday') }}">
+      <img src="{{ url_for('static', filename='img/monday.png') }}" alt="Monday">
+  </a>
+
+  <a href="{{ url_for('.patient_plan', day='tuesday') }}">
+      <img src="{{ url_for('static', filename='img/tuesday.png') }}" alt="Tuesday">
+  </a>
+  <a href="{{ url_for('.patient_plan', day='wednesday') }}">
+      <img src="{{ url_for('static', filename='img/wednesday.png') }}" alt="Wednesday">
+  </a>
+  <a href="{{ url_for('.patient_plan', day='thursday') }}">
+      <img src="{{ url_for('static', filename='img/thursday.png') }}" alt="Thursday">
+  </a>
+  <a href="{{ url_for('.patient_plan', day='friday') }}">
+      <img src="{{ url_for('static', filename='img/friday.png') }}" alt="Friday">
+  </a>
+  <a href="{{ url_for('.patient_plan', day='saturday') }}">
+      <img src="{{ url_for('static', filename='img/saturday.png') }}" alt="Saturday">
+  </a>
+  <a href="{{ url_for('.patient_plan', day='sunday') }}">
+      <img src="{{ url_for('static', filename='img/sunday.png') }}" alt="Sunday">
+  </a>
 </div>
 
   

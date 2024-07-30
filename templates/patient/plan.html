@@ -91,116 +91,2359 @@
   <div class="contents">
     <form method="POST" action="{{ url_for('.patient_completed') }}">
       <div class="content">
-        <h2>Wellness Plan</h2>
+        <h2>Wellness Plan for {{ day|capitalize }}</h2>
         <div class="choices">
-          {% if age|int in range(1, 7) and diagnosis == 'Brain tumor' %}
             <div>
               <input type="checkbox" id="exercise_input" name="exercise_input">
-              <label for="exercise">EXERCISE (Age 1-6)</label><br>
-              <p>No Exercises</p>
-            </div>
-            <div class="choices">
-              <input type="checkbox" id="medicine_input" name="medicine_input">
-              <label for="medicine">MEDICINE (Age 1-6)</label><br>
-              <p>BIOGESIC</p>
-            </div>
-          {% elif age|int in range(7, 19) and diagnosis == 'Brain tumor' %}
-            <div>
-              <input type="checkbox" id="exercise_input" name="exercise_input">
-              <label for="exercise">EXERCISE (Age 7-18)</label><br>
-              <p>WALKING</p>
-            </div>
-            <div class="choices">
-              <input type="checkbox" id="medicine_input" name="medicine_input">
-              <label for="medicine">MEDICINE (Age 7-18)</label><br>
-              <p>PREDNIZOLE</p>
-            </div>
-          {% elif age|int in range(1, 7) and diagnosis == 'Osteosarcoma' %}
-            <div>
-              <input type="checkbox" id="exercise_input" name="exercise_input">
-              <label for="exercise">EXERCISE (Age 1-6)</label><br>
-              <p>No Exercises</p>
-            </div>
-            <div class="choices">
-              <input type="checkbox" id="medicine_input" name="medicine_input">
-              <label for="medicine">MEDICINE (Age 1-6)</label><br>
-              <p>METHOTREXATE</p>
-            </div>
-          {% elif age|int in range(7, 19) and diagnosis == 'Osteosarcoma' %}
-            <div>
-              <input type="checkbox" id="exercise_input" name="exercise_input">
-              <label for="exercise">EXERCISE (Age 7-18)</label><br>
-              <p>RUNNING</p>
-            </div>
-            <div class="choices">
-              <input type="checkbox" id="medicine_input" name="medicine_input">
-              <label for="medicine">MEDICINE (Age 7-18)</label><br>
-              <p>NEOZEP</p>
-            </div>
-          {% elif age|int in range(1, 7) and diagnosis == 'Acute Lymphoblastic Leukemia' %}
-            <div>
-              <input type="checkbox" id="exercise_input" name="exercise_input">
-              <label for="exercise">EXERCISE (Age 1-6)</label><br>
-              <p>No Exercises</p>
-            </div>
-            <div class="choices">
-              <input type="checkbox" id="medicine_input" name="medicine_input">
-              <label for="medicine">MEDICINE (Age 1-6)</label><br>
-              <p>METHOTREXATE</p>
-            </div>
-          {% elif age|int in range(7, 19) and diagnosis == 'Acute Lymphoblastic Leukemia' %}
-            <div>
-              <input type="checkbox" id="exercise_input" name="exercise_input">
-              <label for="exercise">EXERCISE (Age 7-18)</label><br>
-              <p>RUNNING</p>
-            </div>
-            <div class="choices">
-              <input type="checkbox" id="medicine_input" name="medicine_input">
-              <label for="medicine">MEDICINE (Age 7-18)</label><br>
-              <p>NEOZEP</p>
-            </div>
-          {% else %}
-            <!-- Render something else if the condition is not met -->
+              <label for="exercise">EXERCISE</label><br>
+              {% if diagnosis in ['Acute Lymphocytic Leukemia'] and day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] %}<br><p>
+                {% if age|int in range(1, 2) %}
+                <h2>Tummy Time (15 minutes daily)</h2>
+                <p>Lay a clean, soft mat on the floor.</p>
+                <p>Place the infant on their tummy.</p>
+                <p>Encourage the child to lift their head and interact with toys placed in front of them.</p>
+                <p>Supervise closely to ensure safety.</p>
+
+                <h2>Interactive Play (20 minutes daily)</h2>
+                <p>Use soft toys, musical toys, or colorful objects.</p>
+                <p>Engage the child by shaking or moving the toys to catch their attention.</p>
+                <p>Encourage the child to reach out, grab, or move towards the toys.</p>
+                
+                <h2>Supervised Crawling or Walking (15 minutes daily)</h2>
+                <p>Create a safe, obstacle-free area.</p>
+                <p>Place toys or objects a short distance away to encourage movement.</p>
+                <p>Supervise and assist as needed to ensure safety.</p>
+
+                {% elif age|int in range(3, 5) %}
+                   {% if day in ['monday']%}
+                   <h2>Simple Games(30 minutes)</h2>
+                   <p>Gather soft toys, building blocks, and age-appropriate puzzles.</p>
+                   <p>Encourage stacking blocks, fitting puzzle pieces, or sorting toys.</p>
+                   <p>Offer guidance and praise to keep them engaged.</p>
+                   
+                   {% elif day in ['tuesday']%}
+                   <h2>Dance and Movement(30 minutes)</h2>
+                   <p>Play some music suitable for children.</p>
+                   <p>Encourage the child to dance freely or follow simple dance moves.</p>
+                   <p>Join in to make it more fun and engaging.</p>
+                   
+                   {% elif day in ['wednesday']%}  
+                   <h2>Imaginative Play(30 minutes)</h2>
+                   <p>Provide props like toy kitchen sets, costumes, or stuffed animals.</p>
+                   <p>Encourage the child to create stories and act them out.</p>
+                   <p>Participate and support their imaginative scenarios.</p>
+                   
+                   {% elif day in ['thursday']%} 
+                   <h2>Craft Activities(30 minutes)</h2>
+                   <p>Provide materials like paper, safety scissors, and markers.</p>
+                   <p>Guide them in making simple crafts like paper airplanes or drawing.</p>
+                   <p>Encourage creativity and movement by having them run around with their creations.</p>   
+                   
+                   {% elif day in ['friday']%} 
+                   <h2>Obstacle Course(30 minutes)</h2>
+                   <p>Set up a simple indoor obstacle course with pillows, chairs, and soft toys.</p>
+                   <p>Guide the child through the course, encouraging crawling, stepping, and reaching.</p>
+                   <p>Supervise and assist as needed.</p>
+
+                   {% elif day in ['saturday']%} 
+                   <h2>Storytime and Gentle Movement(30 minutes)</h2>
+                   <p>Read a story to the child, encouraging them to act out parts of the story.</p>
+                   <p>Include gentle movements like stretching or simple yoga poses related to the story.</p>
+                   <p>Engage and interact to make it fun.</p>
+                   
+                   {% elif day in ['sunday']%} 
+                   <h2>Free Play and Relaxation(30 minutes)</h2>
+                   <p>Allow the child to choose their favorite toys and activities.</p>
+                   <p>Encourage both active play and quiet time as needed.</p>
+                   <p>Supervise and provide support.</p>                                     
+                   {% endif %}
+
+              {% elif age|int in range(9, 12) %}
+                    {% if day in ['monday']%}
+                    <h2>Fitness Games(45 minutes)</h2>
+                    <p>If available, set up an interactive video game that promotes physical activity (e.g., dance games).</p>
+                    <p>Ensure the space is safe and monitor their activity.</p>
+                    <p>Encourage breaks to prevent fatigue.</p>                    
+                    
+                    {% elif day in ['tuesday']%}
+                    <h2>Stretching and Light Exercises(45 minutes)</h2>
+                    <p>Guide them through a series of gentle stretches (e.g., reaching for toes, side stretches).</p>
+                    <p>Incorporate light exercises like walking in place, leg lifts, and arm circles.</p>
+                    <p>Emphasize the importance of slow, controlled movements.</p>                    
+                    
+                    {% elif day in ['wednesday']%}  
+                    <h2>Board Games and Puzzles(45 minutes)</h2>
+                    <p>Choose board games or puzzles that require movement, such as Twister.</p>
+                    <p>Set up the game in a safe area.</p>
+                    <p>Encourage participation, ensuring everyone follows the rules and stays safe.</p>
+                    
+                    {% elif day in ['thursday']%} 
+                    <h2>Craft Activities(45 minutes)</h2>
+                    <p>Provide materials like paper, safety scissors, and markers.</p>
+                    <p>Guide them in making simple crafts like paper airplanes or drawing.</p>
+                    <p>Encourage creativity and movement by having them run around with their creations.</p>                                          
+                    
+                    {% elif day in ['friday']%} 
+                    <h2>Indoor Sports(45 minutes)</h2>
+                    <p>Set up a small area for table tennis, badminton, or other low-impact sports.</p>
+                    <p>Use soft or modified equipment to ensure safety.</p>
+                    <p>Monitor and encourage fair play and gentle movements.</p>                                      
+                    
+                    {% elif day in ['saturday']%} 
+                    <h2>Yoga for Kids(45 minutes)</h2>
+                    <p>Clear a space and lay down a yoga mat or soft surface.</p>
+                    <p>Demonstrate simple poses like Tree Pose, Cat-Cow Stretch, and Child’s Pose. For further information please watch these tutorials:</p>
+                
+                      <p><b>Tree Pose:</b> <a href="https://youtu.be/bG4ValU7TmI?si=WwK4NoCaBUf_Q3FT">https://youtu.be/bG4ValU7TmI?si=WwK4NoCaBUf_Q3FT</a></p>
+                      <p><b>Cat-Cow Stretch:</b> <a href="https://youtu.be/zybz7xdx3dk?si=uOMDEXFs_E3PQLqN">https://youtu.be/zybz7xdx3dk?si=uOMDEXFs_E3PQLqN</a></p>
+                      <p><b>Child's Pose: </b><a href="https://youtu.be/HBJAC5m7EQo?si=Cj5ZKwBrxL17srK6">https://youtu.be/HBJAC5m7EQo?si=Cj5ZKwBrxL17srK6</a></p>
+                 
+                    <p>Guide them through the movements, emphasizing gentle stretching and balance.</p>
+
+                    {% elif day in ['sunday']%} 
+                    <h2>Free Play and Relaxation(45 minutes)</h2>
+                    <p>Allow the child to choose their favorite toys and activities.</p>
+                    <p>Encourage both active play and quiet time as needed.</p>
+                    <p>Supervise and provide support.</p>                    
+                     
+                    {% endif %}
+                
+                {% elif age|int in range(6, 8) %}
+                    {% if day in ['monday']%}
+                    <h2>Bodyweight Exercises(45 minutes)</h2>
+                    <p>Use balloons for safe, indoor play.</p>
+                    <p>Play games like keeping the balloon in the air or passing it back and forth.</p>
+                    <p>Ensure the space is safe and free from sharp objects.</p>
+                    
+                    {% elif day in ['tuesday']%}
+                    <h2>Yoga for Kids(45 minutes)</h2>
+                    <p>Clear a space and lay down a yoga mat or soft surface.</p>
+                    <p>Demonstrate simple poses like Tree Pose, Cat-Cow Stretch, and Child’s Pose. For further information please watch these tutorials:</p>
+                
+                      <p><b>Tree Pose:</b> <a href="https://youtu.be/bG4ValU7TmI?si=WwK4NoCaBUf_Q3FT">https://youtu.be/bG4ValU7TmI?si=WwK4NoCaBUf_Q3FT</a></p>
+                      <p><b>Cat-Cow Stretch:</b> <a href="https://youtu.be/zybz7xdx3dk?si=uOMDEXFs_E3PQLqN">https://youtu.be/zybz7xdx3dk?si=uOMDEXFs_E3PQLqN</a></p>
+                      <p><b>Child's Pose: </b><a href="https://youtu.be/HBJAC5m7EQo?si=Cj5ZKwBrxL17srK6">https://youtu.be/HBJAC5m7EQo?si=Cj5ZKwBrxL17srK6</a></p>
+                 
+                    <p>Guide them through the movements, emphasizing gentle stretching and balance.</p>
+                    
+                    {% elif day in ['wednesday']%}  
+                    <h2>Crafts and Activities(45 minutes)</h2>
+                    <p>Provide materials like paper, safety scissors, and markers.</p>
+                    <p>Guide them in making simple crafts like paper airplanes or drawing.</p>
+                    <p>Encourage movement by having them run around flying their paper airplanes.</p>
+                    
+                    {% elif day in ['thursday']%} 
+                    <h2>Fitness Games(45 minutes)</h2>
+                    <p>If available, set up an interactive video game that promotes physical activity (e.g., dance games).</p>
+                    <p>Ensure the space is safe and monitor their activity.</p>
+                    <p>Encourage breaks to prevent fatigue.</p>                      
+                    
+                    {% elif day in ['friday']%} 
+                    <h2>Stretching and Light Exercises(45 minutes)</h2>
+                    <p>Guide them through a series of gentle stretches (e.g., reaching for toes, side stretches).</p>
+                    <p>Incorporate light exercises like walking in place, leg lifts, and arm circles.</p>
+                    <p>Emphasize the importance of slow, controlled movements.</p>                    
+                    
+                    {% elif day in ['saturday']%} 
+                    <h2>Storytime and Gentle Movement(45 minutes)</h2>
+                    <p>Read a story to the child, encouraging them to act out parts of the story.</p>
+                    <p>Include gentle movements like stretching or simple yoga poses related to the story.</p>
+                    <p>Engage and interact to make it fun.</p>                    
+                        
+                    {% elif day in ['sunday']%} 
+                    <h2>Free Play and Relaxation(30 minutes)</h2>
+                    <p>Allow the child to choose their favorite toys and activities.</p>
+                    <p>Encourage both active play and quiet time as needed.</p>
+                    <p>Supervise and provide support.</p>
+                     
+                    {% endif %}
+
+                    {% elif age|int in range(13, 19) %}
+                    {% if day in ['monday'] %}
+                        <h2>Bodyweight Exercises (45 minutes)</h2>
+                        <p>Identify a clean, open space.</p>
+                        <p>Demonstrate simple exercises like push-ups (modified on knees if needed), sit-ups, squats, and lunges.</p>
+                        <p>Perform exercises together, setting a comfortable pace and ensuring proper form.</p>
+                        
+                    {% elif day in ['tuesday'] %}
+                        <h2>Indoor Sports (45 minutes)</h2>
+                        <p>Set up a small area for table tennis, badminton, or other low-impact sports.</p>
+                        <p>Use soft or modified equipment to ensure safety.</p>
+                        <p>Monitor and encourage fair play and gentle movements.</p>
+                        
+                    {% elif day in ['wednesday'] %}
+                        <h2>Mind-Body Activities (45 minutes)</h2>
+                        <p>Provide a calm, quiet space.</p>
+                        <p>Introduce yoga, tai chi, or meditation exercises.</p>
+                        <p>Guide them through simple routines focusing on breathing, stretching, and relaxation.</p>
+                        
+                    {% elif day in ['thursday'] %}
+                        <h2>Fitness Games (45 minutes)</h2>
+                        <p>If available, set up an interactive video game that promotes physical activity (e.g., dance games).</p>
+                        <p>Ensure the space is safe and monitor their activity.</p>
+                        <p>Encourage breaks to prevent fatigue.</p>
+                        
+                    {% elif day in ['friday'] %}
+                        <h2>Stretching and Light Exercises (45 minutes)</h2>
+                        <p>Guide them through a series of gentle stretches (e.g., reaching for toes, side stretches).</p>
+                        <p>Incorporate light exercises like walking in place, leg lifts, and arm circles.</p>
+                        <p>Emphasize the importance of slow, controlled movements.</p>
+                        
+                    {% elif day in ['saturday'] %}
+                        <h2>Creative Activities (45 minutes)</h2>
+                        <p>Provide materials like paper, safety scissors, and markers.</p>
+                        <p>Guide them in making simple crafts like paper airplanes or drawing.</p>
+                        <p>Encourage movement by having them run around flying their paper airplanes.</p>
+                        
+                    {% elif day in ['sunday'] %}
+                        <h2>Free Play and Relaxation (45 minutes)</h2>
+                        <p>Allow them to choose their favorite toys and activities.</p>
+                        <p>Encourage both active play and quiet time as needed.</p>
+                        <p>Supervise and provide support.</p>
+                        
+                    {% endif %}
+              </p>{% endif %}
+              {% endif %}
+
+              {% if diagnosis == 'Retinoblastoma' and day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] %}
+               {% if age|int in range(1, 3) %}
+               {% if day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] %}
+               <h2>Tummy Time (15 minutes daily)</h2>
+               <p>Lay a clean, soft mat on the floor.</p>
+               <p>Place the infant on their tummy.</p>
+               <p>Encourage the child to lift their head and interact with toys placed in front of them.</p>
+               <p>Supervise closely to ensure safety.</p>
+               
+           {% elif day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] %}
+               <h2>Interactive Play (20 minutes daily)</h2>
+               <p>Use soft toys, musical toys, or colorful objects.</p>
+               <p>Engage the child by shaking or moving the toys to catch their attention.</p>
+               <p>Encourage the child to reach out, grab, or move towards the toys.</p>
+               
+            {% elif day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] %}
+               <h2>Supervised Crawling or Walking (15 minutes daily)</h2>
+               <p>Create a safe, obstacle-free area.</p>
+               <p>Place toys or objects a short distance away to encourage movement.</p>
+               <p>Supervise and assist as needed to ensure safety.</p>
+      
+                 {% endif %}
+
+                 {% elif age|int in range(3, 6) %}
+                 {% if day == 'monday' %}
+                 <h2>Simple Games (30 minutes)</h2>
+                 <p>Gather soft toys, building blocks, and age-appropriate puzzles.</p>
+                 <p>Encourage stacking blocks, fitting puzzle pieces, or sorting toys.</p>
+                 <p>Offer guidance and praise to keep them engaged.</p>
+                 
+             {% elif day == 'tuesday' %}
+                 <h2>Dance and Movement (30 minutes)</h2>
+                 <p>Play some music suitable for children.</p>
+                 <p>Encourage the child to dance freely or follow simple dance moves.</p>
+                 <p>Join in to make it more fun and engaging.</p>
+                 
+             {% elif day == 'wednesday' %}
+                 <h2>Imaginative Play (30 minutes)</h2>
+                 <p>Provide props like toy kitchen sets, costumes, or stuffed animals.</p>
+                 <p>Encourage the child to create stories and act them out.</p>
+                 <p>Participate and support their imaginative scenarios.</p>
+                 
+             {% elif day == 'thursday' %}
+                 <h2>Craft Activities (30 minutes)</h2>
+                 <p>Provide materials like paper, safety scissors, and markers.</p>
+                 <p>Guide them in making simple crafts like paper airplanes or drawing.</p>
+                 <p>Encourage creativity and movement by having them run around with their creations.</p>
+                 
+             {% elif day == 'friday' %}
+                 <h2>Obstacle Course (30 minutes)</h2>
+                 <p>Set up a simple indoor obstacle course with pillows, chairs, and soft toys.</p>
+                 <p>Guide the child through the course, encouraging crawling, stepping, and reaching.</p>
+                 <p>Supervise and assist as needed.</p>
+                 
+             {% elif day == 'saturday' %}
+                 <h2>Storytime and Gentle Movement (30 minutes)</h2>
+                 <p>Read a story to the child, encouraging them to act out parts of the story.</p>
+                 <p>Include gentle movements like stretching or simple yoga poses related to the story.</p>
+                 <p>Engage and interact to make it fun.</p>
+                 
+             {% elif day == 'sunday' %}
+                 <h2>Free Play and Relaxation (30 minutes)</h2>
+                 <p>Allow the child to choose their favorite toys and activities.</p>
+                 <p>Encourage both active play and quiet time as needed.</p>
+                 <p>Supervise and provide support.</p>
+    
+                 {% endif %}
+                
+
+                 {% elif age|int in range(6, 8) %}
+                 {% if day == 'monday' %}
+                     <h2>Indoor Play (30 minutes)</h2>
+                     <p>Use balloons for safe, indoor play.</p>
+                     <p>Play games like keeping the balloon in the air or passing it back and forth.</p>
+                     <p>Ensure the space is safe and free from sharp objects.</p>
+                     
+                 {% elif day == 'tuesday' %}
+                     <h2>Yoga for Kids (30 minutes)</h2>
+                     <p>Clear a space and lay down a yoga mat or soft surface.</p>
+                     <p>Demonstrate simple poses like Tree Pose, Cat-Cow Stretch, and Child’s Pose. For further information, please watch these tutorials:</p>
+                     <p><b>Tree Pose:</b> <a href="https://youtu.be/bG4ValU7TmI?si=WwK4NoCaBUf_Q3FT">https://youtu.be/bG4ValU7TmI?si=WwK4NoCaBUf_Q3FT</a></p>
+                     <p><b>Cat-Cow Stretch:</b> <a href="https://youtu.be/zybz7xdx3dk?si=uOMDEXFs_E3PQLqN">https://youtu.be/zybz7xdx3dk?si=uOMDEXFs_E3PQLqN</a></p>
+                     <p><b>Child's Pose:</b> <a href="https://youtu.be/HBJAC5m7EQo?si=Cj5ZKwBrxL17srK6">https://youtu.be/HBJAC5m7EQo?si=Cj5ZKwBrxL17srK6</a></p>
+                     <p>Guide them through the movements, emphasizing gentle stretching and balance.</p>
+                     
+                 {% elif day == 'wednesday' %}
+                     <h2>Crafts and Activities (30 minutes)</h2>
+                     <p>Provide materials like paper, safety scissors, and markers.</p>
+                     <p>Guide them in making simple crafts like paper airplanes or drawing.</p>
+                     <p>Encourage movement by having them run around flying their paper airplanes.</p>
+                     
+                 {% elif day == 'thursday' %}
+                     <h2>Fitness Games (30 minutes)</h2>
+                     <p>If available, set up an interactive video game that promotes physical activity (e.g., dance games).</p>
+                     <p>Ensure the space is safe and monitor their activity.</p>
+                     <p>Encourage breaks to prevent fatigue.</p>
+                     
+                 {% elif day == 'friday' %}
+                     <h2>Stretching and Light Exercises (30 minutes)</h2>
+                     <p>Guide them through a series of gentle stretches (e.g., reaching for toes, side stretches).</p>
+                     <p>Incorporate light exercises like walking in place, leg lifts, and arm circles.</p>
+                     <p>Emphasize the importance of slow, controlled movements.</p>
+                     
+                 {% elif day == 'saturday' %}
+                     <h2>Storytime and Gentle Movement (30 minutes)</h2>
+                     <p>Read a story to the child, encouraging them to act out parts of the story.</p>
+                     <p>Include gentle movements like stretching or simple yoga poses related to the story.</p>
+                     <p>Engage and interact to make it fun.</p>
+                     
+                 {% elif day == 'sunday' %}
+                     <h2>Free Play and Relaxation (30 minutes)</h2>
+                     <p>Allow the child to choose their favorite toys and activities.</p>
+                     <p>Encourage both active play and quiet time as needed.</p>
+                     <p>Supervise and provide support.</p>
+                     
+                 {% endif %}
+
+                 {% elif age|int in range(9, 12) %}
+                 {% if day == 'monday' %}
+                     <h2>Fitness Games (45 minutes)</h2>
+                     <p>If available, set up an interactive video game that promotes physical activity (e.g., dance games).</p>
+                     <p>Ensure the space is safe and monitor their activity.</p>
+                     <p>Encourage breaks to prevent fatigue.</p>
+                     
+                 {% elif day == 'tuesday' %}
+                     <h2>Stretching and Light Exercises (45 minutes)</h2>
+                     <p>Guide them through a series of gentle stretches (e.g., reaching for toes, side stretches).</p>
+                     <p>Incorporate light exercises like walking in place, leg lifts, and arm circles.</p>
+                     <p>Emphasize the importance of slow, controlled movements.</p>
+                     
+                 {% elif day == 'wednesday' %}
+                     <h2>Board Games and Puzzles (45 minutes)</h2>
+                     <p>Choose board games or puzzles that require movement, such as Twister.</p>
+                     <p>Set up the game in a safe area.</p>
+                     <p>Encourage participation, ensuring everyone follows the rules and stays safe.</p>
+                     
+                 {% elif day == 'thursday' %}
+                     <h2>Craft Activities (45 minutes)</h2>
+                     <p>Provide materials like paper, safety scissors, and markers.</p>
+                     <p>Guide them in making simple crafts like paper airplanes or drawing.</p>
+                     <p>Encourage creativity and movement by having them run around with their creations.</p>
+                     
+                 {% elif day == 'friday' %}
+                     <h2>Indoor Sports (45 minutes)</h2>
+                     <p>Set up a small area for table tennis, badminton, or other low-impact sports.</p>
+                     <p>Use soft or modified equipment to ensure safety.</p>
+                     <p>Monitor and encourage fair play and gentle movements.</p>
+                     
+                 {% elif day == 'saturday' %}
+                     <h2>Yoga for Kids (45 minutes)</h2>
+                     <p>Clear a space and lay down a yoga mat or soft surface.</p>
+                     <p>Demonstrate simple poses like Tree Pose, Cat-Cow Stretch, and Child’s Pose. For further information, please watch these tutorials:</p>
+                     <p><b>Tree Pose:</b> <a href="https://youtu.be/bG4ValU7TmI?si=WwK4NoCaBUf_Q3FT">https://youtu.be/bG4ValU7TmI?si=WwK4NoCaBUf_Q3FT</a></p>
+                     <p><b>Cat-Cow Stretch:</b> <a href="https://youtu.be/zybz7xdx3dk?si=uOMDEXFs_E3PQLqN">https://youtu.be/zybz7xdx3dk?si=uOMDEXFs_E3PQLqN</a></p>
+                     <p><b>Child's Pose:</b> <a href="https://youtu.be/HBJAC5m7EQo?si=Cj5ZKwBrxL17srK6">https://youtu.be/HBJAC5m7EQo?si=Cj5ZKwBrxL17srK6</a></p>
+                     <p>Guide them through the movements, emphasizing gentle stretching and balance.</p>
+                     
+                 {% elif day == 'sunday' %}
+                     <h2>Free Play and Relaxation (45 minutes)</h2>
+                     <p>Allow the child to choose their favorite toys and activities.</p>
+                     <p>Encourage both active play and quiet time as needed.</p>
+                     <p>Supervise and provide support.</p>
+                     
+                 {% endif %}
+
+                 {% elif age|int in range(13, 19) %}
+                 {% if day == 'monday' %}
+                     <h2>Bodyweight Exercises (45 minutes)</h2>
+                     <p>Identify a clean, open space.</p>
+                     <p>Demonstrate simple exercises like push-ups (modified on knees if needed), sit-ups, squats, and lunges.</p>
+                     <p>Perform exercises together, setting a comfortable pace and ensuring proper form.</p>
+                     
+                 {% elif day == 'tuesday' %}
+                     <h2>Indoor Sports (45 minutes)</h2>
+                     <p>Set up a small area for table tennis, badminton, or other low-impact sports.</p>
+                     <p>Use soft or modified equipment to ensure safety.</p>
+                     <p>Monitor and encourage fair play and gentle movements.</p>
+                     
+                 {% elif day == 'wednesday' %}
+                     <h2>Mind-Body Activities (45 minutes)</h2>
+                     <p>Provide a calm, quiet space.</p>
+                     <p>Introduce yoga, tai chi, or meditation exercises.</p>
+                     <p>Guide them through simple routines focusing on breathing, stretching, and relaxation.</p>
+                     
+                 {% elif day == 'thursday' %}
+                     <h2>Fitness Games (45 minutes)</h2>
+                     <p>If available, set up an interactive video game that promotes physical activity (e.g., dance games).</p>
+                     <p>Ensure the space is safe and monitor their activity.</p>
+                     <p>Encourage breaks to prevent fatigue.</p>
+                     
+                 {% elif day == 'friday' %}
+                     <h2>Stretching and Light Exercises (45 minutes)</h2>
+                     <p>Guide them through a series of gentle stretches (e.g., reaching for toes, side stretches).</p>
+                     <p>Incorporate light exercises like walking in place, leg lifts, and arm circles.</p>
+                     <p>Emphasize the importance of slow, controlled movements.</p>
+                     
+                 {% elif day == 'saturday' %}
+                     <h2>Creative Activities (45 minutes)</h2>
+                     <p>Provide materials like paper, safety scissors, and markers.</p>
+                     <p>Guide them in making simple crafts like paper airplanes or drawing.</p>
+                     <p>Encourage movement by having them run around flying their paper airplanes.</p>
+                     
+                 {% elif day == 'sunday' %}
+                     <h2>Free Play and Relaxation (45 minutes)</h2>
+                     <p>Allow the child to choose their favorite toys and activities.</p>
+                     <p>Encourage both active play and quiet time as needed.</p>
+                     <p>Supervise and provide support.</p>
+                 {% endif %}
+              {% endif %}
           {% endif %}
+
+
+              {% if diagnosis in ['Fibrosarcoma'] and day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] %}<br><p>
+                {% if age|int in range(1, 3) %}
+                  {% if day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] %}
+                    <h2>Tummy Time (15 minutes daily)</h2>
+                    <p>Lay a clean, soft mat on the floor.</p>
+                    <p>Place the infant on their tummy.</p>
+                    <p>Encourage the child to lift their head and interact with toys placed in front of them.</p>
+                    <p>Supervise closely to ensure safety.</p>
+                    
+                    <h2>Interactive Play (20 minutes daily)</h2>
+                    <p>Use soft toys, musical toys, or colorful objects.</p>
+                    <p>Engage the child by shaking or moving the toys to catch their attention.</p>
+                    <p>Encourage the child to reach out, grab, or move towards the toys.</p>
+                    
+                    <h2>Supervised Crawling or Walking (15 minutes daily)</h2>
+                    <p>Create a safe, obstacle-free area.</p>
+                    <p>Place toys or objects a short distance away to encourage movement.</p>
+                    <p>Supervise and assist as needed to ensure safety.</p>
+                    {% endif %}
+                    {% elif age|int in range(3, 6) %}
+                    {% if day == 'monday' %}
+                        <h2>Simple Games (30 minutes)</h2>
+                        <p>Gather soft toys, building blocks, and age-appropriate puzzles.</p>
+                        <p>Encourage stacking blocks, fitting puzzle pieces, or sorting toys.</p>
+                        <p>Offer guidance and praise to keep them engaged.</p>
+                        
+                    {% elif day == 'tuesday' %}
+                        <h2>Dance and Movement (30 minutes)</h2>
+                        <p>Play some music suitable for children.</p>
+                        <p>Encourage the child to dance freely or follow simple dance moves.</p>
+                        <p>Join in to make it more fun and engaging.</p>
+                        
+                    {% elif day == 'wednesday' %}
+                        <h2>Imaginative Play (30 minutes)</h2>
+                        <p>Provide props like toy kitchen sets, costumes, or stuffed animals.</p>
+                        <p>Encourage the child to create stories and act them out.</p>
+                        <p>Participate and support their imaginative scenarios.</p>
+                        
+                    {% elif day == 'thursday' %}
+                        <h2>Craft Activities (30 minutes)</h2>
+                        <p>Provide materials like paper, safety scissors, and markers.</p>
+                        <p>Guide them in making simple crafts like paper airplanes or drawing.</p>
+                        <p>Encourage creativity and movement by having them run around with their creations.</p>
+                        
+                    {% elif day == 'friday' %}
+                        <h2>Obstacle Course (30 minutes)</h2>
+                        <p>Set up a simple indoor obstacle course with pillows, chairs, and soft toys.</p>
+                        <p>Guide the child through the course, encouraging crawling, stepping, and reaching.</p>
+                        <p>Supervise and assist as needed.</p>
+                        
+                    {% elif day == 'saturday' %}
+                        <h2>Storytime and Gentle Movement (30 minutes)</h2>
+                        <p>Read a story to the child, encouraging them to act out parts of the story.</p>
+                        <p>Include gentle movements like stretching or simple yoga poses related to the story.</p>
+                        <p>Engage and interact to make it fun.</p>
+                        
+                    {% elif day == 'sunday' %}
+                        <h2>Free Play and Relaxation (30 minutes)</h2>
+                        <p>Allow the child to choose their favorite toys and activities.</p>
+                        <p>Encourage both active play and quiet time as needed.</p>
+                        <p>Supervise and provide support.</p>
+                        
+                    {% endif %}
+                    {% elif age|int in range(6, 9) %}
+                    {% if day == 'monday' %}
+                        <h2>Indoor Play (30 minutes)</h2>
+                        <p>Use balloons for safe, indoor play.</p>
+                        <p>Play games like keeping the balloon in the air or passing it back and forth.</p>
+                        <p>Ensure the space is safe and free from sharp objects.</p>
+                        
+                    {% elif day == 'tuesday' %}
+                        <h2>Yoga for Kids (30 minutes)</h2>
+                        <p>Clear a space and lay down a yoga mat or soft surface.</p>
+                        <p>Demonstrate simple poses like Tree Pose, Cat-Cow Stretch, and Child’s Pose. For further information please watch these tutorials:</p>
+                        <p><b>Tree Pose:</b> <a href="https://youtu.be/bG4ValU7TmI?si=WwK4NoCaBUf_Q3FT">https://youtu.be/bG4ValU7TmI?si=WwK4NoCaBUf_Q3FT</a></p>
+                        <p><b>Cat-Cow Stretch:</b> <a href="https://youtu.be/zybz7xdx3dk?si=uOMDEXFs_E3PQLqN">https://youtu.be/zybz7xdx3dk?si=uOMDEXFs_E3PQLqN</a></p>
+                        <p><b>Child's Pose:</b> <a href="https://youtu.be/HBJAC5m7EQo?si=Cj5ZKwBrxL17srK6">https://youtu.be/HBJAC5m7EQo?si=Cj5ZKwBrxL17srK6</a></p>
+                        <p>Guide them through the movements, emphasizing gentle stretching and balance.</p>
+                        
+                    {% elif day == 'wednesday' %}
+                        <h2>Crafts and Activities (30 minutes)</h2>
+                        <p>Provide materials like paper, safety scissors, and markers.</p>
+                        <p>Guide them in making simple crafts like paper airplanes or drawing.</p>
+                        <p>Encourage movement by having them run around flying their paper airplanes.</p>
+                        
+                    {% elif day == 'thursday' %}
+                        <h2>Fitness Games (30 minutes)</h2>
+                        <p>If available, set up an interactive video game that promotes physical activity (e.g., dance games).</p>
+                        <p>Ensure the space is safe and monitor their activity.</p>
+                        <p>Encourage breaks to prevent fatigue.</p>
+                        
+                    {% elif day == 'friday' %}
+                        <h2>Stretching and Light Exercises (30 minutes)</h2>
+                        <p>Guide them through a series of gentle stretches (e.g., reaching for toes, side stretches).</p>
+                        <p>Incorporate light exercises like walking in place, leg lifts, and arm circles.</p>
+                        <p>Emphasize the importance of slow, controlled movements.</p>
+                        
+                    {% elif day == 'saturday' %}
+                        <h2>Storytime and Gentle Movement (30 minutes)</h2>
+                        <p>Read a story to the child, encouraging them to act out parts of the story.</p>
+                        <p>Include gentle movements like stretching or simple yoga poses related to the story.</p>
+                        <p>Engage and interact to make it fun.</p>
+                        
+                    {% elif day == 'sunday' %}
+                        <h2>Free Play and Relaxation (30 minutes)</h2>
+                        <p>Allow the child to choose their favorite toys and activities.</p>
+                        <p>Encourage both active play and quiet time as needed.</p>
+                        <p>Supervise and provide support.</p>
+                        
+                    {% endif %}
+                    {% elif age|int in range(9, 12) %}
+                    {% if day == 'monday' %}
+                        <h2>Fitness Games (45 minutes)</h2>
+                        <p>If available, set up an interactive video game that promotes physical activity (e.g., dance games).</p>
+                        <p>Ensure the space is safe and monitor their activity.</p>
+                        <p>Encourage breaks to prevent fatigue.</p>
+                        
+                    {% elif day == 'tuesday' %}
+                        <h2>Stretching and Light Exercises (45 minutes)</h2>
+                        <p>Guide them through a series of gentle stretches (e.g., reaching for toes, side stretches).</p>
+                        <p>Incorporate light exercises like walking in place, leg lifts, and arm circles.</p>
+                        <p>Emphasize the importance of slow, controlled movements.</p>
+                        
+                    {% elif day == 'wednesday' %}
+                        <h2>Board Games and Puzzles (45 minutes)</h2>
+                        <p>Choose board games or puzzles that require movement, such as Twister.</p>
+                        <p>Set up the game in a safe area.</p>
+                        <p>Encourage participation, ensuring everyone follows the rules and stays safe.</p>
+                        
+                    {% elif day == 'thursday' %}
+                        <h2>Craft Activities (45 minutes)</h2>
+                        <p>Provide materials like paper, safety scissors, and markers.</p>
+                        <p>Guide them in making simple crafts like paper airplanes or drawing.</p>
+                        <p>Encourage creativity and movement by having them run around with their creations.</p>
+                        
+                    {% elif day == 'friday' %}
+                        <h2>Indoor Sports (45 minutes)</h2>
+                        <p>Set up a small area for table tennis, badminton, or other low-impact sports.</p>
+                        <p>Use soft or modified equipment to ensure safety.</p>
+                        <p>Monitor and encourage fair play and gentle movements.</p>
+                        
+                    {% elif day == 'saturday' %}
+                        <h2>Yoga for Kids (45 minutes)</h2>
+                        <p>Clear a space and lay down a yoga mat or soft surface.</p>
+                        <p>Demonstrate simple poses like Tree Pose, Cat-Cow Stretch, and Child’s Pose. For further information please watch these tutorials:</p>
+                        <p><b>Tree Pose:</b> <a href="https://youtu.be/bG4ValU7TmI?si=WwK4NoCaBUf_Q3FT">https://youtu.be/bG4ValU7TmI?si=WwK4NoCaBUf_Q3FT</a></p>
+                        <p><b>Cat-Cow Stretch:</b> <a href="https://youtu.be/zybz7xdx3dk?si=uOMDEXFs_E3PQLqN">https://youtu.be/zybz7xdx3dk?si=uOMDEXFs_E3PQLqN</a></p>
+                        <p><b>Child's Pose:</b> <a href="https://youtu.be/HBJAC5m7EQo?si=Cj5ZKwBrxL17srK6">https://youtu.be/HBJAC5m7EQo?si=Cj5ZKwBrxL17srK6</a></p>
+                        <p>Guide them through the movements, emphasizing gentle stretching and balance.</p>
+                        
+                    {% elif day == 'sunday' %}
+                        <h2>Free Play and Relaxation (45 minutes)</h2>
+                        <p>Allow the child to choose their favorite toys and activities.</p>
+                        <p>Encourage both active play and quiet time as needed.</p>
+                        <p>Supervise and provide support.</p>
+                        
+                    {% endif %}
+                    
+                    {% elif age|int in range(13, 19) %}
+                    {% if day == 'monday' %}
+                        <h2>Bodyweight Exercises (45 minutes)</h2>
+                        <p>Identify a clean, open space.</p>
+                        <p>Demonstrate simple exercises like push-ups (modified on knees if needed), sit-ups, squats, and lunges.</p>
+                        <p>Perform exercises together, setting a comfortable pace and ensuring proper form.</p>
+                        
+                    {% elif day == 'tuesday' %}
+                        <h2>Indoor Sports (45 minutes)</h2>
+                        <p>Set up a small area for table tennis, badminton, or other low-impact sports.</p>
+                        <p>Use soft or modified equipment to ensure safety.</p>
+                        <p>Monitor and encourage fair play and gentle movements.</p>
+                        
+                    {% elif day == 'wednesday' %}
+                        <h2>Mind-Body Activities (45 minutes)</h2>
+                        <p>Provide a calm, quiet space.</p>
+                        <p>Introduce yoga, tai chi, or meditation exercises.</p>
+                        <p>Guide them through simple routines focusing on breathing, stretching, and relaxation.</p>
+                        
+                    {% elif day == 'thursday' %}
+                        <h2>Fitness Games (45 minutes)</h2>
+                        <p>If available, set up an interactive video game that promotes physical activity (e.g., dance games).</p>
+                        <p>Ensure the space is safe and monitor their activity.</p>
+                        <p>Encourage breaks to prevent fatigue.</p>
+                        
+                    {% elif day == 'friday' %}
+                        <h2>Stretching and Light Exercises (45 minutes)</h2>
+                        <p>Guide them through a series of gentle stretches (e.g., reaching for toes, side stretches).</p>
+                        <p>Incorporate light exercises like walking in place, leg lifts, and arm circles.</p>
+                        <p>Emphasize the importance of slow, controlled movements.</p>
+                        
+                    {% elif day == 'saturday' %}
+                        <h2>Creative Activities (45 minutes)</h2>
+                        <p>Provide materials like paper, safety scissors, and markers.</p>
+                        <p>Guide them in making simple crafts like paper airplanes or drawing.</p>
+                        <p>Encourage movement by having them run around flying their paper airplanes.</p>
+                        
+                    {% elif day == 'sunday' %}
+                        <h2>Free Play and Relaxation (45 minutes)</h2>
+                        <p>Allow the child to choose their favorite toys and activities.</p>
+                        <p>Encourage both active play and quiet time as needed.</p>
+                        <p>Supervise and provide support.</p>
+                        
+                    {% endif %}
+                {% endif %}
+                 
+              {% endif %}
+            
+
+             {% if diagnosis in ['Hodgkin\'s Lymphoma', 'Non-Hodgkin Lymphoma'] and day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] %}
+                  {% if age|int in range(1, 3) %}
+                    <h2>Tummy Time (15 minutes daily)</h2>
+                    <p>Lay a clean, soft mat on the floor.</p>
+                    <p>Place the infant on their tummy.</p>
+                    <p>Encourage the child to lift their head and interact with toys placed in front of them.</p>
+                    <p>Supervise closely to ensure safety.</p>
+                    
+                    <h2>Interactive Play (20 minutes daily)</h2>
+                    <p>Use soft toys, musical toys, or colorful objects.</p>
+                    <p>Engage the child by shaking or moving the toys to catch their attention.</p>
+                    <p>Encourage the child to reach out, grab, or move towards the toys.</p>
+                    
+                    <h2>Supervised Crawling or Walking (15 minutes daily)</h2>
+                    <p>Create a safe, obstacle-free area.</p>
+                    <p>Place toys or objects a short distance away to encourage movement.</p>
+                    <p>Supervise and assist as needed to ensure safety.</p>
+
+                    {% elif age|int in range(3, 6) %}
+                    {% if day == 'monday' %}
+                        <h2>Simple Games (30 minutes)</h2>
+                        <p>Gather soft toys, building blocks, and age-appropriate puzzles.</p>
+                        <p>Encourage stacking blocks, fitting puzzle pieces, or sorting toys.</p>
+                        <p>Offer guidance and praise to keep them engaged.</p>
+                        
+                    {% elif day == 'tuesday' %}
+                        <h2>Dance and Movement (30 minutes)</h2>
+                        <p>Play some music suitable for children.</p>
+                        <p>Encourage the child to dance freely or follow simple dance moves.</p>
+                        <p>Join in to make it more fun and engaging.</p>
+                        
+                    {% elif day == 'wednesday' %}
+                        <h2>Imaginative Play (30 minutes)</h2>
+                        <p>Provide props like toy kitchen sets, costumes, or stuffed animals.</p>
+                        <p>Encourage the child to create stories and act them out.</p>
+                        <p>Participate and support their imaginative scenarios.</p>
+                        
+                    {% elif day == 'thursday' %}
+                        <h2>Craft Activities (30 minutes)</h2>
+                        <p>Provide materials like paper, safety scissors, and markers.</p>
+                        <p>Guide them in making simple crafts like paper airplanes or drawing.</p>
+                        <p>Encourage creativity and movement by having them run around with their creations.</p>
+                        
+                    {% elif day == 'friday' %}
+                        <h2>Obstacle Course (30 minutes)</h2>
+                        <p>Set up a simple indoor obstacle course with pillows, chairs, and soft toys.</p>
+                        <p>Guide the child through the course, encouraging crawling, stepping, and reaching.</p>
+                        <p>Supervise and assist as needed.</p>
+                        
+                    {% elif day == 'saturday' %}
+                        <h2>Storytime and Gentle Movement (30 minutes)</h2>
+                        <p>Read a story to the child, encouraging them to act out parts of the story.</p>
+                        <p>Include gentle movements like stretching or simple yoga poses related to the story.</p>
+                        <p>Engage and interact to make it fun.</p>
+                        
+                    {% elif day == 'sunday' %}
+                        <h2>Free Play and Relaxation (30 minutes)</h2>
+                        <p>Allow the child to choose their favorite toys and activities.</p>
+                        <p>Encourage both active play and quiet time as needed.</p>
+                        <p>Supervise and provide support.</p>
+                        
+                    {% endif %}
+                    {% elif age|int in range(6, 9) %}
+                    {% if day == 'monday' %}
+                        <h2>Indoor Play (30 minutes)</h2>
+                        <p>Use balloons for safe, indoor play.</p>
+                        <p>Play games like keeping the balloon in the air or passing it back and forth.</p>
+                        <p>Ensure the space is safe and free from sharp objects.</p>
+                        
+                    {% elif day == 'tuesday' %}
+                        <h2>Yoga for Kids (30 minutes)</h2>
+                        <p>Clear a space and lay down a yoga mat or soft surface.</p>
+                        <p>Demonstrate simple poses like Tree Pose, Cat-Cow Stretch, and Child’s Pose. For further information please watch these tutorials:</p>
+                        <p>Tree Pose: <a href="https://youtu.be/bG4ValU7TmI?si=WwK4NoCaBUf_Q3FT">Tree Pose Tutorial</a></p>
+                        <p>Cat-Cow Stretch: <a href="https://youtu.be/zybz7xdx3dk?si=uOMDEXFs_E3PQLqN">Cat-Cow Stretch Tutorial</a></p>
+                        <p>Child's Pose: <a href="https://youtu.be/HBJAC5m7EQo?si=Cj5ZKwBrxL17srK6">Child's Pose Tutorial</a></p>
+                        <p>Guide them through the movements, emphasizing gentle stretching and balance.</p>
+                        
+                    {% elif day == 'wednesday' %}
+                        <h2>Crafts and Activities (30 minutes)</h2>
+                        <p>Provide materials like paper, safety scissors, and markers.</p>
+                        <p>Guide them in making simple crafts like paper airplanes or drawing.</p>
+                        <p>Encourage movement by having them run around flying their paper airplanes.</p>
+                        
+                    {% elif day == 'thursday' %}
+                        <h2>Fitness Games (30 minutes)</h2>
+                        <p>If available, set up an interactive video game that promotes physical activity (e.g., dance games).</p>
+                        <p>Ensure the space is safe and monitor their activity.</p>
+                        <p>Encourage breaks to prevent fatigue.</p>
+                        
+                    {% elif day == 'friday' %}
+                        <h2>Stretching and Light Exercises (30 minutes)</h2>
+                        <p>Guide them through a series of gentle stretches (e.g., reaching for toes, side stretches).</p>
+                        <p>Incorporate light exercises like walking in place, leg lifts, and arm circles.</p>
+                        <p>Emphasize the importance of slow, controlled movements.</p>
+                        
+                    {% elif day == 'saturday' %}
+                        <h2>Storytime and Gentle Movement (30 minutes)</h2>
+                        <p>Read a story to the child, encouraging them to act out parts of the story.</p>
+                        <p>Include gentle movements like stretching or simple yoga poses related to the story.</p>
+                        <p>Engage and interact to make it fun.</p>
+                        
+                    {% elif day == 'sunday' %}
+                        <h2>Free Play and Relaxation (30 minutes)</h2>
+                        <p>Allow the child to choose their favorite toys and activities.</p>
+                        <p>Encourage both active play and quiet time as needed.</p>
+                        <p>Supervise and provide support.</p>
+                        
+                    {% endif %}
+    
+                    {% elif age|int in range(9, 12) %}
+                    {% if day == 'monday' %}
+                        <h2>Fitness Games (45 minutes)</h2>
+                        <p>If available, set up an interactive video game that promotes physical activity (e.g., dance games).</p>
+                        <p>Ensure the space is safe and monitor their activity.</p>
+                        <p>Encourage breaks to prevent fatigue.</p>
+                        
+                    {% elif day == 'tuesday' %}
+                        <h2>Stretching and Light Exercises (45 minutes)</h2>
+                        <p>Guide them through a series of gentle stretches (e.g., reaching for toes, side stretches).</p>
+                        <p>Incorporate light exercises like walking in place, leg lifts, and arm circles.</p>
+                        <p>Emphasize the importance of slow, controlled movements.</p>
+                        
+                    {% elif day == 'wednesday' %}
+                        <h2>Board Games and Puzzles (45 minutes)</h2>
+                        <p>Choose board games or puzzles that require movement, such as Twister.</p>
+                        <p>Set up the game in a safe area.</p>
+                        <p>Encourage participation, ensuring everyone follows the rules and stays safe.</p>
+                        
+                    {% elif day == 'thursday' %}
+                        <h2>Craft Activities (45 minutes)</h2>
+                        <p>Provide materials like paper, safety scissors, and markers.</p>
+                        <p>Guide them in making simple crafts like paper airplanes or drawing.</p>
+                        <p>Encourage creativity and movement by having them run around with their creations.</p>
+                        
+                    {% elif day == 'friday' %}
+                        <h2>Indoor Sports (45 minutes)</h2>
+                        <p>Set up a small area for table tennis, badminton, or other low-impact sports.</p>
+                        <p>Use soft or modified equipment to ensure safety.</p>
+                        <p>Monitor and encourage fair play and gentle movements.</p>
+                        
+                    {% elif day == 'saturday' %}
+                        <h2>Yoga for Kids (45 minutes)</h2>
+                        <p>Clear a space and lay down a yoga mat or soft surface.</p>
+                        <p>Demonstrate simple poses like Tree Pose, Cat-Cow Stretch, and Child’s Pose. For further information please watch these tutorials:</p>
+                        <p>Tree Pose: <a href="https://youtu.be/bG4ValU7TmI?si=WwK4NoCaBUf_Q3FT">Tree Pose Tutorial</a></p>
+                        <p>Cat-Cow Stretch: <a href="https://youtu.be/zybz7xdx3dk?si=uOMDEXFs_E3PQLqN">Cat-Cow Stretch Tutorial</a></p>
+                        <p>Child's Pose: <a href="https://youtu.be/HBJAC5m7EQo?si=Cj5ZKwBrxL17srK6">Child's Pose Tutorial</a></p>
+                        <p>Guide them through the movements, emphasizing gentle stretching and balance.</p>
+                        
+                    {% elif day == 'sunday' %}
+                        <h2>Free Play and Relaxation (45 minutes)</h2>
+                        <p>Allow the child to choose their favorite toys and activities.</p>
+                        <p>Encourage both active play and quiet time as needed.</p>
+                        <p>Supervise and provide support.</p>
+                        
+                    {% endif %}
+                    {% elif age|int in range(13, 19) %}
+                    {% if day == 'monday' %}
+                        <h2>Bodyweight Exercises (45 minutes)</h2>
+                        <p>Identify a clean, open space.</p>
+                        <p>Demonstrate simple exercises like push-ups (modified on knees if needed), sit-ups, squats, and lunges.</p>
+                        <p>Perform exercises together, setting a comfortable pace and ensuring proper form.</p>
+                        
+                    {% elif day == 'tuesday' %}
+                        <h2>Indoor Sports (45 minutes)</h2>
+                        <p>Set up a small area for table tennis, badminton, or other low-impact sports.</p>
+                        <p>Use soft or modified equipment to ensure safety.</p>
+                        <p>Monitor and encourage fair play and gentle movements.</p>
+                        
+                    {% elif day == 'wednesday' %}
+                        <h2>Mind-Body Activities (45 minutes)</h2>
+                        <p>Provide a calm, quiet space.</p>
+                        <p>Introduce yoga, tai chi, or meditation exercises.</p>
+                        <p>Guide them through simple routines focusing on breathing, stretching, and relaxation.</p>
+                        
+                    {% elif day == 'thursday' %}
+                        <h2>Fitness Games (45 minutes)</h2>
+                        <p>If available, set up an interactive video game that promotes physical activity (e.g., dance games).</p>
+                        <p>Ensure the space is safe and monitor their activity.</p>
+                        <p>Encourage breaks to prevent fatigue.</p>
+                        
+                    {% elif day == 'friday' %}
+                        <h2>Stretching and Light Exercises (45 minutes)</h2>
+                        <p>Guide them through a series of gentle stretches (e.g., reaching for toes, side stretches).</p>
+                        <p>Incorporate light exercises like walking in place, leg lifts, and arm circles.</p>
+                        <p>Emphasize the importance of slow, controlled movements.</p>
+                        
+                    {% elif day == 'saturday' %}
+                        <h2>Creative Activities (45 minutes)</h2>
+                        <p>Provide materials like paper, safety scissors, and markers.</p>
+                        <p>Guide them in making simple crafts like paper airplanes or drawing.</p>
+                        <p>Encourage movement by having them run around flying their paper airplanes.</p>
+                        
+                    {% elif day == 'sunday' %}
+                        <h2>Free Play and Relaxation (45 minutes)</h2>
+                        <p>Allow them to choose their favorite toys and activities.</p>
+                        <p>Encourage both active play and quiet time as needed.</p>
+                        <p>Supervise and provide support.</p>
+                        
+                    {% endif %}
+                {% endif %}
+             
+              {% endif %}
+
+              {% if diagnosis in ['Brain tumor'] and day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] %}<br><p>
+                {% if age|int in range(1, 3) %}
+                {% if day == 'monday' or day == 'tuesday' or day == 'wednesday' or day == 'thursday' or day == 'friday' or day == 'saturday' or day == 'sunday' %}
+                    <h2>Tummy Time (15 minutes)</h2>
+                    <p>Lay a clean, soft mat on the floor.</p>
+                    <p>Place the infant on their tummy.</p>
+                    <p>Encourage the child to lift their head and interact with toys placed in front of them.</p>
+                    <p>Supervise closely to ensure safety.</p>
+            
+                    <h2>Interactive Play (20 minutes)</h2>
+                    <p>Use soft toys, musical toys, or colorful objects.</p>
+                    <p>Engage the child by shaking or moving the toys to catch their attention.</p>
+                    <p>Encourage the child to reach out, grab, or move towards the toys.</p>
+            
+                    <h2>Supervised Crawling or Walking (15 minutes)</h2>
+                    <p>Create a safe, obstacle-free area.</p>
+                    <p>Place toys or objects a short distance away to encourage movement.</p>
+                    <p>Supervise and assist as needed to ensure safety.</p>
+            
+                {% endif %}
+                {% elif age|int in range(3, 6) %}
+                {% if day == 'monday' %}
+                    <h2>Gentle Stretching (10 minutes)</h2>
+                    <p>Begin with simple stretches such as reaching arms up to the sky and then touching toes.</p>
+                    <p>Perform gentle neck rotations and shoulder shrugs.</p>
+                    <p>Encourage the child to imitate animal poses like "cat" and "cow" stretches.</p>
+            
+                {% elif day == 'tuesday' %}
+                    <h2>Creative Playtime (30 minutes)</h2>
+                    <p>Provide art supplies such as crayons, markers, and paper.</p>
+                    <p>Encourage the child to draw, color, or create simple crafts.</p>
+                    <p>Use playdough for tactile creativity.</p>
+            
+                {% elif day == 'wednesday' %}
+                    <h2>Interactive Reading (30 minutes)</h2>
+                    <p>Choose colorful and interactive storybooks.</p>
+                    <p>Read aloud, pointing at pictures and asking simple questions about the story.</p>
+                    <p>Encourage the child to repeat words or phrases.</p>
+            
+                {% elif day == 'thursday' %}
+                    <h2>Music and Movement (30 minutes)</h2>
+                    <p>Play upbeat, child-friendly music.</p>
+                    <p>Encourage dancing, clapping, and moving to the rhythm.</p>
+                    <p>Introduce simple musical instruments like tambourines or maracas.</p>
+            
+                {% elif day == 'friday' %}
+                    <h2>Quiet Time with Puzzles and Books (30 minutes)</h2>
+                    <p>Provide simple puzzles appropriate for the child’s age.</p>
+                    <p>Encourage problem-solving and completion of the puzzles.</p>
+                    <p>Offer a selection of picture books for quiet browsing.</p>
+            
+                {% elif day == 'saturday' %}
+                    <h2>Outdoor Time (30 minutes)</h2>
+                    <p>Spend time in a safe, enclosed outdoor area or garden.</p>
+                    <p>Engage in simple activities like blowing bubbles, playing catch, or exploring nature.</p>
+                    <p>Provide opportunities for gentle physical activity like walking or running.</p>
+            
+                {% elif day == 'sunday' %}
+                    <h2>Bedtime Story and Relaxation (20 minutes)</h2>
+                    <p>Choose a calming bedtime story.</p>
+                    <p>Read aloud in a soothing voice, encouraging the child to relax.</p>
+                    <p>Incorporate gentle massage or cuddle time to promote relaxation.</p>
+            
+                {% endif %}
+                {% elif age|int in range(6, 9) %}
+                {% if day == 'monday' %}
+                    <h2>Morning Stretch (20 minutes)</h2>
+                    <p>Perform gentle stretches like reaching for the sky, touching toes, and side stretches.</p>
+                    <p>Encourage slow and controlled movements to avoid strain.</p>
+                    <p>Play soft, calming music to make the experience enjoyable.</p>
+                    
+                {% elif day == 'tuesday' %}
+                    <h2>Creative Play (30 minutes)</h2>
+                    <p>Use building blocks, drawing supplies, or crafting materials.</p>
+                    <p>Encourage creativity and fine motor skills development.</p>
+                    <p>Allow the child to express themselves through art and creation.</p>
+            
+                {% elif day == 'wednesday' %}
+                    <h2>Nature Walk (30 minutes)</h2>
+                    <p>Take a short walk around the garden or nearby park.</p>
+                    <p>Observe plants, birds, and insects to engage the child’s curiosity.</p>
+                    <p>Ensure the walk is at a comfortable pace and includes frequent rest breaks if needed.</p>
+            
+                {% elif day == 'thursday' %}
+                    <h2>Light Exercise (20 minutes)</h2>
+                    <p>Simple activities like gentle yoga, playing catch, or balloon toss.</p>
+                    <p>Focus on movements that are fun and easy to perform.</p>
+                    <p>Ensure all exercises are done in a safe, cushioned environment.</p>
+            
+                {% elif day == 'friday' %}
+                    <h2>Music and Dance (30 minutes)</h2>
+                    <p>Play the child’s favorite songs and encourage them to dance along.</p>
+                    <p>Dance with them to make it more interactive and fun.</p>
+                    <p>This helps improve mood and physical activity levels.</p>
+            
+                {% elif day == 'saturday' %}
+                    <h2>Storytime and Gentle Movement (30 minutes)</h2>
+                    <p>Read a story to the child, encouraging them to act out parts of the story.</p>
+                    <p>Include gentle movements like stretching or simple yoga poses related to the story.</p>
+                    <p>Engage and interact to make it fun.</p>
+            
+                {% elif day == 'sunday' %}
+                    <h2>Free Play and Relaxation (30 minutes)</h2>
+                    <p>Allow the child to choose their favorite toys and activities.</p>
+                    <p>Encourage both active play and quiet time as needed.</p>
+                    <p>Supervise and provide support.</p>
+            
+                {% endif %}
+                {% elif age|int in range(9, 12) %}
+                {% if day == 'monday' %}
+                    <h2>Fitness Games (45 minutes)</h2>
+                    <p>If available, set up an interactive video game that promotes physical activity (e.g., dance games).</p>
+                    <p>Ensure the space is safe and monitor their activity.</p>
+                    <p>Encourage breaks to prevent fatigue.</p>
+                    
+                {% elif day == 'tuesday' %}
+                    <h2>Stretching and Light Exercises (45 minutes)</h2>
+                    <p>Guide them through a series of gentle stretches (e.g., reaching for toes, side stretches).</p>
+                    <p>Incorporate light exercises like walking in place, leg lifts, and arm circles.</p>
+                    <p>Emphasize the importance of slow, controlled movements.</p>
+                    
+                {% elif day == 'wednesday' %}
+                    <h2>Board Games and Puzzles (45 minutes)</h2>
+                    <p>Choose board games or puzzles that require movement, such as Twister.</p>
+                    <p>Set up the game in a safe area.</p>
+                    <p>Encourage participation, ensuring everyone follows the rules and stays safe.</p>
+                    
+                {% elif day == 'thursday' %}
+                    <h2>Craft Activities (45 minutes)</h2>
+                    <p>Provide materials like paper, safety scissors, and markers.</p>
+                    <p>Guide them in making simple crafts like paper airplanes or drawing.</p>
+                    <p>Encourage creativity and movement by having them run around with their creations.</p>
+                    
+                {% elif day == 'friday' %}
+                    <h2>Indoor Sports (45 minutes)</h2>
+                    <p>Set up a small area for table tennis, badminton, or other low-impact sports.</p>
+                    <p>Use soft or modified equipment to ensure safety.</p>
+                    <p>Monitor and encourage fair play and gentle movements.</p>
+                    
+                {% elif day == 'saturday' %}
+                    <h2>Yoga for Kids (45 minutes)</h2>
+                    <p>Clear a space and lay down a yoga mat or soft surface.</p>
+                    <p>Demonstrate simple poses like Tree Pose, Cat-Cow Stretch, and Child’s Pose. For further information, please watch these tutorials:</p>
+                        <p><a href="https://youtu.be/bG4ValU7TmI?si=WwK4NoCaBUf_Q3FT">Tree Pose</a></p>
+                        <p><a href="https://youtu.be/zybz7xdx3dk?si=uOMDEXFs_E3PQLqN">Cat-Cow Stretch</a></p>
+                        <p><a href="https://youtu.be/HBJAC5m7EQo?si=Cj5ZKwBrxL17srK6">Child's Pose</a></p>
+                    <p>Guide them through the movements, emphasizing gentle stretching and balance.</p>
+                    
+                {% elif day == 'sunday' %}
+                    <h2>Free Play and Relaxation (45 minutes)</h2>
+                    <p>Allow the child to choose their favorite toys and activities.</p>
+                    <p>Encourage both active play and quiet time as needed.</p>
+                    <p>Supervise and provide support.</p>
+                    
+                {% endif %}
+
+                {% elif age|int in range(13, 19) %}
+                {% if day == 'monday' %}
+                    <h2>Bodyweight Exercises (45 minutes)</h2>
+                    <p>Identify a clean, open space.</p>
+                    <p>Demonstrate simple exercises like push-ups (modified on knees if needed), sit-ups, squats, and lunges.</p>
+                    <p>Perform exercises together, setting a comfortable pace and ensuring proper form.</p>
+                    
+                {% elif day == 'tuesday' %}
+                    <h2>Indoor Sports (45 minutes)</h2>
+                    <p>Set up a small area for table tennis, badminton, or other low-impact sports.</p>
+                    <p>Use soft or modified equipment to ensure safety.</p>
+                    <p>Monitor and encourage fair play and gentle movements.</p>
+                    
+                {% elif day == 'wednesday' %}
+                    <h2>Mind-Body Activities (45 minutes)</h2>
+                    <p>Provide a calm, quiet space.</p>
+                    <p>Introduce yoga, tai chi, or meditation exercises.</p>
+                    <p>Guide them through simple routines focusing on breathing, stretching, and relaxation.</p>
+                    
+                {% elif day == 'thursday' %}
+                    <h2>Fitness Games (45 minutes)</h2>
+                    <p>If available, set up an interactive video game that promotes physical activity (e.g., dance games).</p>
+                    <p>Ensure the space is safe and monitor their activity.</p>
+                    <p>Encourage breaks to prevent fatigue.</p>
+                    
+                {% elif day == 'friday' %}
+                    <h2>Stretching and Light Exercises (45 minutes)</h2>
+                    <p>Guide them through a series of gentle stretches (e.g., reaching for toes, side stretches).</p>
+                    <p>Incorporate light exercises like walking in place, leg lifts, and arm circles.</p>
+                    <p>Emphasize the importance of slow, controlled movements.</p>
+                    
+                {% elif day == 'saturday' %}
+                    <h2>Creative Activities (45 minutes)</h2>
+                    <p>Provide materials like paper, safety scissors, and markers.</p>
+                    <p>Guide them in making simple crafts like paper airplanes or drawing.</p>
+                    <p>Encourage movement by having them run around flying their paper airplanes.</p>
+                    
+                {% elif day == 'sunday' %}
+                    <h2>Free Play and Relaxation (45 minutes)</h2>
+                    <p>Allow the child to choose their favorite toys and activities.</p>
+                    <p>Encourage both active play and quiet time as needed.</p>
+                    <p>Supervise and provide support.</p>
+                    
+                {% endif %}
+                 
+            {% endif %}
+            
+              {% endif %}
+
+              {% if diagnosis in ['Rhabdomyosarcoma'] and day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] %}
+              {% if age|int in range(1, 3) %}
+                  {% if day == 'monday' or day == 'tuesday' or day == 'wednesday' or day == 'thursday' or day == 'friday' or day == 'saturday' or day == 'sunday' %}
+                      <h2>Tummy Time (15 minutes)</h2>
+                      <p>Lay a clean, soft mat on the floor.</p>
+                      <p>Place the infant on their tummy.</p>
+                      <p>Encourage the child to lift their head and interact with toys placed in front of them.</p>
+                      <p>Supervise closely to ensure safety.</p>
+                      
+                      <h2>Interactive Play (20 minutes)</h2>
+                      <p>Use soft toys, musical toys, or colorful objects.</p>
+                      <p>Engage the child by shaking or moving the toys to catch their attention.</p>
+                      <p>Encourage the child to reach out, grab, or move towards the toys.</p>
+                      
+                      <h2>Supervised Crawling or Walking (15 minutes)</h2>
+                      <p>Create a safe, obstacle-free area.</p>
+                      <p>Place toys or objects a short distance away to encourage movement.</p>
+                      <p>Supervise and assist as needed to ensure safety.</p>
+                    
+                  {% endif %}
+                  {% elif age|int in range(3, 6) %}
+                  {% if day == 'monday' %}
+                      <h2>Gentle Stretching (10 minutes)</h2>
+                      <p>Begin with simple stretches such as reaching arms up to the sky and then touching toes.</p>
+                      <p>Perform gentle neck rotations and shoulder shrugs.</p>
+                      <p>Encourage the child to imitate animal poses like "cat" and "cow" stretches.</p>
+                      
+                  {% elif day == 'tuesday' %}
+                      <h2>Creative Playtime (30 minutes)</h2>
+                      <p>Provide art supplies such as crayons, markers, and paper.</p>
+                      <p>Encourage the child to draw, color, or create simple crafts.</p>
+                      <p>Use playdough for tactile creativity.</p>
+                      
+                  {% elif day == 'wednesday' %}
+                      <h2>Interactive Reading (30 minutes)</h2>
+                      <p>Choose colorful and interactive storybooks.</p>
+                      <p>Read aloud, pointing at pictures and asking simple questions about the story.</p>
+                      <p>Encourage the child to repeat words or phrases.</p>
+                      
+                  {% elif day == 'thursday' %}
+                      <h2>Music and Movement (30 minutes)</h2>
+                      <p>Play upbeat, child-friendly music.</p>
+                      <p>Encourage dancing, clapping, and moving to the rhythm.</p>
+                      <p>Introduce simple musical instruments like tambourines or maracas.</p>
+                      
+                  {% elif day == 'friday' %}
+                      <h2>Quiet Time with Puzzles and Books (30 minutes)</h2>
+                      <p>Provide simple puzzles appropriate for the child’s age.</p>
+                      <p>Encourage problem-solving and completion of the puzzles.</p>
+                      <p>Offer a selection of picture books for quiet browsing.</p>
+                      
+                  {% elif day == 'saturday' %}
+                      <h2>Outdoor Time (30 minutes)</h2>
+                      <p>Spend time in a safe, enclosed outdoor area or garden.</p>
+                      <p>Engage in simple activities like blowing bubbles, playing catch, or exploring nature.</p>
+                      <p>Provide opportunities for gentle physical activity like walking or running.</p>
+                      
+                  {% elif day == 'sunday' %}
+                      <h2>Bedtime Story and Relaxation (20 minutes)</h2>
+                      <p>Choose a calming bedtime story.</p>
+                      <p>Read aloud in a soothing voice, encouraging the child to relax.</p>
+                      <p>Incorporate gentle massage or cuddle time to promote relaxation.</p>
+                      
+                  {% endif %}
+                  {% elif age|int in range(6, 9) %}
+                  {% if day == 'monday' %}
+                      <h2>Morning Stretch (20 minutes)</h2>
+                      <p>Perform gentle stretches like reaching for the sky, touching toes, and side stretches.</p>
+                      <p>Encourage slow and controlled movements to avoid strain.</p>
+                      <p>Play soft, calming music to make the experience enjoyable.</p>
+                      
+                  {% elif day == 'tuesday' %}
+                      <h2>Creative Play (30 minutes)</h2>
+                      <p>Use building blocks, drawing supplies, or crafting materials.</p>
+                      <p>Encourage creativity and fine motor skills development.</p>
+                      <p>Allow the child to express themselves through art and creation.</p>
+                      
+                  {% elif day == 'wednesday' %}
+                      <h2>Nature Walk (30 minutes)</h2>
+                      <p>Take a short walk around the garden or nearby park.</p>
+                      <p>Observe plants, birds, and insects to engage the child’s curiosity.</p>
+                      <p>Ensure the walk is at a comfortable pace and includes frequent rest breaks if needed.</p>
+                      
+                  {% elif day == 'thursday' %}
+                      <h2>Light Exercise (20 minutes)</h2>
+                      <p>Simple activities like gentle yoga, playing catch, or balloon toss.</p>
+                      <p>Focus on movements that are fun and easy to perform.</p>
+                      <p>Ensure all exercises are done in a safe, cushioned environment.</p>
+                      
+                  {% elif day == 'friday' %}
+                      <h2>Music and Dance (30 minutes)</h2>
+                      <p>Play the child’s favorite songs and encourage them to dance along.</p>
+                      <p>Dance with them to make it more interactive and fun.</p>
+                      <p>This helps improve mood and physical activity levels.</p>
+                      
+                  {% elif day == 'saturday' %}
+                      <h2>Storytime and Gentle Movement (30 minutes)</h2>
+                      <p>Read a story to the child, encouraging them to act out parts of the story.</p>
+                      <p>Include gentle movements like stretching or simple yoga poses related to the story.</p>
+                      <p>Engage and interact to make it fun.</p>
+                      
+                  {% elif day == 'sunday' %}
+                      <h2>Free Play and Relaxation (30 minutes)</h2>
+                      <p>Allow the child to choose their favorite toys and activities.</p>
+                      <p>Encourage both active play and quiet time as needed.</p>
+                      <p>Supervise and provide support.</p>
+                      
+                  {% endif %}
+                  {% elif age|int in range(9, 13) %}
+                  {% if day == 'monday' %}
+                      <h2>Fitness Games (45 minutes)</h2>
+                      <p>If available, set up an interactive video game that promotes physical activity (e.g., dance games).</p>
+                      <p>Ensure the space is safe and monitor their activity.</p>
+                      <p>Encourage breaks to prevent fatigue.</p>
+                      
+                  {% elif day == 'tuesday' %}
+                      <h2>Stretching and Light Exercises (45 minutes)</h2>
+                      <p>Guide them through a series of gentle stretches (e.g., reaching for toes, side stretches).</p>
+                      <p>Incorporate light exercises like walking in place, leg lifts, and arm circles.</p>
+                      <p>Emphasize the importance of slow, controlled movements.</p>
+                      
+                  {% elif day == 'wednesday' %}
+                      <h2>Board Games and Puzzles (45 minutes)</h2>
+                      <p>Choose board games or puzzles that require movement, such as Twister.</p>
+                      <p>Set up the game in a safe area.</p>
+                      <p>Encourage participation, ensuring everyone follows the rules and stays safe.</p>
+                      
+                  {% elif day == 'thursday' %}
+                      <h2>Craft Activities (45 minutes)</h2>
+                      <p>Provide materials like paper, safety scissors, and markers.</p>
+                      <p>Guide them in making simple crafts like paper airplanes or drawing.</p>
+                      <p>Encourage creativity and movement by having them run around with their creations.</p>
+                      
+                  {% elif day == 'friday' %}
+                      <h2>Indoor Sports (45 minutes)</h2>
+                      <p>Set up a small area for table tennis, badminton, or other low-impact sports.</p>
+                      <p>Use soft or modified equipment to ensure safety.</p>
+                      <p>Monitor and encourage fair play and gentle movements.</p>
+                      
+                  {% elif day == 'saturday' %}
+                      <h2>Yoga for Kids (45 minutes)</h2>
+                      <p>Clear a space and lay down a yoga mat or soft surface.</p>
+                      <p>Demonstrate simple poses like Tree Pose, Cat-Cow Stretch, and Child’s Pose.</p>
+                      <p>For further information, please watch these tutorials:</p>
+                      <ul>
+                          <p><a href="https://youtu.be/bG4ValU7TmI?si=WwK4NoCaBUf_Q3FT">Tree Pose</a></p>
+                          <p><a href="https://youtu.be/zybz7xdx3dk?si=uOMDEXFs_E3PQLqN">Cat-Cow Stretch</a></p>
+                          <p><a href="https://youtu.be/HBJAC5m7EQo?si=Cj5ZKwBrxL17srK6">Child's Pose</a></p>
+                      </ul>
+                      <p>Guide them through the movements, emphasizing gentle stretching and balance.</p>
+                      
+                  {% elif day == 'sunday' %}
+                      <h2>Free Play and Relaxation (45 minutes)</h2>
+                      <p>Allow the child to choose their favorite toys and activities.</p>
+                      <p>Encourage both active play and quiet time as needed.</p>
+                      <p>Supervise and provide support.</p>
+                      
+                  {% endif %}
+                  {% elif age|int in range(13, 19) %}
+                  {% if day == 'monday' %}
+                      <h2>Bodyweight Exercises (45 minutes)</h2>
+                      <p>Identify a clean, open space.</p>
+                      <p>Demonstrate simple exercises like push-ups (modified on knees if needed), sit-ups, squats, and lunges.</p>
+                      <p>Perform exercises together, setting a comfortable pace and ensuring proper form.</p>
+                      
+                  {% elif day == 'tuesday' %}
+                      <h2>Indoor Sports (45 minutes)</h2>
+                      <p>Set up a small area for table tennis, badminton, or other low-impact sports.</p>
+                      <p>Use soft or modified equipment to ensure safety.</p>
+                      <p>Monitor and encourage fair play and gentle movements.</p>
+                      
+                  {% elif day == 'wednesday' %}
+                      <h2>Mind-Body Activities (45 minutes)</h2>
+                      <p>Provide a calm, quiet space.</p>
+                      <p>Introduce yoga, tai chi, or meditation exercises.</p>
+                      <p>Guide them through simple routines focusing on breathing, stretching, and relaxation.</p>
+                      
+                  {% elif day == 'thursday' %}
+                      <h2>Fitness Games (45 minutes)</h2>
+                      <p>If available, set up an interactive video game that promotes physical activity (e.g., dance games).</p>
+                      <p>Ensure the space is safe and monitor their activity.</p>
+                      <p>Encourage breaks to prevent fatigue.</p>
+                      
+                  {% elif day == 'friday' %}
+                      <h2>Stretching and Light Exercises (45 minutes)</h2>
+                      <p>Guide them through a series of gentle stretches (e.g., reaching for toes, side stretches).</p>
+                      <p>Incorporate light exercises like walking in place, leg lifts, and arm circles.</p>
+                      <p>Emphasize the importance of slow, controlled movements.</p>
+                      
+                  {% elif day == 'saturday' %}
+                      <h2>Creative Activities (45 minutes)</h2>
+                      <p>Provide materials like paper, safety scissors, and markers.</p>
+                      <p>Guide them in making simple crafts like paper airplanes or drawing.</p>
+                      <p>Encourage movement by having them run around flying their paper airplanes.</p>
+                      
+                  {% elif day == 'sunday' %}
+                      <h2>Free Play and Relaxation (45 minutes)</h2>
+                      <p>Allow them to choose their favorite activities or hobbies.</p>
+                      <p>Encourage both active play and quiet time as needed.</p>
+                      <p>Supervise and provide support as necessary.</p>
+                      
+                  {% endif %}
+              {% endif %}
+          {% endif %}
+              
+          {% if diagnosis in ['Osteosarcoma'] and day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] %}
+              {% if age|int in range(1, 3) %}
+                  {% if day == 'monday' or day == 'tuesday' or day == 'wednesday' or day == 'thursday' or day == 'friday' or day == 'saturday' or day == 'sunday' %}
+                      <h2>Tummy Time (15 minutes)</h2>
+                      <p>Lay a clean, soft mat on the floor.</p>
+                      <p>Place the infant on their tummy.</p>
+                      <p>Encourage the child to lift their head and interact with toys placed in front of them.</p>
+                      <p>Supervise closely to ensure safety.</p>
+                      
+                      <h2>Interactive Play (20 minutes)</h2>
+                      <p>Use soft toys, musical toys, or colorful objects.</p>
+                      <p>Engage the child by shaking or moving the toys to catch their attention.</p>
+                      <p>Encourage the child to reach out, grab, or move towards the toys.</p>
+                      
+                      <h2>Supervised Crawling or Walking (15 minutes)</h2>
+                      <p>Create a safe, obstacle-free area.</p>
+                      <p>Place toys or objects a short distance away to encourage movement.</p>
+                      <p>Supervise and assist as needed to ensure safety.</p>
+                  {% endif %}
+                  {% elif age|int in range(3, 6) %}
+                  {% if day == 'monday' %}
+                      <h2>Gentle Stretching (10 minutes)</h2>
+                      <p>Begin with simple stretches such as reaching arms up to the sky and then touching toes.</p>
+                      <p>Perform gentle neck rotations and shoulder shrugs.</p>
+                      <p>Encourage the child to imitate animal poses like "cat" and "cow" stretches.</p>
+                      
+                  {% elif day == 'tuesday' %}
+                      <h2>Creative Playtime (30 minutes)</h2>
+                      <p>Provide art supplies such as crayons, markers, and paper.</p>
+                      <p>Encourage the child to draw, color, or create simple crafts.</p>
+                      <p>Use playdough for tactile creativity.</p>
+                      
+                  {% elif day == 'wednesday' %}
+                      <h2>Interactive Reading (30 minutes)</h2>
+                      <p>Choose colorful and interactive storybooks.</p>
+                      <p>Read aloud, pointing at pictures and asking simple questions about the story.</p>
+                      <p>Encourage the child to repeat words or phrases.</p>
+                      
+                  {% elif day == 'thursday' %}
+                      <h2>Music and Movement (30 minutes)</h2>
+                      <p>Play upbeat, child-friendly music.</p>
+                      <p>Encourage dancing, clapping, and moving to the rhythm.</p>
+                      <p>Introduce simple musical instruments like tambourines or maracas.</p>
+                      
+                  {% elif day == 'friday' %}
+                      <h2>Quiet Time with Puzzles and Books (30 minutes)</h2>
+                      <p>Provide simple puzzles appropriate for the child’s age.</p>
+                      <p>Encourage problem-solving and completion of the puzzles.</p>
+                      <p>Offer a selection of picture books for quiet browsing.</p>
+                      
+                  {% elif day == 'saturday' %}
+                      <h2>Outdoor Time (30 minutes)</h2>
+                      <p>Spend time in a safe, enclosed outdoor area or garden.</p>
+                      <p>Engage in simple activities like blowing bubbles, playing catch, or exploring nature.</p>
+                      <p>Provide opportunities for gentle physical activity like walking or running.</p>
+                      
+                  {% elif day == 'sunday' %}
+                      <h2>Bedtime Story and Relaxation (20 minutes)</h2>
+                      <p>Choose a calming bedtime story.</p>
+                      <p>Read aloud in a soothing voice, encouraging the child to relax.</p>
+                      <p>Incorporate gentle massage or cuddle time to promote relaxation.</p>
+                      
+                  {% endif %}
+                  {% elif age|int in range(6, 9) %}
+                  {% if day == 'monday' %}
+                      <h2>Morning Stretch (20 minutes)</h2>
+                      <p>Perform gentle stretches like reaching for the sky, touching toes, and side stretches.</p>
+                      <p>Encourage slow and controlled movements to avoid strain.</p>
+                      <p>Play soft, calming music to make the experience enjoyable.</p>
+                      
+                  {% elif day == 'tuesday' %}
+                      <h2>Creative Play (30 minutes)</h2>
+                      <p>Use building blocks, drawing supplies, or crafting materials.</p>
+                      <p>Encourage creativity and fine motor skills development.</p>
+                      <p>Allow the child to express themselves through art and creation.</p>
+                      
+                  {% elif day == 'wednesday' %}
+                      <h2>Nature Walk (30 minutes)</h2>
+                      <p>Take a short walk around the garden or nearby park.</p>
+                      <p>Observe plants, birds, and insects to engage the child’s curiosity.</p>
+                      <p>Ensure the walk is at a comfortable pace and includes frequent rest breaks if needed.</p>
+                      
+                  {% elif day == 'thursday' %}
+                      <h2>Light Exercise (20 minutes)</h2>
+                      <p>Simple activities like gentle yoga, playing catch, or balloon toss.</p>
+                      <p>Focus on movements that are fun and easy to perform.</p>
+                      <p>Ensure all exercises are done in a safe, cushioned environment.</p>
+                      
+                  {% elif day == 'friday' %}
+                      <h2>Music and Dance (30 minutes)</h2>
+                      <p>Play the child’s favorite songs and encourage them to dance along.</p>
+                      <p>Dance with them to make it more interactive and fun.</p>
+                      <p>This helps improve mood and physical activity levels.</p>
+                      
+                  {% elif day == 'saturday' %}
+                      <h2>Storytime and Gentle Movement (30 minutes)</h2>
+                      <p>Read a story to the child, encouraging them to act out parts of the story.</p>
+                      <p>Include gentle movements like stretching or simple yoga poses related to the story.</p>
+                      <p>Engage and interact to make it fun.</p>
+                      
+                  {% elif day == 'sunday' %}
+                      <h2>Free Play and Relaxation (30 minutes)</h2>
+                      <p>Allow the child to choose their favorite toys and activities.</p>
+                      <p>Encourage both active play and quiet time as needed.</p>
+                      <p>Supervise and provide support.</p>
+                      
+                  {% endif %}
+                  {% elif age|int in range(9, 13) %}
+                  {% if day == 'monday' %}
+                      <h2>Fitness Games (45 minutes)</h2>
+                      <p>If available, set up an interactive video game that promotes physical activity (e.g., dance games).</p>
+                      <p>Ensure the space is safe and monitor their activity.</p>
+                      <p>Encourage breaks to prevent fatigue.</p>
+                      
+                  {% elif day == 'tuesday' %}
+                      <h2>Stretching and Light Exercises (45 minutes)</h2>
+                      <p>Guide them through a series of gentle stretches (e.g., reaching for toes, side stretches).</p>
+                      <p>Incorporate light exercises like walking in place, leg lifts, and arm circles.</p>
+                      <p>Emphasize the importance of slow, controlled movements.</p>
+                      
+                  {% elif day == 'wednesday' %}
+                      <h2>Board Games and Puzzles (45 minutes)</h2>
+                      <p>Choose board games or puzzles that require movement, such as Twister.</p>
+                      <p>Set up the game in a safe area.</p>
+                      <p>Encourage participation, ensuring everyone follows the rules and stays safe.</p>
+                      
+                  {% elif day == 'thursday' %}
+                      <h2>Craft Activities (45 minutes)</h2>
+                      <p>Provide materials like paper, safety scissors, and markers.</p>
+                      <p>Guide them in making simple crafts like paper airplanes or drawing.</p>
+                      <p>Encourage creativity and movement by having them run around with their creations.</p>
+                      
+                  {% elif day == 'friday' %}
+                      <h2>Indoor Sports (45 minutes)</h2>
+                      <p>Set up a small area for table tennis, badminton, or other low-impact sports.</p>
+                      <p>Use soft or modified equipment to ensure safety.</p>
+                      <p>Monitor and encourage fair play and gentle movements.</p>
+                      
+                  {% elif day == 'saturday' %}
+                      <h2>Yoga for Kids (45 minutes)</h2>
+                      <p>Clear a space and lay down a yoga mat or soft surface.</p>
+                      <p>Demonstrate simple poses like Tree Pose, Cat-Cow Stretch, and Child’s Pose. For further information, please watch these tutorials:</p>
+                      <p>Tree Pose: <a href="https://youtu.be/bG4ValU7TmI?si=WwK4NoCaBUf_Q3FT">Watch here</a></p>
+                      <p>Cat-Cow Stretch: <a href="https://youtu.be/zybz7xdx3dk?si=uOMDEXFs_E3PQLqN">Watch here</a></p>
+                      <p>Child's Pose: <a href="https://youtu.be/HBJAC5m7EQo?si=Cj5ZKwBrxL17srK6">Watch here</a></p>
+                      <p>Guide them through the movements, emphasizing gentle stretching and balance.</p>
+                      
+                  {% elif day == 'sunday' %}
+                      <h2>Free Play and Relaxation (45 minutes)</h2>
+                      <p>Allow the child to choose their favorite toys and activities.</p>
+                      <p>Encourage both active play and quiet time as needed.</p>
+                      <p>Supervise and provide support.</p>
+                      
+                  {% endif %}
+                  {% elif age|int in range(13, 19) %}
+                  {% if day == 'monday' %}
+                      <h2>Bodyweight Exercises (45 minutes)</h2>
+                      <p>Identify a clean, open space.</p>
+                      <p>Demonstrate simple exercises like push-ups (modified on knees if needed), sit-ups, squats, and lunges.</p>
+                      <p>Perform exercises together, setting a comfortable pace and ensuring proper form.</p>
+                      
+                  {% elif day == 'tuesday' %}
+                      <h2>Indoor Sports (45 minutes)</h2>
+                      <p>Set up a small area for table tennis, badminton, or other low-impact sports.</p>
+                      <p>Use soft or modified equipment to ensure safety.</p>
+                      <p>Monitor and encourage fair play and gentle movements.</p>
+                      
+                  {% elif day == 'wednesday' %}
+                      <h2>Mind-Body Activities (45 minutes)</h2>
+                      <p>Provide a calm, quiet space.</p>
+                      <p>Introduce yoga, tai chi, or meditation exercises.</p>
+                      <p>Guide them through simple routines focusing on breathing, stretching, and relaxation.</p>
+                      
+                  {% elif day == 'thursday' %}
+                      <h2>Fitness Games (45 minutes)</h2>
+                      <p>If available, set up an interactive video game that promotes physical activity (e.g., dance games).</p>
+                      <p>Ensure the space is safe and monitor their activity.</p>
+                      <p>Encourage breaks to prevent fatigue.</p>
+                      
+                  {% elif day == 'friday' %}
+                      <h2>Stretching and Light Exercises (45 minutes)</h2>
+                      <p>Guide them through a series of gentle stretches (e.g., reaching for toes, side stretches).</p>
+                      <p>Incorporate light exercises like walking in place, leg lifts, and arm circles.</p>
+                      <p>Emphasize the importance of slow, controlled movements.</p>
+                      
+                  {% elif day == 'saturday' %}
+                      <h2>Creative Activities (45 minutes)</h2>
+                      <p>Provide materials like paper, safety scissors, and markers.</p>
+                      <p>Guide them in making simple crafts like paper airplanes or drawing.</p>
+                      <p>Encourage movement by having them run around flying their paper airplanes.</p>
+                      
+                  {% elif day == 'sunday' %}
+                      <h2>Free Play and Relaxation (45 minutes)</h2>
+                      <p>Allow the child to choose their favorite toys and activities.</p>
+                      <p>Encourage both active play and quiet time as needed.</p>
+                      <p>Supervise and provide support.</p>
+                      
+                  {% endif %}
+
+              {% endif %}
+          {% endif %}
+              
+              {% if diagnosis in ['Wilms Tumor'] and day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] %}<br><p>
+                {% if age|int in range(1, 3) %}
+                {% if day == 'monday' or day == 'tuesday' or day == 'wednesday' or day == 'thursday' or day == 'friday' or day == 'saturday' or day == 'sunday' %}
+                    <h2>Tummy Time (15 minutes)</h2>
+                    <p>Lay a clean, soft mat on the floor.</p>
+                    <p>Place the infant on their tummy.</p>
+                    <p>Encourage the child to lift their head and interact with toys placed in front of them.</p>
+                    <p>Supervise closely to ensure safety.</p>
+                    
+                    <h2>Interactive Play (20 minutes)</h2>
+                    <p>Use soft toys, musical toys, or colorful objects.</p>
+                    <p>Engage the child by shaking or moving the toys to catch their attention.</p>
+                    <p>Encourage the child to reach out, grab, or move towards the toys.</p>
+                    
+                    <h2>Supervised Crawling or Walking (15 minutes)</h2>
+                    <p>Create a safe, obstacle-free area.</p>
+                    <p>Place toys or objects a short distance away to encourage movement.</p>
+                    <p>Supervise and assist as needed to ensure safety.</p>
+                {% endif %}
+                {% elif age|int in range(3, 6) %}
+                {% if day == 'monday' %}
+                    <h2>Gentle Stretching (10 minutes)</h2>
+                    <p>Begin with simple stretches such as reaching arms up to the sky and then touching toes.</p>
+                    <p>Perform gentle neck rotations and shoulder shrugs.</p>
+                    <p>Encourage the child to imitate animal poses like "cat" and "cow" stretches.</p>
+                    
+                {% elif day == 'tuesday' %}
+                    <h2>Creative Playtime (30 minutes)</h2>
+                    <p>Provide art supplies such as crayons, markers, and paper.</p>
+                    <p>Encourage the child to draw, color, or create simple crafts.</p>
+                    <p>Use playdough for tactile creativity.</p>
+                    
+                {% elif day == 'wednesday' %}
+                    <h2>Interactive Reading (30 minutes)</h2>
+                    <p>Choose colorful and interactive storybooks.</p>
+                    <p>Read aloud, pointing at pictures and asking simple questions about the story.</p>
+                    <p>Encourage the child to repeat words or phrases.</p>
+                    
+                {% elif day == 'thursday' %}
+                    <h2>Music and Movement (30 minutes)</h2>
+                    <p>Play upbeat, child-friendly music.</p>
+                    <p>Encourage dancing, clapping, and moving to the rhythm.</p>
+                    <p>Introduce simple musical instruments like tambourines or maracas.</p>
+                    
+                {% elif day == 'friday' %}
+                    <h2>Quiet Time with Puzzles and Books (30 minutes)</h2>
+                    <p>Provide simple puzzles appropriate for the child’s age.</p>
+                    <p>Encourage problem-solving and completion of the puzzles.</p>
+                    <p>Offer a selection of picture books for quiet browsing.</p>
+                    
+                {% elif day == 'saturday' %}
+                    <h2>Outdoor Time (30 minutes)</h2>
+                    <p>Spend time in a safe, enclosed outdoor area or garden.</p>
+                    <p>Engage in simple activities like blowing bubbles, playing catch, or exploring nature.</p>
+                    <p>Provide opportunities for gentle physical activity like walking or running.</p>
+                    
+                {% elif day == 'sunday' %}
+                    <h2>Bedtime Story and Relaxation (20 minutes)</h2>
+                    <p>Choose a calming bedtime story.</p>
+                    <p>Read aloud in a soothing voice, encouraging the child to relax.</p>
+                    <p>Incorporate gentle massage or cuddle time to promote relaxation.</p>
+                    
+                {% endif %}
+                {% elif age|int in range(6, 9) %}
+                {% if day == 'monday' %}
+                    <h2>Morning Stretch (20 minutes)</h2>
+                    <p>Perform gentle stretches like reaching for the sky, touching toes, and side stretches.</p>
+                    <p>Encourage slow and controlled movements to avoid strain.</p>
+                    <p>Play soft, calming music to make the experience enjoyable.</p>
+                    
+                {% elif day == 'tuesday' %}
+                    <h2>Creative Play (30 minutes)</h2>
+                    <p>Use building blocks, drawing supplies, or crafting materials.</p>
+                    <p>Encourage creativity and fine motor skills development.</p>
+                    <p>Allow the child to express themselves through art and creation.</p>
+                    
+                {% elif day == 'wednesday' %}
+                    <h2>Nature Walk (30 minutes)</h2>
+                    <p>Take a short walk around the garden or nearby park.</p>
+                    <p>Observe plants, birds, and insects to engage the child’s curiosity.</p>
+                    <p>Ensure the walk is at a comfortable pace and includes frequent rest breaks if needed.</p>
+                    
+                {% elif day == 'thursday' %}
+                    <h2>Light Exercise (20 minutes)</h2>
+                    <p>Simple activities like gentle yoga, playing catch, or balloon toss.</p>
+                    <p>Focus on movements that are fun and easy to perform.</p>
+                    <p>Ensure all exercises are done in a safe, cushioned environment.</p>
+                    
+                {% elif day == 'friday' %}
+                    <h2>Music and Dance (30 minutes)</h2>
+                    <p>Play the child’s favorite songs and encourage them to dance along.</p>
+                    <p>Dance with them to make it more interactive and fun.</p>
+                    <p>This helps improve mood and physical activity levels.</p>
+                    
+                {% elif day == 'saturday' %}
+                    <h2>Storytime and Gentle Movement (30 minutes)</h2>
+                    <p>Read a story to the child, encouraging them to act out parts of the story.</p>
+                    <p>Include gentle movements like stretching or simple yoga poses related to the story.</p>
+                    <p>Engage and interact to make it fun.</p>
+                    
+                {% elif day == 'sunday' %}
+                    <h2>Free Play and Relaxation (30 minutes)</h2>
+                    <p>Allow the child to choose their favorite toys and activities.</p>
+                    <p>Encourage both active play and quiet time as needed.</p>
+                    <p>Supervise and provide support.</p>
+                    
+                {% endif %}
+                {% elif age|int in range(9, 13) %}
+                {% if day == 'monday' %}
+                    <h2>Fitness Games (45 minutes)</h2>
+                    <p>If available, set up an interactive video game that promotes physical activity (e.g., dance games).</p>
+                    <p>Ensure the space is safe and monitor their activity.</p>
+                    <p>Encourage breaks to prevent fatigue.</p>
+                    
+                {% elif day == 'tuesday' %}
+                    <h2>Stretching and Light Exercises (45 minutes)</h2>
+                    <p>Guide them through a series of gentle stretches (e.g., reaching for toes, side stretches).</p>
+                    <p>Incorporate light exercises like walking in place, leg lifts, and arm circles.</p>
+                    <p>Emphasize the importance of slow, controlled movements.</p>
+                    
+                {% elif day == 'wednesday' %}
+                    <h2>Board Games and Puzzles (45 minutes)</h2>
+                    <p>Choose board games or puzzles that require movement, such as Twister.</p>
+                    <p>Set up the game in a safe area.</p>
+                    <p>Encourage participation, ensuring everyone follows the rules and stays safe.</p>
+                    
+                {% elif day == 'thursday' %}
+                    <h2>Craft Activities (45 minutes)</h2>
+                    <p>Provide materials like paper, safety scissors, and markers.</p>
+                    <p>Guide them in making simple crafts like paper airplanes or drawing.</p>
+                    <p>Encourage creativity and movement by having them run around with their creations.</p>
+                    
+                {% elif day == 'friday' %}
+                    <h2>Indoor Sports (45 minutes)</h2>
+                    <p>Set up a small area for table tennis, badminton, or other low-impact sports.</p>
+                    <p>Use soft or modified equipment to ensure safety.</p>
+                    <p>Monitor and encourage fair play and gentle movements.</p>
+                    
+                {% elif day == 'saturday' %}
+                    <h2>Yoga for Kids (45 minutes)</h2>
+                    <p>Clear a space and lay down a yoga mat or soft surface.</p>
+                    <p>Demonstrate simple poses like Tree Pose, Cat-Cow Stretch, and Child’s Pose. For further information, please watch these tutorials:</p>
+                    <ul>
+                        <li><a href="https://youtu.be/bG4ValU7TmI?si=WwK4NoCaBUf_Q3FT">Tree Pose</a></li>
+                        <li><a href="https://youtu.be/zybz7xdx3dk?si=uOMDEXFs_E3PQLqN">Cat-Cow Stretch</a></li>
+                        <li><a href="https://youtu.be/HBJAC5m7EQo?si=Cj5ZKwBrxL17srK6">Child's Pose</a></li>
+                    </ul>
+                    <p>Guide them through the movements, emphasizing gentle stretching and balance.</p>
+                    
+                {% elif day == 'sunday' %}
+                    <h2>Free Play and Relaxation (45 minutes)</h2>
+                    <p>Allow the child to choose their favorite toys and activities.</p>
+                    <p>Encourage both active play and quiet time as needed.</p>
+                    <p>Supervise and provide support.</p>
+                    
+                {% endif %}
+                {% elif age|int in range(13, 19) %}
+                {% if day == 'monday' %}
+                    <h2>Bodyweight Exercises (45 minutes)</h2>
+                    <p>Identify a clean, open space.</p>
+                    <p>Demonstrate simple exercises like push-ups (modified on knees if needed), sit-ups, squats, and lunges.</p>
+                    <p>Perform exercises together, setting a comfortable pace and ensuring proper form.</p>
+                    
+                {% elif day == 'tuesday' %}
+                    <h2>Indoor Sports (45 minutes)</h2>
+                    <p>Set up a small area for table tennis, badminton, or other low-impact sports.</p>
+                    <p>Use soft or modified equipment to ensure safety.</p>
+                    <p>Monitor and encourage fair play and gentle movements.</p>
+                    
+                {% elif day == 'wednesday' %}
+                    <h2>Mind-Body Activities (45 minutes)</h2>
+                    <p>Provide a calm, quiet space.</p>
+                    <p>Introduce yoga, tai chi, or meditation exercises.</p>
+                    <p>Guide them through simple routines focusing on breathing, stretching, and relaxation.</p>
+                    
+                {% elif day == 'thursday' %}
+                    <h2>Fitness Games (45 minutes)</h2>
+                    <p>If available, set up an interactive video game that promotes physical activity (e.g., dance games).</p>
+                    <p>Ensure the space is safe and monitor their activity.</p>
+                    <p>Encourage breaks to prevent fatigue.</p>
+                    
+                {% elif day == 'friday' %}
+                    <h2>Stretching and Light Exercises (45 minutes)</h2>
+                    <p>Guide them through a series of gentle stretches (e.g., reaching for toes, side stretches).</p>
+                    <p>Incorporate light exercises like walking in place, leg lifts, and arm circles.</p>
+                    <p>Emphasize the importance of slow, controlled movements.</p>
+                    
+                {% elif day == 'saturday' %}
+                    <h2>Creative Activities (45 minutes)</h2>
+                    <p>Provide materials like paper, safety scissors, and markers.</p>
+                    <p>Guide them in making simple crafts like paper airplanes or drawing.</p>
+                    <p>Encourage movement by having them run around flying their paper airplanes.</p>
+                    
+                {% elif day == 'sunday' %}
+                    <h2>Free Play and Relaxation (45 minutes)</h2>
+                    <p>Allow them to choose their favorite activities.</p>
+                    <p>Encourage both active play and quiet time as needed.</p>
+                    <p>Supervise and provide support.</p>
+                    
+                {% endif %}
+                                                
+            {% endif %}
+              {% endif %}
+
+              {% if diagnosis in ['Multiple Myeloma'] and day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] %}<br><p>
+                {% if age|int in range(1, 3) %}
+                {% if day == 'monday' or day == 'tuesday' or day == 'wednesday' or day == 'thursday' or day == 'friday' or day == 'saturday' or day == 'sunday' %}
+                    <h2>Tummy Time (15 minutes)</h2>
+                    <p>Lay a clean, soft mat on the floor.</p>
+                    <p>Place the infant on their tummy.</p>
+                    <p>Encourage the child to lift their head and interact with toys placed in front of them.</p>
+                    <p>Supervise closely to ensure safety.</p>
+                    
+                    <h2>Interactive Play (20 minutes)</h2>
+                    <p>Use soft toys, musical toys, or colorful objects.</p>
+                    <p>Engage the child by shaking or moving the toys to catch their attention.</p>
+                    <p>Encourage the child to reach out, grab, or move towards the toys.</p>
+                    
+                    <h2>Supervised Crawling or Walking (15 minutes)</h2>
+                    <p>Create a safe, obstacle-free area.</p>
+                    <p>Place toys or objects a short distance away to encourage movement.</p>
+                    <p>Supervise and assist as needed to ensure safety.</p>
+                {% endif %}
+                {% elif age|int in range(3, 6) %}
+                {% if day == 'monday' %}
+                    <h2>Gentle Stretching (10 minutes)</h2>
+                    <p>Begin with simple stretches such as reaching arms up to the sky and then touching toes.</p>
+                    <p>Perform gentle neck rotations and shoulder shrugs.</p>
+                    <p>Encourage the child to imitate animal poses like "cat" and "cow" stretches.</p>
+            
+                {% elif day == 'tuesday' %}
+                    <h2>Creative Playtime (30 minutes)</h2>
+                    <p>Provide art supplies such as crayons, markers, and paper.</p>
+                    <p>Encourage the child to draw, color, or create simple crafts.</p>
+                    <p>Use playdough for tactile creativity.</p>
+            
+                {% elif day == 'wednesday' %}
+                    <h2>Interactive Reading (30 minutes)</h2>
+                    <p>Choose colorful and interactive storybooks.</p>
+                    <p>Read aloud, pointing at pictures and asking simple questions about the story.</p>
+                    <p>Encourage the child to repeat words or phrases.</p>
+            
+                {% elif day == 'thursday' %}
+                    <h2>Music and Movement (30 minutes)</h2>
+                    <p>Play upbeat, child-friendly music.</p>
+                    <p>Encourage dancing, clapping, and moving to the rhythm.</p>
+                    <p>Introduce simple musical instruments like tambourines or maracas.</p>
+            
+                {% elif day == 'friday' %}
+                    <h2>Quiet Time with Puzzles and Books (30 minutes)</h2>
+                    <p>Provide simple puzzles appropriate for the child’s age.</p>
+                    <p>Encourage problem-solving and completion of the puzzles.</p>
+                    <p>Offer a selection of picture books for quiet browsing.</p>
+            
+                {% elif day == 'saturday' %}
+                    <h2>Outdoor Time (30 minutes)</h2>
+                    <p>Spend time in a safe, enclosed outdoor area or garden.</p>
+                    <p>Engage in simple activities like blowing bubbles, playing catch, or exploring nature.</p>
+                    <p>Provide opportunities for gentle physical activity like walking or running.</p>
+            
+                {% elif day == 'sunday' %}
+                    <h2>Bedtime Story and Relaxation (20 minutes)</h2>
+                    <p>Choose a calming bedtime story.</p>
+                    <p>Read aloud in a soothing voice, encouraging the child to relax.</p>
+                    <p>Incorporate gentle massage or cuddle time to promote relaxation.</p>
+            
+                {% endif %}
+
+                {% elif age|int in range(6, 9) %}
+                {% if day == 'monday' %}
+                    <h2>Morning Stretch (20 minutes)</h2>
+                    <p>Perform gentle stretches like reaching for the sky, touching toes, and side stretches.</p>
+                    <p>Encourage slow and controlled movements to avoid strain.</p>
+                    <p>Play soft, calming music to make the experience enjoyable.</p>
+            
+                {% elif day == 'tuesday' %}
+                    <h2>Creative Play (30 minutes)</h2>
+                    <p>Use building blocks, drawing supplies, or crafting materials.</p>
+                    <p>Encourage creativity and fine motor skills development.</p>
+                    <p>Allow the child to express themselves through art and creation.</p>
+            
+                {% elif day == 'wednesday' %}
+                    <h2>Nature Walk (30 minutes)</h2>
+                    <p>Take a short walk around the garden or nearby park.</p>
+                    <p>Observe plants, birds, and insects to engage the child’s curiosity.</p>
+                    <p>Ensure the walk is at a comfortable pace and includes frequent rest breaks if needed.</p>
+            
+                {% elif day == 'thursday' %}
+                    <h2>Light Exercise (20 minutes)</h2>
+                    <p>Simple activities like gentle yoga, playing catch, or balloon toss.</p>
+                    <p>Focus on movements that are fun and easy to perform.</p>
+                    <p>Ensure all exercises are done in a safe, cushioned environment.</p>
+            
+                {% elif day == 'friday' %}
+                    <h2>Music and Dance (30 minutes)</h2>
+                    <p>Play the child’s favorite songs and encourage them to dance along.</p>
+                    <p>Dance with them to make it more interactive and fun.</p>
+                    <p>This helps improve mood and physical activity levels.</p>
+            
+                {% elif day == 'saturday' %}
+                    <h2>Storytime and Gentle Movement (30 minutes)</h2>
+                    <p>Read a story to the child, encouraging them to act out parts of the story.</p>
+                    <p>Include gentle movements like stretching or simple yoga poses related to the story.</p>
+                    <p>Engage and interact to make it fun.</p>
+            
+                {% elif day == 'sunday' %}
+                    <h2>Free Play and Relaxation (30 minutes)</h2>
+                    <p>Allow the child to choose their favorite toys and activities.</p>
+                    <p>Encourage both active play and quiet time as needed.</p>
+                    <p>Supervise and provide support.</p>
+            
+                {% endif %}
+                {% elif age|int in range(6, 9) %}
+                {% if day == 'monday' %}
+                    <h2>Morning Stretch (20 minutes)</h2>
+                    <p>Perform gentle stretches like reaching for the sky, touching toes, and side stretches.</p>
+                    <p>Encourage slow and controlled movements to avoid strain.</p>
+                    <p>Play soft, calming music to make the experience enjoyable.</p>
+            
+                {% elif day == 'tuesday' %}
+                    <h2>Creative Play (30 minutes)</h2>
+                    <p>Use building blocks, drawing supplies, or crafting materials.</p>
+                    <p>Encourage creativity and fine motor skills development.</p>
+                    <p>Allow the child to express themselves through art and creation.</p>
+            
+                {% elif day == 'wednesday' %}
+                    <h2>Nature Walk (30 minutes)</h2>
+                    <p>Take a short walk around the garden or nearby park.</p>
+                    <p>Observe plants, birds, and insects to engage the child’s curiosity.</p>
+                    <p>Ensure the walk is at a comfortable pace and includes frequent rest breaks if needed.</p>
+            
+                {% elif day == 'thursday' %}
+                    <h2>Light Exercise (20 minutes)</h2>
+                    <p>Simple activities like gentle yoga, playing catch, or balloon toss.</p>
+                    <p>Focus on movements that are fun and easy to perform.</p>
+                    <p>Ensure all exercises are done in a safe, cushioned environment.</p>
+            
+                {% elif day == 'friday' %}
+                    <h2>Music and Dance (30 minutes)</h2>
+                    <p>Play the child’s favorite songs and encourage them to dance along.</p>
+                    <p>Dance with them to make it more interactive and fun.</p>
+                    <p>This helps improve mood and physical activity levels.</p>
+            
+                {% elif day == 'saturday' %}
+                    <h2>Storytime and Gentle Movement (30 minutes)</h2>
+                    <p>Read a story to the child, encouraging them to act out parts of the story.</p>
+                    <p>Include gentle movements like stretching or simple yoga poses related to the story.</p>
+                    <p>Engage and interact to make it fun.</p>
+            
+                {% elif day == 'sunday' %}
+                    <h2>Free Play and Relaxation (30 minutes)</h2>
+                    <p>Allow the child to choose their favorite toys and activities.</p>
+                    <p>Encourage both active play and quiet time as needed.</p>
+                    <p>Supervise and provide support.</p>
+            
+                {% endif %}
+                {% elif age|int in range(9, 13) %}
+                {% if day == 'monday' %}
+                    <h2>Fitness Games (45 minutes)</h2>
+                    <p>If available, set up an interactive video game that promotes physical activity (e.g., dance games).</p>
+                    <p>Ensure the space is safe and monitor their activity.</p>
+                    <p>Encourage breaks to prevent fatigue.</p>
+            
+                {% elif day == 'tuesday' %}
+                    <h2>Stretching and Light Exercises (45 minutes)</h2>
+                    <p>Guide them through a series of gentle stretches (e.g., reaching for toes, side stretches).</p>
+                    <p>Incorporate light exercises like walking in place, leg lifts, and arm circles.</p>
+                    <p>Emphasize the importance of slow, controlled movements.</p>
+            
+                {% elif day == 'wednesday' %}
+                    <h2>Board Games and Puzzles (45 minutes)</h2>
+                    <p>Choose board games or puzzles that require movement, such as Twister.</p>
+                    <p>Set up the game in a safe area.</p>
+                    <p>Encourage participation, ensuring everyone follows the rules and stays safe.</p>
+            
+                {% elif day == 'thursday' %}
+                    <h2>Craft Activities (45 minutes)</h2>
+                    <p>Provide materials like paper, safety scissors, and markers.</p>
+                    <p>Guide them in making simple crafts like paper airplanes or drawing.</p>
+                    <p>Encourage creativity and movement by having them run around with their creations.</p>
+            
+                {% elif day == 'friday' %}
+                    <h2>Indoor Sports (45 minutes)</h2>
+                    <p>Set up a small area for table tennis, badminton, or other low-impact sports.</p>
+                    <p>Use soft or modified equipment to ensure safety.</p>
+                    <p>Monitor and encourage fair play and gentle movements.</p>
+            
+                {% elif day == 'saturday' %}
+                    <h2>Balance and Coordination Exercises (45 minutes)</h2>
+                    <p>Use activities like balancing on one foot, walking along a straight line, or gentle ball tosses.</p>
+                    <p>Focus on maintaining balance and coordination without overexertion.</p>
+                    <p>Provide support and encouragement as needed.</p>
+            
+                {% elif day == 'sunday' %}
+                    <h2>Free Play and Relaxation (45 minutes)</h2>
+                    <p>Allow the child to choose their favorite toys and activities.</p>
+                    <p>Encourage both active play and quiet time as needed.</p>
+                    <p>Supervise and provide support.</p>
+            
+                {% endif %}
+
+                {% elif age|int in range(13, 19) %}
+                {% if day == 'monday' %}
+                    <h2>Low-Impact Aerobics (45 minutes)</h2>
+                    <p>Engage in low-impact exercises like seated marching, arm raises, and gentle leg lifts.</p>
+                    <p>Use a chair or wall for support if needed.</p>
+                    <p>Maintain a steady, comfortable pace to avoid overexertion.</p>
+            
+                {% elif day == 'tuesday' %}
+                    <h2>Balance and Coordination Exercises (45 minutes)</h2>
+                    <p>Perform simple balance exercises such as standing on one foot, heel-to-toe walking, or using a balance board.</p>
+                    <p>Include coordination activities like tossing a soft ball or beanbag.</p>
+                    <p>Ensure supervision to prevent falls and provide assistance as needed.</p>
+            
+                {% elif day == 'wednesday' %}
+                    <h2>Relaxation and Breathing Exercises (45 minutes)</h2>
+                    <p>Practice deep breathing exercises and gentle yoga poses to enhance relaxation.</p>
+                    <p>Focus on slow, deep breaths and stretches like seated forward bends and gentle twists.</p>
+                    <p>Use guided imagery or calming music to promote relaxation.</p>
+            
+                {% elif day == 'thursday' %}
+                    <h2>Fitness Games (45 minutes)</h2>
+                    <p>If available, set up an interactive video game that promotes physical activity (e.g., dance games).</p>
+                    <p>Ensure the space is safe and monitor their activity.</p>
+                    <p>Encourage breaks to prevent fatigue.</p>
+            
+                {% elif day == 'friday' %}
+                    <h2>Stretching and Light Exercises (45 minutes)</h2>
+                    <p>Guide them through a series of gentle stretches (e.g., reaching for toes, side stretches).</p>
+                    <p>Incorporate light exercises like walking in place, leg lifts, and arm circles.</p>
+                    <p>Emphasize the importance of slow, controlled movements.</p>
+            
+                {% elif day == 'saturday' %}
+                    <h2>Creative Activities (45 minutes)</h2>
+                    <p>Provide materials like paper, safety scissors, and markers.</p>
+                    <p>Guide them in making simple crafts like paper airplanes or drawing.</p>
+                    <p>Encourage movement by having them run around flying their paper airplanes.</p>
+            
+                {% elif day == 'sunday' %}
+                    <h2>Free Play and Relaxation (45 minutes)</h2>
+                    <p>Allow them to choose their favorite toys and activities.</p>
+                    <p>Encourage both active play and quiet time as needed.</p>
+                    <p>Supervise and provide support.</p>
+            
+                {% endif %}
+            
+            {% endif %}
+              {% endif %} 
+            </div>
+            <div >
+              <input type="checkbox" id="medicine_input" name="medicine_input">
+              <label for="exercise">MEDICINES</label><br>
+              {% if age|int >= 1 and diagnosis in ['Brain tumor', 'Rhabdomyosarcoma', 'Wilms Tumor', 'Retinoblastoma', 'Acute Lymphocytic Leukemia','Fibrosarcoma', 'Non-Hodgkin Lymphoma'] and day in ['monday'] %}<br><p>
+                <h2>Vincristine </h2>
+                <p><strong>Schedule of Intake:</strong> Administered via intravenous infusion, typically given once a week or every 2-4 weeks.</p>
+                <p><strong>Dosage Calculation:</strong> The dosage is often based on body surface area (BSA). The standard dose is about 1.5 mg/m² BSA, not to exceed 2 mg per dose. For an infant, the dose would be adjusted according to their BSA, and for older children, it would scale with their BSA.</p>
+              </p>{% endif %}
+
+              {% if age|int >= 3 and diagnosis == 'Brain tumor' and day in ['monday'] %}<br><p>
+                <h2>Temozolomide</h2>
+                <p><strong>Schedule of Intake:</strong> Taken orally, usually once daily for 5 days in a row, followed by a 23-day break. This cycle may be repeated.</p>
+                <p><strong>Dosage Calculation:</strong> The usual dose is about 75 mg/m² BSA daily. For infants and younger children, this dose is adjusted according to their BSA and tolerance. The dose can be adjusted based on body size, ranging typically from 100 mg/m² to 200 mg/m². </p>
+              </p>{% endif %}
+
+              {% if age|int >= 1 and diagnosis in ['Brain tumor', 'Multiple Myeloma', 'Acute Lymphocytic Leukemia'] and day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] %}<br><p>
+                <h2>Dexamethasone</h2>
+                <p><strong>Schedule of Intake:</strong> Often taken orally, either once daily or in divided doses depending on the treatment regimen. For myeloma, it is commonly used in high doses for short periods or lower doses over longer periods.                </p>
+                <p><strong>Dosage Calculation:</strong> For children, the dose is generally around 0.5 to 1.5 mg/m² BSA per day. For example, an 18-year-old with a BSA of 1.8 m² might receive a dose of 0.9 to 2.7 mg daily.                  . </p>
+              </p>{% endif %}
+
+              {% if age|int >= 2 and diagnosis == 'Acute Lymphocytic Leukemia' and day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] %}<br><p>
+                <h2>6-Mercaptopurine (6-MP)</h2>
+                <p><strong>Schedule of Intake:</strong> Daily.</p>
+                <p><strong>Dosage Calculation:</strong> The typical dose for 6-mercaptopurine in pediatric patients ranges from 1.5 to 2.5 mg/kg per day, or sometimes calculated based on BSA, usually around 75 mg/m² per day.                  . </p>
+              </p>{% endif %}
+
+
+            {% if age| int >= 1 and diagnosis in [ 'Osteosarcoma', 'Acute Lymphocytic Leukemia'] and day in [ 'sunday'] %}<br><p>
+              <h2>Methotrexate</h2>
+              <p><strong>Schedule of Intake:</strong> Often administered weekly or as a high-dose infusion every 2-3 weeks, depending on the treatment protocol.</p>
+              <p><strong>Dosage Calculation:</strong> Dosages are typically based on body surface area (BSA) rather than age or weight. The common dose ranges from 12 to 15 grams per square meter of BSA per cycle. For a child or adolescent, the specific dose would be determined by their oncologist.                  . </p>
+            </p>{% endif %}
+
+            
+            {% if age| int >= 1 and diagnosis in [ 'Non-Hodgkin Lymphoma', 'Acute Lymphocytic Leukemia'] and day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] %}<br><p>
+              <h2>Prednisone</h2>
+              <p><strong>Schedule of Intake:</strong> Taken orally, usually once daily for 5 days in a row, followed by a 23-day break. This cycle may be repeated.</p>
+              <p><strong>Dosage Calculation:</strong> For children, the dose is generally around 0.5 to 1.5 mg/m² BSA per day. For example, an 18-year-old with a BSA of 1.8 m² might receive a dose of 0.9 to 2.7 mg daily.                  . </p>
+            </p>{% endif %}
+
+            {% if age|int >= 1 and diagnosis in [ 'Retinoblastoma'] and day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] %}<br><p>
+              <h2>Carboplatin</h2>
+              <p><strong>Schedule of Intake:</strong>The dosing schedule can range from weekly to every three or four weeks, depending on the specific treatment protocol.</p>
+              <p><strong>Dosage Calculation:</strong> The dosage of the medicine will depend on the weight and height of the patient. </p>
+            </p>{% endif %}
+
+            {% if age| int >= 1 and diagnosis in [ 'Fibrosarcoma', 'Retinoblastoma'] and day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] %}<br><p>
+              <h2>Etoposide</h2>
+              <p><strong>Schedule of Intake:</strong> Based on BSA.</p>
+              <p><strong>Dosage Calculation:</strong> For children, the dose is generally around 0.5 to 1.5 mg/m² BSA per day. For example, an 18-year-old with a BSA of 1.8 m² might receive a dose of 0.9 to 2.7 mg daily.                  . </p>
+            </p>{% endif %}
+
+            {% if age|int >= 2 and diagnosis == 'Fibrosarcoma' and day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] %}<br><p>
+              <h2>Ifosfamide</h2>
+              <p><strong>Schedule of Intake:</strong> Administered daily for 3 to 5 days</p>
+              <p><strong>Dosage Calculation:</strong> Varies based on body surface area (BSA) and specific protocol.</p>
+            </p>{% endif %}
+
+            {% if age|int >= 2 and diagnosis in [ 'Hodgkin Lymphoma'] and day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'] %}<br><p>
+              <h2>Adriamycin (Doxorubicin)</h2>
+              <p><strong>Schedule of Intake:</strong>Every 3 weeks: Often used in a 21-day cycle.</p>
+              <p><strong>Dosage Calculation:</strong> The dosage of the medicine will depend on the weight and height of the patient.</p>
+            </p>{% endif %}
+
+            {% if age|int >= 5 and diagnosis in [ 'Hodgkin Lymphoma'] and day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] %}<br><p>
+              <h2>Bleomycin</h2>
+              <p><strong>Schedule of Intake:</strong> Every 2 or 3 weeks: In other protocols, bleomycin might be given every 2 or 3 weeks. </p>
+              <p><strong>Dosage Calculation:</strong> For children, the dose is generally around 0.5 to 1.5 mg/m² BSA per day. For example, an 18-year-old with a BSA of 1.8 m² might receive a dose of 0.9 to 2.7 mg daily.                  . </p>
+            </p>{% endif %}
+
+            {% if age|int >= 1 and diagnosis in [ 'Hodgkin Lymphoma'] and day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] %}<br><p>
+              <h2>Vinblastine</h2>
+              <p><strong>Schedule of Intake:</strong>Given in 21-day or 28-day cycles, with the drug administered once every cycle.</p>
+              <p><strong>Dosage Calculation:</strong> The dosage of the medicine will depend on the weight and height of the patient. </p>
+            </p>{% endif %}
+
+            {% if age|int >= 10 and diagnosis in [ 'Hodgkin Lymphoma'] and day in ['monday'] %}<br><p>
+              <h2>Dacarbazine</h2>
+              <p><strong>Schedule of Intake:</strong> often given in cycles ranging from every 1 to 3 weeks. </p>
+              <p><strong>Dosage Calculation:</strong> The dosage of the medicine will depend on the weight and height of the patient.</p>
+            </p>{% endif %}
+
+            {% if age|int >= 1 and diagnosis in [ 'Rhabdomyosarcoma', 'Non-Hodgkin Lymphoma'] and day in ['monday'] %}<br><p>
+              <h2>Cyclophosphamide</h2>
+              <p><strong>Schedule of Intake:</strong> Can be administered every 1-3 weeks.</p>
+              <p><strong>Dosage Calculation:</strong> For instance, a common dose is 1-2 g/m² of BSA per cycle. </p>
+            </p>{% endif %}
+
+            {% if age|int >= 1 and diagnosis in [ 'Non-Hodgkin Lymphoma'] and day in ['monday'] %}<br><p>
+              <h2>Hydroxydaunorubicin (Doxorubicin)</h2>
+              <p><strong>Schedule of Intake:</strong> Administered IV, usually on Day 1 of the treatment cycle, and possibly repeated every 3 to 4 weeks. </p>
+              <p><strong>Dosage Calculation:</strong> The dosage of the medicine will depend on the weight and height of the patient. </p>
+            </p>{% endif %}
+
+            {% if age|int >= 20 and diagnosis in [ 'Multiple Myeloma'] and day in ['monday', 'tuesday'] %}<br><p>
+              <h2>Bortezomib (Velcade)</h2>
+              <p><strong>Schedule of Intake:</strong> Typically administered as an intravenous injection or subcutaneously. The usual schedule is twice a week for 2 weeks, followed by a 10-day rest period. This cycle is repeated every 3 weeks.
+              <p><strong>Dosage Calculation:</strong> The dosage for children and adolescents is often based on body surface area (BSA) rather than weight. The typical dose is 1.3 mg/m². For accurate dosing in different age groups, it's best to consult a pediatric oncologist.              </p>
+            </p>{% endif %}
+
+            {% if age|int >= 20 and diagnosis in [ 'Multiple Myeloma'] and day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'] %}<br><p>
+              <h2>Lenalidomide (Revlimid)</h2>
+              <p><strong>Schedule of Intake:</strong> Usually taken orally once daily for 21 days, followed by a 7-day break. This is repeated in 28-day cycles.</p>
+              <p><strong>Dosage Calculation:</strong> Dosage varies based on age and body weight. For children and adolescents, the dose is adjusted according to body weight or BSA, starting at 5 mg to 15 mg per day. A healthcare provider will determine the precise dosage.                  . </p>
+            </p>{% endif %}
+
+            {% if age|int >= 1 and diagnosis in [ 'Wilms Tumor'] and day in ['monday'] %}<br><p>
+              <h2>Actinomycin D</h2>
+              <p><strong>Schedule of Intake:</strong> Administered intravenously, often in cycles similar to Doxorubicin, usually every 21 days.</p>
+              <p><strong>Dosage Calculation:</strong> The dose is commonly 1.25–1.5 mg/m². For a child with a BSA of 1.5 m², this would be around 1.875–2.25 mg per cycle. </p>
+            </p>{% endif %}
+            
+            {% if age|int >= 1 and diagnosis in [ 'Wilms Tumor'] and day in ['monday'] %}<br><p>
+              <h2>Cisplatin</h2>
+              <p><strong>Schedule of Intake:</strong> Often administered every 3-4 weeks, commonly in combination with other drugs.</p>
+              <p><strong>Dosage Calculation:</strong>The usual dose is 60 to 70 mg/m² of BSA per cycle. Again, the specific dose is tailored to the individual patient's needs. </p>
+            </p>{% endif %}
         </div>
       </div>
 
       <div class="content">
         <h2>Food Restriction</h2>
-        {% if age|int in range(1, 6) and diagnosis == 'Brain tumor' %}
-          <p>CEREAL, MILK</p>
-        {% elif age|int in range(7, 18) and diagnosis == 'Brain tumor' %}
-          <p>VEGETABLE, WHITE MEAT, PROTEIN</p>
-        {% elif age|int in range(1, 6) and diagnosis == 'Osteosarcoma' %}
-          <p>FRUITS, DAIRY PRODUCTS</p>
-        {% elif age|int in range(7, 18) and diagnosis == 'Osteosarcoma' %}
-          <p>GREEN, BEANS, RICE</p>
-        {% elif age|int in range(1, 6) and diagnosis == 'Osteosarcoma' %}
-          <p>FRUITS, DAIRY PRODUCTS</p>
-        {% elif age|int in range(7, 18) and diagnosis == 'Osteosarcoma' %}
-          <p>GREEN, BEANS, RICE</p>
-        {% else %}
-          <!-- Render something else if the condition is not met -->
-        {% endif %}
+        {% if age|int >= 1 and diagnosis in [ 'Acute Lymphocytic Leukemia'] and day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'] %}<br><p>
+          <h3>INTERVENTION</h3>
+          <p><b>Raw or Undercooked Foods:</b></p>
+              <p>Avoid raw or undercooked meat, poultry, seafood, and eggs to reduce the risk of infections.</p>
+              <p>Stay away from sushi, sashimi, and raw shellfish.</p>
+              <p>Ensure all meats are cooked to safe temperatures.</p>
+
+          <p><b>Unpasteurized Dairy Products:</b></p>
+       
+          <p>Avoid unpasteurized milk, cheese, and other dairy products which can harbor harmful bacteria.</p>
+  
+          <p><b>Certain Fruits and Vegetables:</b></p>
+
+          <p>Avoid raw sprouts like alfalfa and bean sprouts.</p>
+          <p>Be cautious with raw fruits and vegetables that cannot be thoroughly washed or peeled.</p>
+          <p>Opt for cooked vegetables and canned or well-washed fruits.</p>
+
+          <p><b>Foods High in Sugar and Processed Foods:</b></p>
+              <p>Limit intake of sweets, sugary drinks, and highly processed foods that offer little nutritional value.</p>
+              <p>Avoid junk food, fast food, and snacks high in salt and fat.</p>
+    
+          <p><b>Grapefruit and Certain Citrus Fruits:</b></p>
+              <p>Avoid grapefruit, grapefruit juice, and other citrus fruits that can interfere with the metabolism of chemotherapy drugs.</p>
+
+          <p><b>Alcohol and Caffeine:</b></p>
+              <p>Limit or avoid alcohol, as it can interact with medications and weaken the immune system.</p>
+              <p>Limit caffeine intake to avoid dehydration and digestive issues.</p>
+
+          <p><b>Foods from Buffets and Salad Bars:</b></p>
+              <p>Avoid foods from buffets, salad bars, and other self-serve food stations to reduce the risk of contamination.</p>
+
+       
+        <br/><h3>EVALUATION</h3>
+        <p><b>Hydration:</b></p>
+        <p>Drink plenty of fluids, but avoid tap water that may not be safe. Opt for bottled water or boiled water.</p>
+       
+        <p><b>Food Storage:</b></p>
+        <p>Store food at appropriate temperatures. Avoid food that has been left out for more than two hours</p>
+
+
+        <p><b>Hand Hygiene:</b></p>
+        <p>Wash hands thoroughly before eating or preparing food.</p>
+
+        <p><b>Avoid Alcohol and Caffeine:</b></p>
+        <p>Limit or avoid alcohol and caffeine as they can interfere with treatment and exacerbate side effects.</p>
+
+        </p>{% endif %}
+
+        {% if age|int >= 1 and diagnosis in [ 'Retinoblastoma'] and day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'] %}<br><p>
+          <h3>INTERVENTION</h3>
+          <p><b>Avoid Raw Fruits and Vegetables:</b></p>
+          <p>To reduce the risk of bacterial contamination, opt for cooked or steamed vegetables instead.</p>
+          
+          <p><b>Avoid High-Fiber Foods:</b></p>
+          <p>Such as beans, lentils, and whole grains if the patient is experiencing diarrhea. Focus on low-fiber foods like white rice and applesauce.</p>
+          
+          <p><b>Avoid Dairy Products:</b></p>
+          <p>If the patient is experiencing lactose intolerance or increased mucus production, use lactose-free alternatives.</p>
+          
+          <p><b>Avoid Citrus and Acidic Foods:</b></p>
+          <p>Like oranges, tomatoes, and grapefruit if the patient has mouth sores. Choose non-acidic fruits like bananas and melons.</p>
+          
+          <p><b>Avoid Highly Processed Meats:</b></p>
+          <p>Such as sausages, hot dogs, and deli meats, which can contain nitrates and other preservatives. Opt for fresh, lean meats.</p>
+          
+          <p><b>Avoid Carbonated Beverages:</b></p>
+          <p>To prevent bloating and gas, stick to water, herbal teas, and non-citrus juices.</p>
+          
+          <p><b>Avoid Caffeinated Beverages:</b></p>
+          <p>Such as coffee, black tea, and energy drinks, which can cause dehydration and interfere with sleep.</p>
+       
+        <br/><h3>EVALUATION</h3>
+        <p><b>Hydration:</b></p>
+        <p>Ensure adequate fluid intake, primarily water, to stay hydrated.</p>
+        
+        <p><b>Small, Frequent Meals:</b></p>
+        <p>Eating smaller portions more frequently can help manage nausea and maintain energy levels.</p>
+        
+        <p><b>Nutrient-Dense Foods:</b></p>
+        <p>Focus on foods rich in vitamins, minerals, and protein to support recovery and overall health.</p>
+        
+        <p><b>Food Safety:</b></p>
+        <p>Always practice good food hygiene, including washing hands, cooking food thoroughly, and avoiding cross-contamination.</p>
+        
+        </p>{% endif %}
+
+        {% if age|int >= 1 and diagnosis in [ 'Fibrosarcoma'] and day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'] %}<br><p>
+          <h3>INTERVENTION</h3>
+          <p><b>Avoid Raw or Undercooked Foods:</b></p>
+          <p>To reduce the risk of infection due to a weakened immune system, avoid raw or undercooked foods.</p>
+          
+          <p><b>Limit High-Fat, Fried, and Spicy Foods:</b></p>
+          <p>These foods can exacerbate nausea and gastrointestinal issues, so it’s best to limit their intake.</p>
+          
+          <p><b>Stay Away from Highly Processed and Sugary Foods:</b></p>
+          <p>Highly processed and sugary foods can contribute to inflammation and fatigue, so it’s important to minimize consumption.</p>
+          
+          <p><b>Avoid Alcohol:</b></p>
+          <p>Alcohol can interfere with the effectiveness of chemotherapy and exacerbate side effects, so it’s best to avoid it.</p>          
+       
+        <br/><h3>EVALUATION</h3>
+        <p><b>Hydration:</b></p>
+        <p>Drink plenty of water and avoid caffeinated and sugary drinks to maintain proper hydration.</p>
+        
+        <p><b>Food Safety:</b></p>
+        <p>Practice good food safety by thoroughly washing fruits and vegetables, cooking meats to proper temperatures, and avoiding cross-contamination.</p>
+        
+        <p><b>Small, Frequent Meals:</b></p>
+        <p>Eat small, frequent meals throughout the day to help manage appetite and reduce nausea.</p>
+        
+        </p>{% endif %}
+
+        {% if age|int >= 1 and diagnosis in [ 'Non-Hodgkin Lymphoma','Hodgkin Lymphoma' ] and day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'] %}<br><p>
+          <h3>INTERVENTION</h3>
+          <p><b>Avoid Raw or Undercooked Foods:</b></p>
+          <p>To minimize the risk of infection, steer clear of raw fish (sushi, sashimi), undercooked meat or poultry, and raw eggs or foods containing them (e.g., homemade mayonnaise).</p>
+          
+          <p><b>Avoid Unpasteurized Dairy Products:</b></p>
+          <p>This includes certain cheeses, milk, and juices, which can carry harmful bacteria.</p>
+          
+          <p><b>Avoid Foods with High Risk of Contamination:</b></p>
+          <p>Be cautious with deli meats and hot dogs unless they are heated until steaming hot, and avoid soft cheeses like feta, brie, and blue cheese unless made with pasteurized milk.</p>
+          
+          <p><b>Avoid Alcohol:</b></p>
+          <p>Alcohol can interact with chemotherapy drugs and affect liver function, so it’s best to avoid it.</p>
+          
+          <p><b>Limit High-Fiber Foods:</b></p>
+          <p>Especially if you are experiencing diarrhea or digestive issues, as high-fiber foods can exacerbate these problems.</p>
+          
+          <p><b>Avoid Greasy, Fatty, and Fried Foods:</b></p>
+          <p>These types of foods can worsen nausea and digestive discomfort.</p>
+          
+        <br/><h3>EVALUATION</h3>
+        <p><b>Small, Frequent Meals:</b></p>
+        <p>Eating small, frequent meals can help manage appetite and prevent nausea.</p>
+        
+        <p><b>Stay Hydrated:</b></p>
+        <p>Ensure you drink plenty of water throughout the day to stay hydrated.</p>
+        
+        <p><b>Consult a Dietitian:</b></p>
+        <p>Personalized advice from a dietitian can be invaluable for managing your diet during treatment.</p>
+        
+        <p><b>Monitor for Allergies or Sensitivities:</b></p>
+        <p>Chemotherapy can sometimes cause new food sensitivities or allergies, so it’s important to be vigilant.</p>
+        
+        </p>{% endif %}
+
+        {% if age|int >= 1 and diagnosis in [ 'Brain tumor' ] and day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'] %}<br><p>
+          <h3>INTERVENTION</h3>
+          <p><b>Avoid Caffeinated Beverages and Foods:</b></p>
+          <p>Caffeine can exacerbate headaches and cause dehydration, which may worsen symptoms.</p>
+          
+          <p><b>Avoid Sugary Snacks and Desserts:</b></p>
+          <p>High sugar intake can cause inflammation and potentially affect the immune system's ability to function optimally.</p>
+          
+          <p><b>Avoid Processed Meats (e.g., hot dogs, bacon, sausages):</b></p>
+          <p>Processed meats contain preservatives and additives that can be harmful and are linked to increased cancer risks.</p>
+          
+          <p><b>Avoid High-Fat Fried Foods (e.g., French fries, fried chicken):</b></p>
+          <p>These foods can cause nausea, vomiting, and gastrointestinal distress, which are common issues in brain tumor patients.</p>
+          
+          <p><b>Avoid Unpasteurized Dairy Products (e.g., raw milk, certain cheeses):</b></p>
+          <p>These products can harbor harmful bacteria that can cause infections, particularly in immunocompromised individuals.</p>
+          
+          <p><b>Avoid Raw or Undercooked Seafood (e.g., sushi, sashimi):</b></p>
+          <p>Raw or undercooked seafood can pose a risk of foodborne illnesses, which are particularly dangerous for those undergoing cancer treatment.</p>
+          
+          <p><b>Avoid High-Sodium Foods (e.g., canned soups, fast food):</b></p>
+          <p>Excessive sodium can lead to hypertension and fluid retention, exacerbating symptoms and complicating treatment.</p>
+          
+          
+        <br/><h3>EVALUATION</h3>
+        <p><b>Fresh Fruits and Vegetables:</b></p>
+        <p>Provide essential vitamins, minerals, and antioxidants that support the immune system.</p>
+        
+        <p><b>Whole Grains:</b></p>
+        <p>Include brown rice, quinoa, whole wheat bread, and oatmeal for sustained energy and fiber, which can aid digestion.</p>
+        
+        <p><b>Hydrating Foods and Drinks:</b></p>
+        <p>Water, herbal teas, and fruits with high water content (e.g., watermelon, cucumber) help maintain hydration levels.</p>
+        
+        <p><b>Easily Digestible Foods:</b></p>
+        <p>Include foods like bananas, applesauce, plain rice, and toast (the BRAT diet) if experiencing gastrointestinal issues.</p>
+        
+        </p>{% endif %}
+
+        {% if age|int >= 1 and diagnosis in [ 'Rhabdomyosarcoma' ] and day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'] %}<br><p>
+          <h3>INTERVENTION</h3>
+          <p><b>Avoid Processed Meats:</b></p>
+          <p>Steer clear of hot dogs, sausages, and deli meats as they contain preservatives and additives that can be harmful.</p>
+          
+          <p><b>Avoid High-Sugar Foods:</b></p>
+          <p>Limit candies, cakes, and sugary cereals as high sugar intake can impact overall health.</p>
+          
+          <p><b>Avoid Raw or Undercooked Eggs:</b></p>
+          <p>This includes homemade mayonnaise and soft-boiled eggs to prevent the risk of bacterial infection.</p>
+          
+          <p><b>Avoid Unpasteurized Dairy Products:</b></p>
+          <p>Such as raw milk and certain cheeses, which can harbor harmful bacteria.</p>
+          
+          <p><b>Avoid Raw or Undercooked Seafood:</b></p>
+          <p>Including sushi and sashimi, which can pose a risk of foodborne illnesses.</p>
+          
+          <p><b>Avoid High-Fat, Greasy Foods:</b></p>
+          <p>Such as fried foods and fast food, as they can exacerbate nausea and digestive discomfort.</p>
+          
+          <p><b>Avoid High-Phosphate Sodas and Drinks:</b></p>
+          <p>Including colas and certain energy drinks, which can negatively impact health.</p>
+          
+          
+        <br/><h3>EVALUATION</h3>
+        <p><b>Track Snack Choices and Sugar Intake:</b></p>
+        <p>Use a daily log to monitor your snack choices and sugar intake to ensure you are avoiding high-sugar foods.</p>
+        
+        <p><b>Assess Meal Diversity and Adherence to Avoiding Raw Seafood:</b></p>
+        <p>Evaluate the variety in your meals and ensure that you are consistently avoiding raw or undercooked seafood.</p>
+        
+        <p><b>Observe Changes in Cooking Methods and Reduction in Fast Food Consumption:</b></p>
+        <p>Monitor how cooking methods are changing and ensure a reduction in the consumption of fast food and high-fat, greasy foods.</p>
+        
+        <p><b>Measure Fluid Intake and Monitor Beverage Choices:</b></p>
+        <p>Keep track of your fluid intake and beverage choices to ensure proper hydration and avoidance of high-phosphate drinks.</p>        
+        
+        </p>{% endif %}
+
+        {% if age|int >= 1 and diagnosis in [ 'Osteosarcoma' ] and day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'] %}<br><p>
+          <h3>INTERVENTION</h3>
+          <p><b>Avoid Processed Foods:</b></p>
+          <p>These are high in sodium and unhealthy fats, which can be detrimental to health.</p>
+          
+          <p><b>Avoid Sugary Foods:</b></p>
+          <p>Consuming sugary foods can contribute to inflammation and weight gain.</p>
+          
+          <p><b>Avoid Red and Processed Meats:</b></p>
+          <p>These may be linked to inflammation and other health concerns.</p>
+          
+          <p><b>Avoid Alcohol and Caffeinated Beverages:</b></p>
+          <p>Both can interfere with medications and hydration levels.</p>
+          
+          <p><b>Avoid High-Sodium Foods:</b></p>
+          <p>Managing sodium intake is important for controlling blood pressure and avoiding fluid retention.</p>          
+          
+        <br/><h3>EVALUATION</h3>
+        <p><b>Muscle Repair:</b></p>
+        <p>Lean proteins, such as chicken, fish, tofu, and legumes, are crucial for muscle repair and maintaining strength, especially during cancer treatment.</p>
+        
+        <p><b>Sustained Energy:</b></p>
+        <p>Whole grains provide complex carbohydrates that offer sustained energy and help stabilize blood sugar levels.</p>
+        
+        <p><b>Measure Fluid Intake and Monitor Beverage Choices:</b></p>
+        <p>Keep track of your fluid intake and beverage choices to ensure proper hydration and avoid beverages that may interfere with your health.</p>
+        </p>{% endif %}
+
+        {% if age|int >= 1 and diagnosis in [ 'Multiple Myeloma' ] and day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'] %}<br><p>
+          <h3>INTERVENTION</h3>
+          <p><b>Avoid Processed Foods:</b></p>
+          <p>Processed foods are often high in sodium, unhealthy fats, and sugars, which can negatively impact health.</p>
+          
+          <p><b>Avoid High-Sodium Foods:</b></p>
+          <p>These can increase blood pressure and fluid retention. Examples include canned soups and salty snacks.</p>
+          
+          <p><b>Avoid Sugary Foods and Drinks:</b></p>
+          <p>High sugar intake can contribute to weight gain and other health issues, so it’s best to limit these.</p>
+          
+          <p><b>Avoid Red and Processed Meats:</b></p>
+          <p>Red and processed meats may be associated with an increased risk of certain cancers. It’s advisable to limit their intake.</p>
+          
+          <p><b>Avoid Excessive Alcohol:</b></p>
+          <p>Alcohol can interfere with treatment and overall health, so excessive consumption should be avoided.</p>
+                 
+
+        <br/><h3>EVALUATION</h3>
+        <p><b>Fruits and Vegetables:</b></p>
+        <p>Rich in vitamins, minerals, and antioxidants. Examples include berries, leafy greens, broccoli, and carrots.</p>
+        
+        <p><b>Whole Grains:</b></p>
+        <p>Provide fiber and essential nutrients. Examples include brown rice, quinoa, and oats.</p>
+        
+        <p><b>Lean Proteins:</b></p>
+        <p>Important for muscle health and immune support. Examples include chicken, turkey, tofu, and legumes.</p>
+        
+        <p><b>Healthy Fats:</b></p>
+        <p>Support heart health and reduce inflammation. Examples include avocados, nuts, seeds, and olive oil.</p>
+        
+        <p><b>Low-Fat Dairy or Alternatives:</b></p>
+        <p>Provide calcium and vitamin D. Examples include yogurt and fortified plant-based milks.</p>
+        
+        </p>{% endif %}
+
+        {% if age|int >= 1 and diagnosis in [ 'Wilms Tumor' ] and day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'] %}<br><p>
+          <h3>INTERVENTION</h3>
+          <p><b>Avoid Processed Foods:</b></p>
+          <p>Often high in sodium, unhealthy fats, and sugars, which can negatively impact health.</p>
+          
+          <p><b>Avoid High-Sodium Foods:</b></p>
+          <p>Can increase blood pressure and fluid retention. Examples include canned soups and salty snacks.</p>
+          
+          <p><b>Avoid Sugary Foods and Drinks:</b></p>
+          <p>High sugar intake can contribute to weight gain and other health issues, so it’s best to limit these.</p>
+          
+          <p><b>Avoid Red and Processed Meats:</b></p>
+          <p>May be associated with an increased risk of certain cancers. It’s advisable to limit their intake.</p>
+          
+          <p><b>Avoid Excessive Alcohol:</b></p>
+          <p>Alcohol can interfere with treatment and overall health, so excessive consumption should be avoided.</p>
+          
+        <br/><h3>EVALUATION</h3>
+        <p><b>Fruits and Vegetables:</b></p>
+        <p>Rich in vitamins, minerals, and antioxidants. Examples include berries, leafy greens, broccoli, and carrots.</p>
+        
+        <p><b>Whole Grains:</b></p>
+        <p>Provide fiber and essential nutrients. Examples include brown rice, quinoa, and oats.</p>
+        
+        <p><b>Lean Proteins:</b></p>
+        <p>Important for muscle health and immune support. Examples include chicken, turkey, tofu, and legumes.</p>
+        
+        <p><b>Healthy Fats:</b></p>
+        <p>Support heart health and reduce inflammation. Examples include avocados, nuts, seeds, and olive oil.</p>
+        
+        <p><b>Low-Fat Dairy or Alternatives:</b></p>
+        <p>Provide calcium and vitamin D. Examples include yogurt and fortified plant-based milks.</p>
+        
+        
+        </p>{% endif %}
+
+        
       </div>
 
       <div class="content">
         <h2>Reminder</h2>
-        {% if age|int in range(1, 6) and diagnosis == 'Brain tumor' %}
-          <p>ALAGAAN NG MABUTI</p>
-        {% elif age|int in range(7, 18) and diagnosis == 'Brain tumor' %}
-          <p>ALALAYAN SA MGA GAMOT NA DAPAT ITAKE</p>
-        {% elif age|int in range(1, 6) and diagnosis == 'Osteosarcoma' %}
-          <p>Manage the diet well</p>
-        {% elif age|int in range(6, 18) and diagnosis == 'Osteosarcoma' %}
-          <p>Eat healthy, exercise regularly</p>
-        {% elif age|int in range(1, 6) and diagnosis == 'Acute Lymphoblastic Leukemia' %}
-          <p>Manage the diet well</p>
-        {% elif age|int in range(7, 18) and diagnosis == 'Acute Lymphoblastic Leukemia' %}
-          <p>Eat healthy, exercise regularly</p>
-        {% else %}
-          <!-- Render something else if the condition is not met -->
-        {% endif %}
+         <p>Always consult with the oncologist or healthcare team for personalized advice and specific instructions related to the child's condition and treatment plan.</p>
       </div>
 
       <div class="content">
