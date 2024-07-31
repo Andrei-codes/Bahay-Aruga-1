@@ -533,6 +533,8 @@ def auth_user():
     return redirect(url_for("admin_dashboard"))
 
 
+
+
 def get_session_user():
     if "user_email" not in session:
         return None

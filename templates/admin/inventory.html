@@ -385,23 +385,23 @@ input[type="number"] {
                 {% for medicine in medicines %}
                 <div class="medicine" data-id="{{ medicine.id }}" data-name="{{ medicine.itemname }}" data-stock="{{ medicine.stocks }}" data-category="{{ medicine.category }}">
                   <img src="{{ url_for('static', filename=medicine.image_url) }}" alt="Medicine"/>
-                  <h2 class="hidden" id = "med_id">{{ medicine.id}}</h2>
+                  <h2 class="hidden" id="med_id">{{ medicine.id }}</h2>
                   <h2>{{ medicine.itemname }}</h2>
                   <p>
                     Stock:
-                    <span id="stock-{{ medicine.itemname.replace(' ', '') }}" class="stock-number">
+                    <span id="stock-{{ medicine.id }}" class="stock-number">
                       {{ medicine.stocks }}
                     </span>
                     <input
-                      id="stock-input-{{ medicine.itemname.replace(' ', '') }}"
-                      name="stocks[{{ medicine.itemname.replace(' ', '') }}]"
+                      id="stock-input-{{ medicine.id }}"
+                      name="stocks[{{ medicine.id }}]"
                       class="stock-input hidden"
                       type="number"
                       value="{{ medicine.stocks }}"
                     />
                   </p>
-                  <button class="minus-btn hidden" onclick="decrementStock('{{ medicine.itemname.replace(' ', '') }}')" type="button">-</button>
-                  <button class="plus-btn hidden" onclick="incrementStock('{{ medicine.itemname.replace(' ', '') }}')" type="button">+</button>
+                  <button class="minus-btn hidden" onclick="decrementStock('{{ medicine.id }}')" type="button">-</button>
+                  <button class="plus-btn hidden" onclick="incrementStock('{{ medicine.id }}')" type="button">+</button>
                 </div>
                 {% endfor %}
               </div>
@@ -439,54 +439,7 @@ input[type="number"] {
 
     <script>
 
-let alertShown = false; // Flag to track if the alert has been shown
 
-function saveStock() {
-    const medicines = document.querySelectorAll('.medicine');
-    const updates = [];
-
-    medicines.forEach(medicine => {
-        const medicineId = medicine.dataset.id;
-        const stockInput = medicine.querySelector(`.stock-input`);
-        const originalStock = parseInt(medicine.dataset.originalStock);
-        const newStock = parseInt(stockInput.value);
-
-        if (newStock !== originalStock) { // Check if stock value has changed
-            updates.push({
-                id: medicineId,
-                stock: newStock
-            });
-        }
-    });
-
-    if (updates.length === 0) {
-        alert('No changes to save.');
-        return;
-    }
-
-    fetch('/update_stock', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updates)
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.status === 'success' && !alertShown) {
-            alert('Stock updated successfully!');
-            alertShown = true; // Set the flag to true after showing the alert
-        }
-
-        location.reload(); // Reload the page after the update
-    })
-    .catch(error => {
-        console.error('Error updating stock:', error);
-        alert('Error updating stock. Please try again.');
-    });
-}
-
-document.getElementById('save-btn').addEventListener('click', saveStock);
 
       
       function toggleEditMode() {
@@ -551,22 +504,68 @@ document.getElementById('save-btn').addEventListener('click', saveStock);
 document.querySelector('.history-btn').addEventListener('click', toggleHistory);
       
       document.querySelector('.history-btn').addEventListener('click', toggleHistory);
-      
-      function decrementStock(itemname) {
-        const stockInput = document.getElementById(`stock-input-${itemname}`);
-        let stock = parseInt(stockInput.value);
-        if (stock > 0) {
-          stock--;
-          stockInput.value = stock;
-        }
-      }
-      
-      function incrementStock(itemname) {
-        const stockInput = document.getElementById(`stock-input-${itemname}`);
-        let stock = parseInt(stockInput.value);
-        stock++;
-        stockInput.value = stock;
-      }
+
+      function decrementStock(medicineId) {
+  const stockInput = document.getElementById(`stock-input-${medicineId}`);
+  let stock = parseInt(stockInput.value);
+  if (stock > 0) {
+    stock--;
+    stockInput.value = stock;
+  }
+}
+
+function incrementStock(medicineId) {
+  const stockInput = document.getElementById(`stock-input-${medicineId}`);
+  let stock = parseInt(stockInput.value);
+  stock++;
+  stockInput.value = stock;
+}
+
+// Save stock function to work with the updated identifiers
+function saveStock() {
+  const medicines = document.querySelectorAll('.medicine');
+  const updates = [];
+
+  medicines.forEach(medicine => {
+    const medicineId = medicine.dataset.id;
+    const stockInput = medicine.querySelector(`.stock-input`);
+    const originalStock = parseInt(medicine.dataset.stock);
+    const newStock = parseInt(stockInput.value);
+
+    if (newStock !== originalStock) {
+      updates.push({
+        id: medicineId,
+        stock: newStock
+      });
+    }
+  });
+
+  if (updates.length === 0) {
+    alert('No changes to save.');
+    return;
+  }
+
+  fetch('/update_stock', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(updates)
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.status === 'success') {
+      alert('Stock updated successfully!');
+      location.reload();
+    }
+  })
+  .catch(error => {
+    console.error('Error updating stock:', error);
+    alert('Error updating stock. Please try again.');
+  });
+}
+
+document.getElementById('save-btn').addEventListener('click', saveStock);
 
       function toggleDropdown(id) {
         const dropdown = document.getElementById(id);
