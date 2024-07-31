@@ -1,64 +1,127 @@
-<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:\Users\user\Downloads\Bahay-Aruga-1-master\instance\sqlite.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="1"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="1751"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,8:mainmedicine"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="alembic_version" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="91"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="medicine" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="40"/><column index="2" value="71"/><column index="3" value="67"/><column index="4" value="71"/><column index="5" value="50"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1">INSERT INTO medicine (itemname, category, image_url, stocks) VALUES
-    ('Prednisone', 'Acute Lymphoblastic Leukemia', 'img/ALL - Prednisone.png', 10),
-    ('Vincristine', 'Acute Lymphoblastic Leukemia', 'img/ALL - Vincristine.jpg', 10),
-    ('Methotrexate', 'Acute Lymphoblastic Leukemia', 'img/ALL - Methotrexate.jpg', 10),
-    ('Cyclophosphamide', 'Acute Lymphoblastic Leukemia', 'img/Cyclo.png', 10),
-    ('Mercaptopurine', 'Acute Lymphoblastic Leukemia', 'img/ALL - Mercaptopurine.png', 10),
-    ('Asparaginase', 'Acute Lymphoblastic Leukemia', 'img/ALL - Asparaginase.jpg', 10),
-    ('Dexamethasone', 'Acute Lymphoblastic Leukemia', 'img/ALL - Dexamethasone.png', 10),
-    ('Etoposide', 'Acute Lymphoblastic Leukemia', 'img/ALL - Etoposide.jpg', 10),
-    ('Temozolomide (Temodar)', 'Brain Tumor', 'img/Brain - Temozolomide.jpg', 10),
-    ('Carmustine (BiCNU)', 'Brain Tumor', 'img/Brain - Carmustine.jpg', 10),
-    ('Dexamethasone', 'Brain Tumor', 'img/Brain - Dexamethasone.jpg', 10),
-    ('Phenytoin (Dilantin)', 'Brain Tumor', 'img/Brain - Phenytoin.jpg', 10),
-    ('Levetiracetam (Keppra)', 'Brain Tumor', 'img/Brain - Levetiracetam.jpg', 10),
-    ('Paracetamol (Acetaminophen)', 'Brain Tumor', 'img/Brain - Paracetamol.jpg', 10),
-    ('Ibuprofen', 'Brain Tumor', 'img/Brain - Ibuprofen.jpg', 10),
-    ('Ondansetron (Zofran)', 'Brain Tumor', 'img/Brain - Ondansetron.jpg', 10),
-    ('Bevacizumab (Avastin)', 'Brain Tumor', 'img/Brain - Bevacizumab.jpg', 10),
-    ('Tamoxifen', 'Brain Tumor', 'img/Brain - Tamoxifen.jpg', 10),
-    ('Doxorubicin (Adriamycin)', 'Fibrosarcoma', 'img/Fibro - Doxorubicin.jpg', 10),
-    ('Ifosfamide', 'Fibrosarcoma', 'img/Fibro - Ifosfamide.jpg', 10),
-    ('Cyclophosphamide', 'Fibrosarcoma', 'img/Cyclo.png', 10),
-    ('Methotrexate', 'Fibrosarcoma', 'img/ALL - Methotrexate.jpg', 10),
-    ('Vincristine', 'Fibrosarcoma', 'img/ALL - Vincristine.jpg', 10),
-    ('Etoposide (VP-16)', 'Fibrosarcoma', 'img/ALL - Etoposide.jpg', 10),
-    ('Gemcitabine (Gemzar)', 'Fibrosarcoma', 'img/Fibro - Gemcitabine.jpg', 10),
-    ('Paclitaxel (Taxol)', 'Fibrosarcoma', 'img/Fibro - Paclitaxel.jpg', 10),
-    ('Cyclophosphamide (Cytoxan)', 'Hodgkin''s Lymphoma', 'img/Cyclo.png', 10),
-    ('Doxorubicin (Adriamycin)', 'Hodgkin''s Lymphoma', 'img/Fibro - Doxorubicin.jpg', 10),
-    ('Vinblastine (Velban)', 'Hodgkin''s Lymphoma', 'img/Hodgkin - Vinblastine.jpg', 10),
-    ('Bleomycin (Blenoxane)', 'Hodgkin''s Lymphoma', 'img/Hodgkin - Bleomycin.jpg', 10),
-    ('Prednisone', 'Hodgkin''s Lymphoma', 'img/ALL - Prednisone.png', 10),
-    ('Procarbazine (Matulane)', 'Hodgkin''s Lymphoma', 'img/Hodgkin - Procarbazine.jpg', 10),
-    ('Brentuximab Vedotin (Adcetris)', 'Hodgkin''s Lymphoma', 'img/Hodgkin - Brentuximab.jpg', 10),
-    ('Rituximab (Rituxan)', 'Hodgkin''s Lymphoma', 'img/Hodgkin - Rituximab.jpg', 10),
-    ('Gemcitabine (Gemzar)', 'Hodgkin''s Lymphoma', 'img/Fibro - Gemcitabine.jpg', 10),
-    ('Etoposide (VP-16)', 'Hodgkin''s Lymphoma', 'img/ALL - Etoposide.jpg', 10),
-    ('Bortezomib (Velcade)', 'Multiple Myeloma', 'img/Myeloma - Bortezomib.jpg', 10),
-    ('Lenalidomide (Revlimid)', 'Multiple Myeloma', 'img/Myeloma - Lenalidomide.jpg', 10),
-    ('Thalidomide (Thalomid)', 'Multiple Myeloma', 'img/Myeloma - Thalidomide.jpg', 10),
-    ('Dexamethasone', 'Multiple Myeloma', 'img/ALL - Dexamethasone.png', 10),
-    ('Cyclophosphamide', 'Multiple Myeloma', 'img/Cyclo.png', 10),
-    ('Melphalan', 'Multiple Myeloma', 'img/Myeloma - Melphalan.jpg', 10),
-    ('Pomalidomide (Pomalyst)', 'Multiple Myeloma', 'img/Myeloma - Pomalidomide.jpg', 10),
-    ('Cyclophosphamide (Cytoxan)', 'Non-Hodgkin Lymphoma', 'img/Cyclo.png', 10),
-    ('Doxorubicin (Adriamycin)', 'Non-Hodgkin Lymphoma', 'img/Fibro - Doxorubicin.jpg', 10),
-    ('Vincristine (Oncovin)', 'Non-Hodgkin Lymphoma', 'img/ALL - Vincristine.jpg', 10),
-    ('Prednisone', 'Non-Hodgkin Lymphoma', 'img/ALL - Prednisone.png', 10),
-    ('Rituximab (Rituxan)', 'Non-Hodgkin Lymphoma', 'img/Hodgkin - Rituximab.jpg', 10),
-    ('Bendamustine (Treanda)', 'Non-Hodgkin Lymphoma', 'img/NHL - Bendamustine.jpg', 10),
-    ('Etoposide (Toposar)', 'Non-Hodgkin Lymphoma', 'img/ALL - Etoposide.jpg', 10),
-    ('Methotrexate', 'Non-Hodgkin Lymphoma', 'img/ALL - Methotrexate.jpg', 10),
-    ('Cytarabine (Ara-C)', 'Non-Hodgkin Lymphoma', 'img/ALL - Cytarabine.jpg', 10),
-    ('Methotrexate', 'Osteosarcoma', 'img/ALL - Methotrexate.jpg', 10),
-    ('Doxorubicin (Adriamycin)', 'Osteosarcoma', 'img/Fibro - Doxorubicin.jpg', 10),
-    ('Cisplatin', 'Osteosarcoma', 'img/Osteo - Cisplatin.jpg', 10),
-    ('Ifosfamide', 'Osteosarcoma', 'img/Fibro - Ifosfamide.jpg', 10),
-    ('Etoposide', 'Osteosarcoma', 'img/ALL - Etoposide.jpg', 10),
-    ('Paracetamol (Acetaminophen)', 'Osteosarcoma', 'img/Brain - Paracetamol.jpg', 10),
-    ('Ibuprofen', 'Osteosarcoma', 'img/Brain - Ibuprofen.jpg', 10),
-    ('Morphine', 'Osteosarcoma', 'img/Osteo - Morphine.jpg', 10),
-    ('Tramadol', 'Osteosarcoma', 'img/Osteo - Tramadol.jpg', 10),
-    ('Gabapentin', 'Osteosarcoma', 'img/Osteo - Gabapentin.jpg', 10);
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:\Users\user\Downloads\Bahay-Aruga-1-master\instance\sqlite.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="1"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="1751"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,8:mainmedicine"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="alembic_version" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="91"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="medicine" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="40"/><column index="2" value="71"/><column index="3" value="67"/><column index="4" value="71"/><column index="5" value="50"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1">INSERT INTO medicine (itemname, category, image_url, stocks) VALUES
+
+    ('Prednisone', 'Acute Lymphoblastic Leukemia', 'img/ALL - Prednisone.png', 10),
+
+    ('Vincristine', 'Acute Lymphoblastic Leukemia', 'img/ALL - Vincristine.jpg', 10),
+
+    ('Methotrexate', 'Acute Lymphoblastic Leukemia', 'img/ALL - Methotrexate.jpg', 10),
+
+    ('Cyclophosphamide', 'Acute Lymphoblastic Leukemia', 'img/Cyclo.png', 10),
+
+    ('Mercaptopurine', 'Acute Lymphoblastic Leukemia', 'img/ALL - Mercaptopurine.png', 10),
+
+    ('Asparaginase', 'Acute Lymphoblastic Leukemia', 'img/ALL - Asparaginase.jpg', 10),
+
+    ('Dexamethasone', 'Acute Lymphoblastic Leukemia', 'img/ALL - Dexamethasone.jpg', 10),
+
+    ('Etoposide', 'Acute Lymphoblastic Leukemia', 'img/ALL - Etoposide.jpg', 10),
+
+    ('Temozolomide (Temodar)', 'Brain Tumor', 'img/Brain - Temozolomide.jpg', 10),
+
+    ('Carmustine (BiCNU)', 'Brain Tumor', 'img/Brain - Carmustine.jpg', 10),
+
+    ('Dexamethasone', 'Brain Tumor', 'img/Brain - Dexamethasone.jpg', 10),
+
+    ('Phenytoin (Dilantin)', 'Brain Tumor', 'img/Brain - Phenytoin.jpg', 10),
+
+    ('Levetiracetam (Keppra)', 'Brain Tumor', 'img/Brain - Levetiracetam.jpg', 10),
+
+    ('Paracetamol (Acetaminophen)', 'Brain Tumor', 'img/Brain - Paracetamol.jpg', 10),
+
+    ('Ibuprofen', 'Brain Tumor', 'img/Brain - Ibuprofen.jpg', 10),
+
+    ('Ondansetron (Zofran)', 'Brain Tumor', 'img/Brain - Ondansetron.jpg', 10),
+
+    ('Bevacizumab (Avastin)', 'Brain Tumor', 'img/Brain - Bevacizumab.jpg', 10),
+
+    ('Tamoxifen', 'Brain Tumor', 'img/Brain - Tamoxifen.jpg', 10),
+
+    ('Doxorubicin (Adriamycin)', 'Fibrosarcoma', 'img/Fibro - Doxorubicin.jpg', 10),
+
+    ('Ifosfamide', 'Fibrosarcoma', 'img/Fibro - Ifosfamide.jpg', 10),
+
+    ('Cyclophosphamide', 'Fibrosarcoma', 'img/Cyclo.png', 10),
+
+    ('Methotrexate', 'Fibrosarcoma', 'img/ALL - Methotrexate.jpg', 10),
+
+    ('Vincristine', 'Fibrosarcoma', 'img/ALL - Vincristine.jpg', 10),
+
+    ('Etoposide (VP-16)', 'Fibrosarcoma', 'img/ALL - Etoposide.jpg', 10),
+
+    ('Gemcitabine (Gemzar)', 'Fibrosarcoma', 'img/Fibro - Gemcitabine.jpg', 10),
+
+    ('Paclitaxel (Taxol)', 'Fibrosarcoma', 'img/Fibro - Paclitaxel.jpg', 10),
+
+    ('Cyclophosphamide (Cytoxan)', 'Hodgkin''s Lymphoma', 'img/Cyclo.png', 10),
+
+    ('Doxorubicin (Adriamycin)', 'Hodgkin''s Lymphoma', 'img/Fibro - Doxorubicin.jpg', 10),
+
+    ('Vinblastine (Velban)', 'Hodgkin''s Lymphoma', 'img/Hodgkin - Vinblastine.jpg', 10),
+
+    ('Bleomycin (Blenoxane)', 'Hodgkin''s Lymphoma', 'img/Hodgkin - Bleomycin.jpg', 10),
+
+    ('Prednisone', 'Hodgkin''s Lymphoma', 'img/ALL - Prednisone.png', 10),
+
+    ('Procarbazine (Matulane)', 'Hodgkin''s Lymphoma', 'img/Hodgkin - Procarbazine.jpg', 10),
+
+    ('Brentuximab Vedotin (Adcetris)', 'Hodgkin''s Lymphoma', 'img/Hodgkin - Brentuximab.jpg', 10),
+
+    ('Rituximab (Rituxan)', 'Hodgkin''s Lymphoma', 'img/Hodgkin - Rituximab.jpg', 10),
+
+    ('Gemcitabine (Gemzar)', 'Hodgkin''s Lymphoma', 'img/Fibro - Gemcitabine.jpg', 10),
+
+    ('Etoposide (VP-16)', 'Hodgkin''s Lymphoma', 'img/ALL - Etoposide.jpg', 10),
+
+    ('Bortezomib (Velcade)', 'Multiple Myeloma', 'img/Myeloma - Bortezomib.jpg', 10),
+
+    ('Lenalidomide (Revlimid)', 'Multiple Myeloma', 'img/Myeloma - Lenalidomide.jpg', 10),
+
+    ('Thalidomide (Thalomid)', 'Multiple Myeloma', 'img/Myeloma - Thalidomide.jpg', 10),
+
+    ('Dexamethasone', 'Multiple Myeloma', 'img/ALL - Dexamethasone.jpg', 10),
+
+    ('Cyclophosphamide', 'Multiple Myeloma', 'img/Cyclo.png', 10),
+
+    ('Melphalan', 'Multiple Myeloma', 'img/Myeloma - Melphalan.jpg', 10),
+
+    ('Pomalidomide (Pomalyst)', 'Multiple Myeloma', 'img/Myeloma - Pomalidomide.jpg', 10),
+
+    ('Cyclophosphamide (Cytoxan)', 'Non-Hodgkin Lymphoma', 'img/Cyclo.png', 10),
+
+    ('Doxorubicin (Adriamycin)', 'Non-Hodgkin Lymphoma', 'img/Fibro - Doxorubicin.jpg', 10),
+
+    ('Vincristine (Oncovin)', 'Non-Hodgkin Lymphoma', 'img/ALL - Vincristine.jpg', 10),
+
+    ('Prednisone', 'Non-Hodgkin Lymphoma', 'img/ALL - Prednisone.png', 10),
+
+    ('Rituximab (Rituxan)', 'Non-Hodgkin Lymphoma', 'img/Hodgkin - Rituximab.jpg', 10),
+
+    ('Bendamustine (Treanda)', 'Non-Hodgkin Lymphoma', 'img/NHL - Bendamustine.jpg', 10),
+
+    ('Etoposide (Toposar)', 'Non-Hodgkin Lymphoma', 'img/ALL - Etoposide.jpg', 10),
+
+    ('Methotrexate', 'Non-Hodgkin Lymphoma', 'img/ALL - Methotrexate.jpg', 10),
+
+    ('Cytarabine (Ara-C)', 'Non-Hodgkin Lymphoma', 'img/ALL - Cytarabine.jpg', 10),
+
+    ('Methotrexate', 'Osteosarcoma', 'img/ALL - Methotrexate.jpg', 10),
+
+    ('Doxorubicin (Adriamycin)', 'Osteosarcoma', 'img/Fibro - Doxorubicin.jpg', 10),
+
+    ('Cisplatin', 'Osteosarcoma', 'img/Osteo - Cisplatin.jpg', 10),
+
+    ('Ifosfamide', 'Osteosarcoma', 'img/Fibro - Ifosfamide.jpg', 10),
+
+    ('Etoposide', 'Osteosarcoma', 'img/ALL - Etoposide.jpg', 10),
+
+    ('Paracetamol (Acetaminophen)', 'Osteosarcoma', 'img/Brain - Paracetamol.jpg', 10),
+
+    ('Ibuprofen', 'Osteosarcoma', 'img/Brain - Ibuprofen.jpg', 10),
+
+    ('Morphine', 'Osteosarcoma', 'img/Osteo - Morphine.jpg', 10),
+
+    ('Tramadol', 'Osteosarcoma', 'img/Osteo - Tramadol.jpg', 10),
+
+    ('Gabapentin', 'Osteosarcoma', 'img/Osteo - Gabapentin.jpg', 10);
+
 </sql><current_tab id="0"/></tab_sql></sqlb_project>
